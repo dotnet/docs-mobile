@@ -1,4 +1,4 @@
-# .NET for iOS and .NET for Android docs
+# .NET for iOS and Android docs
 
 This repository contains the conceptual documentation for .NET for iOS and .NET for Android.
 
