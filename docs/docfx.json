@@ -41,7 +41,7 @@
           "_repo.en-us/**"
         ],
         "group": "net",
-        "src": ".
+        "src": "."
       }
     ],
     "overwrite": [],
