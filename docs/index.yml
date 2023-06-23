@@ -1,3 +1,4 @@
+<!--
 ### YamlMime:Landing
 
 title: .NET for iOS and .NET for Android documentation
@@ -8,3 +9,5 @@ metadata:
   description: Summary goes here.
   ms.topic: landing-page
   ms.date: 06/23/2023
+
+See https://github.com/dotnet/docs-maui/blob/main/docs/index.yml as example -->
