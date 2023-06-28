@@ -73,12 +73,12 @@
         "ios/**/**.md": "dotnet-ios"
       },
       "titleSuffix" : {
-        "android/**/**.md": ".NET for Android",
-        "ios/**/**.md": ".NET for iOS"
+        "android/**/**.md": ".NET Android",
+        "ios/**/**.md": ".NET iOS"
       },
       "searchScope": {
-        "android/**/**.md": [ ".NET for Android" ],
-        "ios/**/**.md": [ ".NET for iOS" ],
+        "android/**/**.md": [ ".NET Android" ],
+        "ios/**/**.md": [ ".NET iOS" ],
       },
     },
     "template": [],
