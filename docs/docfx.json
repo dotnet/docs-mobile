@@ -50,9 +50,14 @@
       "author": "dotnet-bot",
       "breadcrumb_path": "/dotnet/breadcrumb/toc.json",
       "extendBreadcrumb": true,
-      "feedback_system": "GitHub",
+      "feedback_system": "OpenSource",
       "feedback_github_repo": "dotnet/docs-mobile",
       "feedback_product_url": "https://developercommunity.visualstudio.com/",
+      "open_source_feedback_contributorGuideUrl": "https://learn.microsoft.com/contribute/content/dotnet/dotnet-contribute",
+      "open_source_feedback_issueUrl": "https://github.com/dotnet/docs-mobile/issues/new?template=customer-feedback.yml",
+      "open_source_feedback_issueTitle": "",
+      "open_source_feedback_productLogoLightUrl": "https://learn.microsoft.com/media/logos/logo_net.svg",
+      "open_source_feedback_productLogoDarkUrl": "https://learn.microsoft.com/media/logos/logo_net.svg",
       "permissioned-type": "public",
       "ms.author": "dotnetcontent",
       "ms.topic": "conceptual",
@@ -80,6 +85,14 @@
         "android/**/**.md": [ ".NET Android" ],
         "ios/**/**.md": [ ".NET iOS" ],
       },
+      "open_source_feedback_productName": {
+        "docs/android/**.*": ".NET Android",
+        "docs/ios/**.*": ".NET iOS"
+      },
+      "open_source_feedback_productDescription": {
+        "docs/android/**.*": "The .NET Android documentation is open source. Please provide feedback here.",
+        "docs/ios/**.*": "The .NET iOS documentation is open source. Please provide feedback here."
+      }
     },
     "template": [],
     "dest": "docs-mobile-public",
