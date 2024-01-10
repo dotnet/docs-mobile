@@ -66,32 +66,28 @@
     },
     "fileMetadata": {
       "author": {
-        "android/**/**.md": "jonpryor",
-        "ios/**/**.md": "mandel-macaque"
+        "android/**/*.md": "jonpryor",
+        "ios/**/*.md": "mandel-macaque"
       },
       "ms.author": {
-        "android/**/**.md": "jopryo",
-        "ios/**/**.md": "mandel"
+        "android/**/*.md": "jopryo",
+        "ios/**/*.md": "mandel"
       },
       "ms.technology": {
-        "android/**/**.md": "dotnet-android",
-        "ios/**/**.md": "dotnet-ios"
+        "android/**/*.md": "dotnet-android",
+        "ios/**/*.md": "dotnet-ios"
       },
       "titleSuffix" : {
-        "android/**/**.md": ".NET Android",
-        "ios/**/**.md": ".NET iOS"
+        "android/**/*.md": ".NET Android",
+        "ios/**/*.md": ".NET iOS"
       },
       "searchScope": {
-        "android/**/**.md": [ ".NET Android" ],
-        "ios/**/**.md": [ ".NET iOS" ],
+        "android/**/*.md": [ ".NET Android" ],
+        "ios/**/*.md": [ ".NET iOS" ],
       },
       "open_source_feedback_productName": {
-        "docs/android/**.*": ".NET Android",
-        "docs/ios/**.*": ".NET iOS"
-      },
-      "open_source_feedback_productDescription": {
-        "docs/android/**.*": "The .NET Android documentation is open source. Please provide feedback here.",
-        "docs/ios/**.*": "The .NET iOS documentation is open source. Please provide feedback here."
+        "android/**/*.md": ".NET Android",
+        "ios/**/*.md": ".NET iOS"
       }
     },
     "template": [],
