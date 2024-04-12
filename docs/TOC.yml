@@ -1,2 +1,10 @@
-- name: Index
+- name: .NET Mobile Documentation
   href: index.md
+- name: .NET for Android
+  items:
+  - name: Building Apps
+    href: android/building-apps/index.md
+  - name: Features
+    href: android/features/index.md
+  - name: Message Reference
+    href: android/messages/index.md
