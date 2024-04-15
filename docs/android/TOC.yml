@@ -322,7 +322,7 @@
         href: messages/xa5302.md
     - name: "XA6xxx: Internal tools"
       href: "messages/index.md#xa6xxx-internal-tools"
-    - name: "XA7xxx: Unhandled MSBuild Exceptions"
+    - name: "XAccc7xxx: Unhandled MSBuild Exceptions"
       href: "messages/index.md#xa7xxx-unhandled-msbuild-exceptions"
     - name: "XA8xxx: Linker Step Errors"
       items:

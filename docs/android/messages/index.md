@@ -233,16 +233,12 @@ Either change the value in the AndroidManifest.xml to match the $(SupportedOSPla
 
 ## XA6xxx: Internal tools
 
-## XA7xxx: Unhandled MSBuild Exceptions
+## XAccc7xxx: Unhandled MSBuild Exceptions
 
 Exceptions that have not been gracefully handled yet.  Ideally these will be fixed or replaced with better errors in the future.
 
 These take the form of `XACCC7NNN`, where `CCC` is a 3 character code denoting the MSBuild Task that is throwing the exception,
 and `NNN` is a 3 digit number indicating the type of the unhandled `Exception`.
-
-## XA8xxx: Linker Step Errors
-
-+ [XA8000/IL8000](xa8000.md): Could not find Android Resource '@anim/enterfromright'. Please update @(AndroidResource) to add the missing resource.
 
 **Tasks:**
 * `A2C` - `Aapt2Compile`
@@ -387,7 +383,10 @@ and `NNN` is a 3 digit number indicating the type of the unhandled `Exception`.
 * `7028` - `FileNotFoundException`
 * `7029` - `PipeException`
 
-## XA8xxx:	Reserved
+
+## XA8xxx: Linker Step Errors
+
++ [XA8000/IL8000](xa8000.md): Could not find Android Resource '@anim/enterfromright'. Please update @(AndroidResource) to add the missing resource.
 
 ## XA9xxx:	Licensing
 
