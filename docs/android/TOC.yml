@@ -28,6 +28,8 @@
       href: messages/index.md
     - name: "ADBxxxx: ADB tooling"
       items:
+      - name: "ADBxxxx: ADB tooling"
+        href: "messages/index.md#adbxxxx-adb-tooling"
       - name: ADB0000
         href: messages/adb0000.md
       - name: ADB0010
@@ -44,6 +46,8 @@
         href: messages/adb0060.md
     - name: "ANDXXxxxx: Generic Android tooling"
       items:
+      - name: "ANDXXxxxx: Generic Android tooling"
+        href: "messages/index.md#andxxxxxx-generic-android-tooling"
       - name: ANDAS0000
         href: messages/andas0000.md
       - name: ANDJS0000
@@ -54,6 +58,8 @@
         href: messages/andza0000.md
     - name: "APTxxxx: AAPT tooling"
       items:
+      - name: "APTxxxx: AAPT tooling"
+        href: "messages/index.md#aptxxxx-aapt-tooling"
       - name: APT0000
         href: messages/apt0000.md
       - name: APT0001
@@ -64,14 +70,20 @@
         href: messages/apt2265.md
     - name: "JAVAxxxx: Java Tool"
       items:
+      - name: "JAVAxxxx: Java Tool"
+        href: "messages/index.md#javaxxxx-java-tool"
       - name: JAVA0000
         href: messages/java0000.md
     - name: "JAVACxxxx: Java compiler"
       items:
+      - name: "JAVACxxxx: Java compiler"
+        href: "messages/index.md#javacxxxx-java-compiler"
       - name: JAVAC0000
         href: messages/javac0000.md
     - name: "XA0xxx: Environment issue or missing tooling"
       items:
+      - name: "XA0xxx: Environment issue or missing tooling"
+        href: "messages/index.md#xa0xxx-environment-issue-or-missing-tooling"
       - name: XA0000
         href: messages/xa0000.md
       - name: XA0001
@@ -164,6 +176,8 @@
         href: messages/xa0140.md
     - name: "XA1xxx: Project related"
       items:
+      - name: "XA1xxx: Project related"
+        href: "messages/index.md#xa1xxx-project-related"
       - name: XA1000
         href: messages/xa1000.md
       - name: XA1001
@@ -214,6 +228,8 @@
         href: messages/xa1037.md
     - name: "XA2xxx: Linker"
       items:
+      - name: "XA2xxx: Linker"
+        href: "messages/index.md#xa2xxx-linker"
       - name: XA2000
         href: messages/xa2000.md
       - name: XA2001
@@ -224,6 +240,8 @@
       href: "messages/index.md#xa3xxx-unmanaged-code-compilation"
     - name: "XA4xxx: Code generation"
       items:
+      - name: "XA4xxx: Code generation"
+        href: "messages/index.md#xa4xxx-code-generation"
       - name: XA4214
         href: messages/xa4214.md
       - name: XA4215
@@ -290,6 +308,8 @@
         href: messages/xa4314.md
     - name: "XA5xxx: GCC and toolchain"
       items:
+      - name: "XA5xxx: GCC and toolchain"
+        href: "messages/index.md#xa5xxx-gcc-and-toolchain"
       - name: XA5205
         href: messages/xa5205.md
       - name: XA5207
@@ -306,6 +326,8 @@
       href: "messages/index.md#xa7xxx-unhandled-msbuild-exceptions"
     - name: "XA8xxx: Linker Step Errors"
       items:
+      - name: "XA8xxx: Linker Step Errors"
+        href: "messages/index.md#xa8xxx-linker-step-errors"
       - name: XA8000/IL8000
         href: messages/xa8000.md
 
