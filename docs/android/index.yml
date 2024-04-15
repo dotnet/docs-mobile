@@ -49,9 +49,9 @@ conceptualContent:
             - url: ./features/layout-code-behind/index.md
               itemType: reference
               text: Layout Code Behind
-            - url: ./features/maven/index.md
+            - url: ./features/maven/android-maven-library.md
               itemType: reference
-              text: Maven integration
+              text: "@(AndroidMavenLibrary) Build Item"
         # Card
         - title: Message reference
           summary: Tooling error and warning message reference.
