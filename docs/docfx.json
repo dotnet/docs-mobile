@@ -86,10 +86,6 @@
       "open_source_feedback_productName": {
         "android/**/*.md": ".NET Android",
         "ios/**/*.md": ".NET iOS"
-      },
-      "breadcrumb_path": {
-        "ios/**/*.md": "/dotnet/breadcrumb/ios/toc.json",
-        "android/**/*.md": "/dotnet/breadcrumb/android/toc.json"
       }
     },
     "template": [],
