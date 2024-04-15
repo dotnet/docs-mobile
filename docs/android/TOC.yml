@@ -1,5 +1,3 @@
-- name: .NET Mobile Documentation
-  href: index.md
 - name: .NET for Android
   items:
   - name: Building Apps
