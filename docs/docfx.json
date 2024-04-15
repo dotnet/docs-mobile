@@ -61,7 +61,7 @@
       "permissioned-type": "public",
       "ms.author": "dotnetcontent",
       "ms.topic": "conceptual",
-      "ms.prod": "dotnet-mobile",
+      "ms.service": "dotnet-mobile",
       "uhfHeaderId": "MSDocsHeader-DotNet",
     },
     "fileMetadata": {
@@ -73,7 +73,7 @@
         "android/**/*.md": "jopryo",
         "ios/**/*.md": "mandel"
       },
-      "ms.technology": {
+      "ms.subservice": {
         "android/**/*.md": "dotnet-android",
         "ios/**/*.md": "dotnet-ios"
       },
