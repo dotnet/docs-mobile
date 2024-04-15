@@ -49,7 +49,6 @@
     "globalMetadata": {
       "author": "dotnet-bot",
       "breadcrumb_path": "/dotnet/breadcrumb/toc.json",
-      "extendBreadcrumb": true,
       "feedback_system": "OpenSource",
       "feedback_github_repo": "dotnet/docs-mobile",
       "feedback_product_url": "https://developercommunity.visualstudio.com/",
@@ -58,10 +57,9 @@
       "open_source_feedback_issueTitle": "",
       "open_source_feedback_productLogoLightUrl": "https://learn.microsoft.com/media/logos/logo_net.svg",
       "open_source_feedback_productLogoDarkUrl": "https://learn.microsoft.com/media/logos/logo_net.svg",
-      "permissioned-type": "public",
       "ms.author": "dotnetcontent",
       "ms.topic": "conceptual",
-      "ms.prod": "dotnet-mobile",
+      "ms.service": "dotnet-mobile",
       "uhfHeaderId": "MSDocsHeader-DotNet",
     },
     "fileMetadata": {
@@ -73,7 +71,7 @@
         "android/**/*.md": "jopryo",
         "ios/**/*.md": "mandel"
       },
-      "ms.technology": {
+      "ms.subservice": {
         "android/**/*.md": "dotnet-android",
         "ios/**/*.md": "dotnet-ios"
       },
