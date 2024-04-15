@@ -4,12 +4,11 @@
   items:
   - name: .NET
     tocHref: /dotnet/
-    topicHref: /dotnet/index
+    topicHref: /dotnet
     items:
-    - name: .NET Android
-      tocHref: /dotnet/android
-      topicHref: /dotnet/android/index
-    - name: .NET iOS
-      tocHref: /dotnet/iOS
-      topicHref: /dotnet/iOS/index
-      
+    - name: Android
+      tocHref: /dotnet/android/
+      topicHref: /dotnet/android
+    - name: iOS
+      tocHref: /dotnet/iOS/
+      topicHref: /dotnet/iOS
