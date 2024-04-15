@@ -1,0 +1,83 @@
+### YamlMime:Hub
+
+#root section (Required)
+title: .NET for Android documentation
+summary: >
+  The .NET for Android guide contains articles, tutorials, and code samples to help you get started with .NET on the Android platform.
+  Experienced developers can learn about new features in the What's new section.
+  Experienced developers can learn details of language behavior from the reference and language specifications.
+brand: dotnet
+
+metadata:
+  title: .NET for Android
+  description: The .NET for Android guide has everything you need to learn .NET on the Android platform.
+  ms.service: dotnet-android
+  ms.topic: hub-page
+  author: jonpryor
+  ms.author: jopryo
+  ms.date: 04/15/2024
+
+
+conceptualContent:
+# itemType: reference
+  # Supports up to 3 subsections
+  sections:
+    - title: .NET for Android reference
+      summary: >
+        The .NET for Android reference provides an informative reference for .NET for Android.
+      items:
+        # Card
+        - title: Building Android Apps
+          summary: Building Android Apps
+          links:
+            - url: ./building-apps/build-process.md
+              itemType: reference
+              text: Build Process
+            - url: ./building-apps/build-targets.md
+              itemType: reference
+              text: Build Targets
+            - url: ./building-apps/build-properties.md
+              itemType: reference
+              text: Build Properties
+            - url: ./building-apps/build-items.md
+              itemType: reference
+              text: Build Items
+        # Card
+        - title: Features
+          summary: .NET for Android Features
+          links:
+            - url: ./features/layout-code-behind/index.md
+              itemType: reference
+              text: Layout Code Behind
+            - url: ./features/maven/index.md
+              itemType: reference
+              text: Maven integration
+        # Card
+        - title: Message reference
+          summary: Tooling error and warning message reference.
+          links:
+            - url: ./messages/index.md
+              itemType: reference
+              text: Messages reference
+
+
+# additionalContent section (Optional; Remove if not applicable.)
+# Card with links style
+additionalContent:
+  # Supports up to 4 subsections
+  sections:
+
+    - title: API reference # < 60 chars (optional)
+      summary: Search the .NET API documentation. # < 160 chars (optional)
+      items:
+        # Card
+        - title: ".NET API reference"
+          summary: API reference documentation for .NET
+          url: /dotnet/api/index.md?view=net-8.0
+        # Card
+        - title: ".NET for Android reference"
+          summary: API reference documentation for .NET Framework
+          url: /dotnet/api/?preserve-view=true&view=net-android-34.0
+
+  # footer (Optional; Remove if not applicable.)
+  footer: "Are you interested in contributing to the .NET docs? For more information, see our [contributor guide](/contribute/dotnet/dotnet-contribute)."
