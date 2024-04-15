@@ -5,3 +5,7 @@
   - name: .NET
     tocHref: /dotnet/
     topicHref: /dotnet/index
+    items:
+    - name: .NET iOS
+      tocHref: /dotnet/iOS
+      topicHref: /dotnet/iOS/index
