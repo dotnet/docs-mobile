@@ -3,7 +3,8 @@
 #root section (Required)
 title: .NET for Android documentation
 summary: >
-  The .NET for Android guide contains articles, tutorials, and code samples to help you get started with .NET on the Android platform.
+  .NET for Android allows you to write [Android](https://developer.android.com) apps using .NET languages.
+  This guide contains articles, tutorials, and code samples to help you get started with .NET on the Android platform.
   Experienced developers can learn about new features in the What's new section.
   Experienced developers can learn details of language behavior from the reference and language specifications.
 brand: dotnet
@@ -76,7 +77,7 @@ additionalContent:
           url: /dotnet/api/index.md?view=net-8.0
         # Card
         - title: ".NET for Android reference"
-          summary: API reference documentation for .NET Framework
+          summary: Android-specific API reference
           url: /dotnet/api/?preserve-view=true&view=net-android-34.0
 
   # footer (Optional; Remove if not applicable.)
