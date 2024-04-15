@@ -1,8 +1,8 @@
 - name: .NET for Android
   items:
   - name: Building Apps
-    href: android/building-apps/index.md
+    href: building-apps/index.md
   - name: Features
-    href: android/features/index.md
+    href: eatures/index.md
   - name: Message Reference
-    href: android/messages/index.md
+    href: messages/index.md
