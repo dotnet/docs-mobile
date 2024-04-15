@@ -15,7 +15,13 @@
     - name: Layout Code Behind
       href: features/layout-code-behind/index.md
     - name: Maven
-      href: features/maven/index.md
+      items:
+      - name: "@(AndroidMavenLibrary) Build Item"
+        href: features/maven/android-maven-library.md
+      - name: Resolving Java Dependencies
+        href: features/maven/resolving-java-dependencies.md
+      - name: Java Dependency Verification
+        href: features/maven/java-dependency-verification.md
   - name: Message Reference
     items:
     - name: Message Reference
