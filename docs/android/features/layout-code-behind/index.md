@@ -535,7 +535,7 @@ name, for instance the above fragment could be redeclared as follows:
 
 The Android ecosystem currently supports two distinct implementations of the `Fragment` widget:
 
-  * [`Android.App.Fragment`](dotnet/api/android.app.fragment?view=net-android-34.0)
+  * [`Android.App.Fragment`](/dotnet/api/android.app.fragment?view=net-android-34.0)
     The "classic" Fragment shipped with the base Android system
   * `AndroidX.Fragment.App.Fragment`, in the
     [`Xamarin.AndroidX.Fragment`](https://www.nuget.org/packages/Xamarin.AndroidX.Fragment)

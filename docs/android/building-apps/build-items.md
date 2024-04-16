@@ -316,7 +316,7 @@ excluded from the final package. The default values are as follows
 
 Items can use file blob characters for wildcards such as `*` and `?`.
 However these Items MUST be URL encoded or use
-[`$([MSBuild]::Escape(''))`](visualstudio/msbuild/how-to-escape-special-characters-in-msbuild?view=vs-2022).
+[`$([MSBuild]::Escape(''))`](/visualstudio/msbuild/how-to-escape-special-characters-in-msbuild?view=vs-2022).
 This is so MSBuild does not try to interpret them as actual file wildcards.
 
 For example 
