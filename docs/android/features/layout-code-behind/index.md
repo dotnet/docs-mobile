@@ -486,7 +486,7 @@ a number of very simple adjustments to try to match the code, such as:
     Currently the list includes the following mappings:
 
       * [`android.view`](https://developer.android.com/reference/android/view/package-summary) ->
-        [`Android.Views`](dotnet/api/android.views)
+        [`Android.Views`](/dotnet/api/android.views)
       * `com.actionbarsherlock` -> `ABSherlock`
       * `com.actionbarsherlock.widget` -> `ABSherlock.Widget`
       * `com.actionbarsherlock.view` -> `ABSherlock.View`
