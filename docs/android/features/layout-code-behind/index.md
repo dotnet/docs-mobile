@@ -87,7 +87,7 @@ or in your .csproj file:
 </PropertyGroup>
 ```
 
-<a name="resource-bindings" />
+<a name="resource-bindings"></a>
 
 ## Bindings
 
@@ -223,7 +223,7 @@ of the corresponding Binding property. The returned value is cast to that type, 
 isn't correctly typed an exception will be thrown.
 
 
-<a name="resource-codebehind" />
+<a name="resource-codebehind"></a>
 
 ## Code-Behind
 
@@ -456,7 +456,7 @@ The `xamarin:classes` XML attribute contains a `;`-separated list of
 *full class names* that should be generated.
 
 
-<a name="attr-xamarin-managedType" />
+<a name="attr-xamarin-managedType"></a>
 
 ### `xamarin:managedType`
 
@@ -483,11 +483,10 @@ a number of very simple adjustments to try to match the code, such as:
     `android.os.SomeType` would become `Android.OS.SomeType`
 
   * Look up a number of hard-coded namespaces which have known mappings.
-    Currently the list includes the following namespaces:
+    Currently the list includes the following mappings:
 
-      * `android.view` -> `Android.Views`
-      * `android.support.wearable.view` -> `Android.Support.Wearable.Views`
-      * `android.support.constraint` -> `Android.Support.Constraints`
+      * [`android.view`](https://developer.android.com/reference/android/view/package-summary) ->
+        [`Android.Views`](dotnet/api/android.views)
       * `com.actionbarsherlock` -> `ABSherlock`
       * `com.actionbarsherlock.widget` -> `ABSherlock.Widget`
       * `com.actionbarsherlock.view` -> `ABSherlock.View`
@@ -495,7 +494,7 @@ a number of very simple adjustments to try to match the code, such as:
 
   * Look up a number of hard-coded types in internal tables. Currently the list includes the following types:
 
-      * `WebView` -> `Android.Webkit.WebView`
+      * `WebView` -> [`Android.Webkit.WebView`](/dotnet/api/android.webkit.webview)
 
   * Strip number of hard-coded namespace *prefixes*. Currently the list includes the following prefixes:
 
@@ -535,7 +534,7 @@ name, for instance the above fragment could be redeclared as follows:
 
 The Android ecosystem currently supports two distinct implementations of the `Fragment` widget:
 
-  * [`Android.App.Fragment`](/dotnet/api/android.app.fragment?view=net-android-34.0)
+  * [`Android.App.Fragment`](/dotnet/api/android.app.fragment)
     The "classic" Fragment shipped with the base Android system
   * `AndroidX.Fragment.App.Fragment`, in the
     [`Xamarin.AndroidX.Fragment`](https://www.nuget.org/packages/Xamarin.AndroidX.Fragment)
