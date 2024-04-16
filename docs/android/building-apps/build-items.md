@@ -6,7 +6,7 @@ ms.date: 04/11/2024
 
 # Build Items
 
-Build items control how a Xamarin.Android application
+Build items control how a .NET for Android application
 or library project is built.
 
 ## AndroidAdditionalJavaManifest
@@ -107,14 +107,14 @@ to be stored.
 
 See [bundletool](https://developer.android.com/studio/build/building-cmdline#build_your_app_bundle_using_bundletool) documentation for more details.
 
-Added in Xamarin.Android 12.3.
-
 ## AndroidBoundLayout
 
-Indicates that the layout file is to have code-behind generated for it in case when
-the `AndroidGenerateLayoutBindings` property is set to `false`. In all other aspects
-it is identical to `AndroidResource` described above. This action can be used **only**
-with layout files:
+Indicates that the layout file is to have [code-behind generated](../features/layout-code-behind/index.md)
+for it in case when the [`$(AndroidGenerateLayoutBindings)`](build-properties.md#androidgeneratelayoutbindings)
+property is set to `false`. In all other aspects
+it is identical to [`AndroidResource`](#androidresource).
+
+This action can be used **only** with layout files:
 
 ```xml
 <AndroidBoundLayout Include="Resources\layout\Main.axml" />
@@ -186,7 +186,7 @@ Any project can specify:
 ```
 
 The result of the above code snippet has a different effect for each
-Xamarin.Android project type:
+.NET for Android project type:
 
 * Application and class library projects:
   * `foo.jar` maps to [**AndroidJavaLibrary**](#androidjavalibrary).
@@ -198,8 +198,6 @@ Xamarin.Android project type:
   * `bar.aar` maps to [**LibraryProjectZip**](#libraryprojectzip).
 
 This simplification means you can use **AndroidLibrary** everywhere.
-
-This build action was added in Xamarin.Android 11.2.
 
 ## AndroidLintConfig
 
@@ -226,7 +224,7 @@ have a specific permission only while debugging, you can use the overlay to
 inject that permission when debugging. For example, given the following
 overlay file contents:
 
-```
+```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
   <uses-permission android:name="android.permission.CAMERA" />
 </manifest>
@@ -234,20 +232,16 @@ overlay file contents:
 
 You can use the following to add a manifest overlay for a debug build:
 
-```
+```xml
 <ItemGroup>
   <AndroidManifestOverlay Include="DebugPermissions.xml" Condition=" '$(Configuration)' == 'Debug' " />
 </ItemGroup>
 ```
 
-This build action was introduced in Xamarin.Android 11.2.
-
 ## AndroidInstallModules
 
 Specifies the modules that get installed by **bundletool** command when
 installing app bundles.
-
-This build action was introduced in Xamarin.Android 11.3.
 
 ## AndroidMavenLibrary
 
@@ -269,9 +263,9 @@ The following MSBuild metadata are supported:
 - `%(Repository)`: Optional Maven repository to use. Supported values are `Central` (default),
    `Google`, or an `https` URL to a Maven repository.
 
-The `<AndroidMavenLibrary>` item is translated to an 
-[`<AndroidLibrary>`](https://github.com/xamarin/xamarin-android/blob/main/Documentation/guides/building-apps/build-items.md#androidlibrary) 
-item, so any metadata supported by `<AndroidLibrary>` like `Bind` or `Pack` are also supported.
+The `<AndroidMavenLibrary>` item is translated to
+[`AndroidLibrary`](#androidlibrary), so any metadata supported by
+`<AndroidLibrary>` like `%(Bind)` or `%(Pack)` are also supported.
 
 See the [AndroidMavenLibrary documentation](../features/maven/android-maven-library.md)
 for more details.
@@ -313,7 +307,7 @@ used to specify the ABI that the library targets. Thus, if you add
 A set of file glob compatible items which will allow for items to be
 excluded from the final package. The default values are as follows
 
-```
+```xml
 <ItemGroup>
 	<AndroidPackagingOptionsExclude Include="DebugProbesKt.bin" />
 	<AndroidPackagingOptionsExclude Include="$([MSBuild]::Escape('*.kotlin_*')" />
@@ -321,12 +315,13 @@ excluded from the final package. The default values are as follows
 ```
 
 Items can use file blob characters for wildcards such as `*` and `?`.
-However these Items MUST use URL encoding or '$([MSBuild]::Escape(''))'.
+However these Items MUST be URL encoded or use
+[`$([MSBuild]::Escape(''))`](visualstudio/msbuild/how-to-escape-special-characters-in-msbuild?view=vs-2022).
 This is so MSBuild does not try to interpret them as actual file wildcards.
 
 For example 
 
-```
+```xml
 <ItemGroup>
 	<AndroidPackagingOptionsExclude Include="%2A.foo_%2A" />
   <AndroidPackagingOptionsExclude Include="$([MSBuild]::Escape('*.foo')" />
@@ -339,20 +334,20 @@ appropriate file globs.
 If the default file glob is too restrictive you can remove it by adding the 
 following to your csproj
 
-```
+```xml
 <ItemGroup>
 	<AndroidPackagingOptionsExclude Remove="$([MSBuild]::Escape('*.kotlin_*')" />
 </ItemGroup>
 ```
 
-Added in Xamarin.Android 13.1 and .NET 7.
+Added in .NET 7.
 
 ## AndroidPackagingOptionsInclude
 
 A set of file glob compatible items which will allow for items to be
 included from the final package. The default values are as follows
 
-```
+```xml
 <ItemGroup>
 	<AndroidPackagingOptionsInclude Include="$([MSBuild]::Escape('*.kotlin_builtins')" />
 </ItemGroup>
@@ -363,7 +358,7 @@ However these Items MUST use URL encoding or '$([MSBuild]::Escape(''))'.
 This is so MSBuild does not try to interpret them as actual file wildcards.
 For example 
 
-```
+```xml
 <ItemGroup>
 	<AndroidPackagingOptionsInclude Include="%2A.foo_%2A" />
   <AndroidPackagingOptionsInclude Include="$([MSBuild]::Escape('*.foo')" />
@@ -394,10 +389,10 @@ conditionally include different files in different configurations. For
 example:
 
 ```xml
-<ItemGroup Condition="'$(Configuration)'!='Debug'">
+<ItemGroup Condition=" '$(Configuration)' != 'Debug' ">
   <AndroidResource Include="Resources\values\strings.xml" />
 </ItemGroup>
-<ItemGroup  Condition="'$(Configuration)'=='Debug'">
+<ItemGroup  Condition=" '$(Configuration)' == 'Debug' ">
   <AndroidResource Include="Resources-Debug\values\strings.xml"/>
 </ItemGroup>
 <PropertyGroup>
@@ -420,38 +415,25 @@ distinct resource names.
 </ItemGroup>
 ```
 
-## AndroidResourceAnalysisConfig
-
-The Build action `AndroidResourceAnalysisConfig` marks a file as a
-severity level configuration file for the Xamarin Android Designer
-layout diagnostics tool. This is currently only used in the layout
-editor and not for build messages.
-
-See the [Android Resource Analysis
-documentation](/xamarin/android/user-interface/android-designer/) for more
-details.
-
-Added in Xamarin.Android 10.2.  No longer supported in .NET 6.
-
 ## Content
 
 The normal `Content` Build action is not supported (as we
 haven't figured out how to support it without a possibly costly first-run
 step).
 
-Starting in Xamarin.Android 5.1, attempting to use the `@(Content)`
-Build action will result in a `XA0101` warning.
+Attempting to use the `@(Content)` Build action will result in a
+[XA0101](../messages/xa0101.md) warning.
 
 ## EmbeddedJar
 
-In a Xamarin.Android binding project, the **EmbeddedJar** build action
+In a .NET for Android binding project, the **EmbeddedJar** build action
 binds the Java/Kotlin library and embeds the `.jar` file into the
-library. When a Xamarin.Android application project consumes the
+library. When a .NET for Android application project consumes the
 library, it will have access to the Java/Kotlin APIs from C# as well
 as include the Java/Kotlin code in the final Android application.
 
-Since Xamarin.Android 11.2, you can use the
-[**AndroidLibrary**](#androidlibrary) build action as an alternative
+You should instead use the
+[AndroidLibrary](#androidlibrary) build action as an alternative
 such as:
 
 ```xml
@@ -464,25 +446,25 @@ such as:
 
 ## EmbeddedNativeLibrary
 
-In a Xamarin.Android class library or Java binding project, the
+In a .NET for Android class library or Java binding project, the
 **EmbeddedNativeLibrary** build action bundles a native library such
 as `lib/armeabi-v7a/libfoo.so` into the library. When a
-Xamarin.Android application consumes the library, the `libfoo.so` file
+.NET for Android application consumes the library, the `libfoo.so` file
 will be included in the final Android application.
 
-Since Xamarin.Android 11.2, you can use the
+You can use the
 [**AndroidNativeLibrary**](#androidnativelibrary) build action as an
 alternative.
 
 ## EmbeddedReferenceJar
 
-In a Xamarin.Android binding project, the **EmbeddedReferenceJar**
+In a .NET for Android binding project, the **EmbeddedReferenceJar**
 build action embeds the `.jar` file into the library but does not
 create a C# binding as [**EmbeddedJar**](#embeddedjar) does. When a
-Xamarin.Android application project consumes the library, it will
+.NET for Android application project consumes the library, it will
 include the Java/Kotlin code in the final Android application.
 
-Since Xamarin.Android 11.2, you can use the
+You can use the
 [**AndroidLibrary**](#androidlibrary) build action as an alternative
 such as `<AndroidLibrary Include="..." Bind="false" />`:
 
@@ -497,39 +479,20 @@ such as `<AndroidLibrary Include="..." Bind="false" />`:
 </Project>
 ```
 
-## JavaDocJar
-
-In a Xamarin.Android binding project, the **JavaDocJar** build action
-is used on `.jar` files that contain *Javadoc HTML*.  The Javadoc HTML
-is parsed in order to extract parameter names.
-
-Only certain "Javadoc HTML variations" are supported, including:
-
-  * JDK 1.7 `javadoc` output.
-  * JDK 1.8 `javadoc` output.
-  * Droiddoc output.
-
-This build action is deprecated in Xamarin.Android 11.3, and will not be
-supported in .NET 6.
-The `@(JavaSourceJar)` build action is preferred.
-
 ## JavaSourceJar
 
-In a Xamarin.Android binding project, the **JavaSourceJar** build action
+In a .NET for Android binding project, the **JavaSourceJar** build action
 is used on `.jar` files that contain *Java source code*, that contain
 [Javadoc documentation comments](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html).
 
-Prior to Xamarin.Android 11.3, the Javadoc would be converted into HTML
-via the `javadoc` utility during build time, and later turned into
-XML documentation.
-
-Starting with Xamarin.Android 11.3, Javadoc will instead be converted into
+Javadoc will instead be converted into
 [C# XML Documentation Comments](/dotnet/csharp/codedoc)
 within the generated binding source code.
 
-`$(AndroidJavadocVerbosity)` controls how "verbose" or "complete" the imported Javadoc is.
+[`$(AndroidJavadocVerbosity)`](build-properties.md#androidjavadocverbosity)
+controls how "verbose" or "complete" the imported Javadoc is.
 
-Starting in Xamarin.Android 11.3, the following MSBuild metadata is supported:
+The following MSBuild metadata is supported:
 
 * `%(CopyrightFile)`: A path to a file that contains copyright
     information for the Javadoc contents, which will be appended to
@@ -542,25 +505,18 @@ Starting in Xamarin.Android 11.3, the following MSBuild metadata is supported:
     online documentation.  Only one style is currently supported:
     `developer.android.com/reference@2020-Nov`.
 
-Starting in Xamarin.Android 12.3, the following MSBuild metadata is supported:
-
-* `%(DocRootUrl)`: A URL prefix to use in place of all {@docroot}
+* `%(DocRootUrl)`: A URL prefix to use in place of all `{@docroot}`
     instances in the imported documentation.
 
 
 ## LibraryProjectZip
 
-In a Xamarin.Android binding project, the **LibraryProjectZip** build
+The **LibraryProjectZip** build
 action binds the Java/Kotlin library and embeds the `.zip` or `.aar`
-file into the library. When a Xamarin.Android application project
+file into the library. When a .NET for Android application project
 consumes the library, it will have access to the Java/Kotlin APIs from
 C# as well as include the Java/Kotlin code in the final Android
 application.
-
-> [!NOTE]
-> Only a single **LibraryProjectZip** can be included in a
-> Xamarin.Android binding project. This limitation will be removed
-> in .NET 6.
 
 ## LinkDescription
 

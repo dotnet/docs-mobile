@@ -6,8 +6,9 @@ ms.date: 04/11/2024
 
 # Overview
 
-The Xamarin.Android build processes [Android resources][android-res], exposing
-[Android IDs][android-id] via a generated `Resource.designer.cs` file.
+As part of the .NET for Android build, [Android resources][android-res]
+are processed, exposing [Android IDs][android-id] via a generated
+`_Microsoft.Android.Resource.Designer.dll` assembly.
 For example, given the file `Reources\layout\Main.axml` with contents:
 
 [android-res]: https://developer.android.com/guide/topics/resources/providing-resources
@@ -28,17 +29,20 @@ For example, given the file `Reources\layout\Main.axml` with contents:
 </LinearLayout>
 ```
 
-Then during build-time a `Resource.designer.cs` file will be generated:
+Then during build-time a `_Microsoft.Android.Resource.Designer.dll` assembly
+with contents similar to:
 
 ```csharp
+namespace _Microsoft.Android.Resource.Designer;
+
 partial class Resource {
   partial class Id {
-    public const int myButton;
-    public const int log_fragment;
-    public const int secondary_log_fragment;
+    public static int myButton               {get;}
+    public static int log_fragment           {get;}
+    public static int secondary_log_fragment {get;}
   }
   partial class Layout {
-    public const int Main;
+    public static int Main                   {get;}
   }
 }
 ```
@@ -47,9 +51,7 @@ partial class Resource {
 constants from the `Resource` type and the `FindViewById<T>()` method:
 
 ```csharp
-class MainActivity : Activity {
-
-  // Code omitted for brevity
+partial class MainActivity : Activity {
 
   protected override void OnCreate (Bundle savedInstanceState)
   {
@@ -69,11 +71,12 @@ with Android resources when using C#:
  1. [Bindings](#resource-bindings)
  2. [Code-Behind](#resource-codebehind)
 
-To enable these new features, set the `$(AndroidGenerateLayoutBindings)`
+To enable these new features, set the
+[`$(AndroidGenerateLayoutBindings)`](../../building-apps/build-properties.md#androidgeneratelayoutbindings)
 MSBuild property to `True` either on the msbuild command line:
 
-```
-msbuild /p:AndroidGenerateLayoutBindings=true MyProject.csproj
+```dotnet
+dotnet build -p:AndroidGenerateLayoutBindings=true MyProject.csproj
 ```
 
 or in your .csproj file:
@@ -137,16 +140,18 @@ namespace Binding {
     public Button myButton => FindView (global::Xamarin.Android.Tests.CodeBehindFew.Resource.Id.myButton, ref __myButton);
 
     CommonSampleLibrary.LogFragment __fragmentWithExplicitManagedType;
-    public CommonSampleLibrary.LogFragment fragmentWithExplicitManagedType => FindFragment (global::Xamarin.Android.Tests.CodeBehindFew.Resource.Id.fragmentWithExplicitManagedType, __fragmentWithExplicitManagedType, ref __fragmentWithExplicitManagedType);
+    public CommonSampleLibrary.LogFragment fragmentWithExplicitManagedType =>
+      FindFragment (global::Xamarin.Android.Tests.CodeBehindFew.Resource.Id.fragmentWithExplicitManagedType, __fragmentWithExplicitManagedType, ref __fragmentWithExplicitManagedType);
 
     global::Android.App.Fragment __fragmentWithInferredType;
-    public global::Android.App.Fragment fragmentWithInferredType => FindFragment (global::Xamarin.Android.Tests.CodeBehindFew.Resource.Id.fragmentWithInferredType, __fragmentWithInferredType, ref __fragmentWithInferredType);
+    public global::Android.App.Fragment fragmentWithInferredType =>
+      FindFragment (global::Xamarin.Android.Tests.CodeBehindFew.Resource.Id.fragmentWithInferredType, __fragmentWithInferredType, ref __fragmentWithInferredType);
   }
 }
 ```
 
 The binding's base type, `Xamarin.Android.Design.LayoutBinding` is **not** part of the
-Xamarin.Android class library but rather shipped with Xamarin.Android in source form
+.NET for Android class library but rather shipped with .NET for Android in source form
 and included in the application's build automatically whenever bindings are used.
 
 The generated binding type can be created around `Activity` instances, allowing
@@ -154,9 +159,7 @@ for strongly-typed access to IDs within the layout file:
 
 ```csharp
 // User-written code
-class MainActivity : Activity {
-
-  // Code omitted for brevity
+partial class MainActivity : Activity {
 
   protected override void OnCreate (Bundle savedInstanceState)
   {
@@ -191,11 +194,9 @@ the generated binding on its instantiation:
 
 ```csharp
 // User-written code
-class MainActivity : Activity {
+partial class MainActivity : Activity {
 
-  // Code omitted for brevity
-
-  Java.Lang.Object OnLayoutItemNotFound (int resourceId, Type expectedViewType)
+  Java.Lang.Object? OnLayoutItemNotFound (int resourceId, Type expectedViewType)
   {
      // Find and return the View or Fragment identified by `resourceId`
      // or `null` if unknown
@@ -264,15 +265,15 @@ namespace Example {
 
     public override void SetContentView (global::Android.Views.View view);
     void SetContentView (global::Android.Views.View view,
-	                     global::Xamarin.Android.Design.LayoutBinding.OnLayoutItemNotFoundHandler onLayoutItemNotFound);
+                         global::Xamarin.Android.Design.LayoutBinding.OnLayoutItemNotFoundHandler onLayoutItemNotFound);
 
     public override void SetContentView (global::Android.Views.View view, global::Android.Views.ViewGroup.LayoutParams @params);
     void SetContentView (global::Android.Views.View view, global::Android.Views.ViewGroup.LayoutParams @params,
-	                     global::Xamarin.Android.Design.LayoutBinding.OnLayoutItemNotFoundHandler onLayoutItemNotFound);
+                         global::Xamarin.Android.Design.LayoutBinding.OnLayoutItemNotFoundHandler onLayoutItemNotFound);
 
     public override void SetContentView (int layoutResID);
     void SetContentView (int layoutResID,
-	                     global::Xamarin.Android.Design.LayoutBinding.OnLayoutItemNotFoundHandler onLayoutItemNotFound);
+                         global::Xamarin.Android.Design.LayoutBinding.OnLayoutItemNotFoundHandler onLayoutItemNotFound);
 
     partial void OnSetContentView (global::Android.Views.View view, ref bool callBaseAfterReturn);
     partial void OnSetContentView (global::Android.Views.View view, global::Android.Views.ViewGroup.LayoutParams @params, ref bool callBaseAfterReturn);
@@ -308,19 +309,19 @@ of `SetContentView` the activity is using:
 
 ```csharp
 // User-written code
-Java.Lang.Object OnLayoutItemNotFound (int resourceId, Type expectedViewType)
-{
-  // Find and return the View or Fragment identified by `resourceId`
-  // or `null` if unknown
-  return null;
-}
-
 partial class MainActivity : Activity {
   protected override void OnCreate (Bundle savedInstanceState)
   {
     base.OnCreate (savedInstanceState);
 
     SetContentView (Resource.Layout.Main, OnLayoutItemNotFound);
+  }
+
+  Java.Lang.Object? OnLayoutItemNotFound (int resourceId, Type expectedViewType)
+  {
+    // Find and return the View or Fragment identified by `resourceId`
+    // or `null` if unknown
+    return null;
   }
 }
 ```
@@ -359,9 +360,10 @@ namespace Example
 {
   partial class MainActivity {
 
-    Binding.Main __layout_binding;
+    Binding.Main? __layout_binding;
 
-    public override void SetContentView (global::Android.Views.View view) {
+    public override void SetContentView (global::Android.Views.View view)
+    {
       __layout_binding = new global::Binding.Main (view);
       bool callBase = true;
       OnSetContentView (view, ref callBase);
@@ -370,7 +372,8 @@ namespace Example
       }
     }
 
-    void SetContentView (global::Android.Views.View view, global::Xamarin.Android.Design.LayoutBinding.OnLayoutItemNotFoundHandler onLayoutItemNotFound) {
+    void SetContentView (global::Android.Views.View view, global::Xamarin.Android.Design.LayoutBinding.OnLayoutItemNotFoundHandler onLayoutItemNotFound)
+    {
       __layout_binding = new global::Binding.Main (view, onLayoutItemNotFound);
       bool callBase = true;
       OnSetContentView (view, ref callBase);
@@ -379,7 +382,8 @@ namespace Example
       }
     }
 
-    public override void SetContentView (global::Android.Views.View view, global::Android.Views.ViewGroup.LayoutParams @params) {
+    public override void SetContentView (global::Android.Views.View view, global::Android.Views.ViewGroup.LayoutParams @params)
+    {
       __layout_binding = new global::Binding.Main (view);
       bool callBase = true;
       OnSetContentView (view, @params, ref callBase);
@@ -388,7 +392,8 @@ namespace Example
       }
     }
 
-    void SetContentView (global::Android.Views.View view, global::Android.Views.ViewGroup.LayoutParams @params, global::Xamarin.Android.Design.LayoutBinding.OnLayoutItemNotFoundHandler onLayoutItemNotFound) {
+    void SetContentView (global::Android.Views.View view, global::Android.Views.ViewGroup.LayoutParams @params, global::Xamarin.Android.Design.LayoutBinding.OnLayoutItemNotFoundHandler onLayoutItemNotFound)
+    {
       __layout_binding = new global::Binding.Main (view, onLayoutItemNotFound);
       bool callBase = true;
       OnSetContentView (view, @params, ref callBase);
@@ -397,7 +402,8 @@ namespace Example
       }
     }
 
-    public override void SetContentView (int layoutResID) {
+    public override void SetContentView (int layoutResID)
+    {
       __layout_binding = new global::Binding.Main (this);
       bool callBase = true;
       OnSetContentView (layoutResID, ref callBase);
@@ -406,7 +412,8 @@ namespace Example
       }
     }
 
-    void SetContentView (int layoutResID, global::Xamarin.Android.Design.LayoutBinding.OnLayoutItemNotFoundHandler onLayoutItemNotFound) {
+    void SetContentView (int layoutResID, global::Xamarin.Android.Design.LayoutBinding.OnLayoutItemNotFoundHandler onLayoutItemNotFound)
+    {
       __layout_binding = new global::Binding.Main (this, onLayoutItemNotFound);
       bool callBase = true;
       OnSetContentView (layoutResID, ref callBase);
@@ -528,21 +535,20 @@ name, for instance the above fragment could be redeclared as follows:
 
 The Android ecosystem currently supports two distinct implementations of the `Fragment` widget:
 
-  * Android.App.Fragment
-	  The "classic" Fragment shipped with the base Android system
-  * Android.Support.V4.App.Fragment
+  * [`Android.App.Fragment`](dotnet/api/android.app.fragment?view=net-android-34.0)
+    The "classic" Fragment shipped with the base Android system
+  * `AndroidX.Fragment.App.Fragment`, in the
+    [`Xamarin.AndroidX.Fragment`](https://www.nuget.org/packages/Xamarin.AndroidX.Fragment)
+    NuGet package.
 
-And in the near future, the AndroidX project will introduce the third type:
-
-  * AndroidX.Fragment.App.Fragment
-
-All three of those classes are **not** compatible with each other and so special care must be
-taken when generating binding code for `<fragment>` elements in the layout files. Xamarin.Android must
+These classes are **not** compatible with each other and so special care must be
+taken when generating binding code for `<fragment>` elements in the layout files. .NET for Android must
 choose one `Fragment` implementation as the default one to be used if the `<fragment>` element does not
-have any specific type (managed or otherwise) specified. Binding code generator uses the `AndroidFragmentType`
+have any specific type (managed or otherwise) specified. Binding code generator uses the
+[`$(AndroidFragmentType)`](../../building-apps/build-properties.md#androidfragmenttype)
 MSBuild property for that purpose. The property can be overriden by the user to specify a type different
-than the default one. The property is set to `Android.App.Fragment` by default, unless overriden by the
-support libraries or the future AndroidX libraries.
+than the default one. The property is set to `Android.App.Fragment` by default, and is overridden by the
+AndroidX NuGet packages.
 
 If the generated code does not build, the layout file must be amended by specifying the manged type of the
 fragment in question.
@@ -558,22 +564,23 @@ single element with the `//*/@android:id` attribute, set the
 `$(AndroidGenerateLayoutBindings)` MSBuild property to `True` either on the
 msbuild command line:
 
-```
-msbuild /p:AndroidGenerateLayoutBindings=true MyProject.csproj
+```dotnet
+dotnet build -p:AndroidGenerateLayoutBindings=true MyProject.csproj
 ```
 
 or in your .csproj file:
 
 ```xml
 <PropertyGroup>
-    <AndroidGenerateLayoutBindings>true</AndroidGenerateLayoutBindings>
+  <AndroidGenerateLayoutBindings>true</AndroidGenerateLayoutBindings>
 </PropertyGroup>
 ```
 
 Alternatively, you can leave code-behind disabled globally and enable it only
 for specific files. To enable Code-Behind for a particular `.axml` file, change
-the file to have a **Build action** of `@(AndroidBoundLayout)` by editing your
-`.csproj` file and replacing `AndroidResource` with `AndroidBoundLayout`:
+the file to have a **Build action** of
+[`@(AndroidBoundLayout)`](../../building-apps/build-items.md#androidboundlayout)
+by editing your `.csproj` file and replacing `AndroidResource` with `AndroidBoundLayout`:
 
 ```xml
 <!-- This -->
