@@ -1,5 +1,15 @@
 - name: .NET for Android
   items:
+  - name: Getting Started
+    items:
+    - name: Installation
+      items:
+        - name: Installation
+          href: getting-started/installation/index.md
+        - name: Install .NET for Android
+          href: getting-started/installation/net-android.md
+        - name: Install Android SDK
+          href: getting-started/installation/dependencies.md
   - name: Building Apps
     items:
     - name: Build Process
