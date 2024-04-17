@@ -4,11 +4,11 @@
     items:
     - name: Installation
       items:
-        - name: Installation
+        - name: Installation overview
           href: getting-started/installation/index.md
         - name: Install .NET for Android
           href: getting-started/installation/net-android.md
-        - name: Install Android SDK
+        - name: Install Dependencies
           href: getting-started/installation/dependencies.md
   - name: Building Apps
     items:
