@@ -1,0 +1,99 @@
+{
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.md",
+          "**/*.yml"
+        ],
+        "exclude": [
+          "**/obj/**",
+          "**/includes/**",
+          "_themes/**",
+          "_themes.pdf/**",
+          "**/docfx.json",
+          "_repo.en-us/**",
+          "README.md",
+          "LICENSE",
+          "LICENSE-CODE",
+          "ThirdPartyNotices.md",
+          "SECURITY.md"
+        ],
+        "group": "net",
+        "src": "."
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "**/*.png",
+          "**/*.jpg",
+          "**/*.jpeg",
+          "**/*.gif",
+          "**/*.svg"
+        ],
+        "exclude": [
+          "**/obj/**",
+          "**/includes/**",
+          "_themes/**",
+          "_themes.pdf/**",
+          "**/docfx.json",
+          "_repo.en-us/**"
+        ],
+        "group": "net",
+        "src": "."
+      }
+    ],
+    "overwrite": [],
+    "externalReference": [],
+    "globalMetadata": {
+      "author": "dotnet-bot",
+      "breadcrumb_path": "/dotnet/breadcrumb/toc.json",
+      "feedback_system": "OpenSource",
+      "feedback_github_repo": "dotnet/docs-mobile",
+      "feedback_product_url": "https://developercommunity.visualstudio.com/",
+      "open_source_feedback_contributorGuideUrl": "https://learn.microsoft.com/contribute/content/dotnet/dotnet-contribute",
+      "open_source_feedback_issueUrl": "https://github.com/dotnet/docs-mobile/issues/new?template=customer-feedback.yml",
+      "open_source_feedback_issueTitle": "",
+      "open_source_feedback_productLogoLightUrl": "https://learn.microsoft.com/media/logos/logo_net.svg",
+      "open_source_feedback_productLogoDarkUrl": "https://learn.microsoft.com/media/logos/logo_net.svg",
+      "ms.author": "dotnetcontent",
+      "ms.topic": "conceptual",
+      "ms.service": "dotnet-mobile",
+      "uhfHeaderId": "MSDocsHeader-DotNet",
+    },
+    "fileMetadata": {
+      "author": {
+        "android/**/*.md": "jonpryor",
+        "ios/**/*.md": "mandel-macaque"
+      },
+      "ms.author": {
+        "android/**/*.md": "jopryo",
+        "ios/**/*.md": "mandel"
+      },
+      "ms.subservice": {
+        "android/**/*.md": "dotnet-android",
+        "ios/**/*.md": "dotnet-ios"
+      },
+      "titleSuffix" : {
+        "android/**/*.md": ".NET for Android",
+        "ios/**/*.md": ".NET for iOS"
+      },
+      "searchScope": {
+        "android/**/*.md": [ ".NET for Android" ],
+        "ios/**/*.md": [ ".NET for iOS" ],
+      },
+      "open_source_feedback_productName": {
+        "android/**/*.md": ".NET for Android",
+        "ios/**/*.md": ".NET for iOS"
+      }
+    },
+    "template": [],
+    "dest": "docs-mobile-public",
+    "groups": {
+      "net": {
+        "dest": "net-dest"
+      }
+    }
+  }
+}

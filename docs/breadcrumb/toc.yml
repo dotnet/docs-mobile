@@ -1,0 +1,14 @@
+- name: Docs
+  tocHref: /
+  topicHref: /
+  items:
+  - name: .NET
+    tocHref: /dotnet/
+    topicHref: /dotnet
+    items:
+    - name: Android
+      tocHref: /dotnet/android/
+      topicHref: /dotnet/android
+    - name: iOS
+      tocHref: /dotnet/ios/
+      topicHref: /dotnet/ios
