@@ -21,7 +21,7 @@ we recommend Visual Studio 2022 17.3 or greater, or Visual Studio Code.
     dotnet workload install android
     ```
 
-* In order to build Android applications you also need to install the [Android SDK and Java Sdk](dependencies.md#using-installandroiddependencies).
+* In order to build Android applications you also need to install the [Android SDK and Java Sdk](dependencies.md#using-installandroiddependencies-target).
 
 
 <!-- markdownlint-disable MD025 -->
