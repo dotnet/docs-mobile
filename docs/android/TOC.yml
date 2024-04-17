@@ -1,5 +1,15 @@
 - name: .NET for Android
   items:
+  - name: Releases
+    items:
+    - name: .NET 8 34.0.95
+      href: https://github.com/xamarin/xamarin-android/releases/tag/34.0.95
+    - name: .NET 8 34.0.85
+      href: https://github.com/xamarin/xamarin-android/releases/tag/34.0.85
+    - name: .NET 8 34.0.79
+      href: https://github.com/xamarin/xamarin-android/releases/tag/34.0.85
+    - name: .NET 8 34.0.52
+      href: https://github.com/xamarin/xamarin-android/releases/tag/34.0.52
   - name: Building Apps
     items:
     - name: Build Process
