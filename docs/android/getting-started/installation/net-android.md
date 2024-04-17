@@ -21,13 +21,6 @@ we recommend Visual Studio 2022 17.3 or greater, or Visual Studio Code.
     dotnet workload install android
     ```
 
-* Create a directory in which you want to create your project. Note the project will take on the
-  name of the Folder as its project name. So if the directory is called "App1" you will get a
-  project called "App1.csproj" created. It is recommended that you avoid using spaces or special
-  characters in your project name or path. This helps to eliminate potential issues with the
-  native tooling on various platforms (especially windows).
-* In the Command Prompt or Terminal change to the directory you just created and run `dotnet new android`.
-  You can use the `-n` argument if you want tp specify a particular project name. If you do not provide this argument it will use the Folder name by default.
 * In order to build Android applications you also need to install the [Android SDK and Java Sdk](dependencies.md#using-installandroiddependencies).
 
 

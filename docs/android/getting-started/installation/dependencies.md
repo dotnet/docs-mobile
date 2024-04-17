@@ -3,12 +3,12 @@ title: "Install .NET for Android Dependencies"
 description: "Learn how to install .NET for Android Dependencies so you can create native android applications."
 ms.date: 11/01/2023
 ---
-# Installing .NET for Android Dependencies
+# Install .NET for Android Dependencies
 
 In order to build .NET for Android applications you need to install two additional components,
 The Java JDK and the Android SDK.
 
-## Using "InstallAndroidDependencies"
+## Using "InstallAndroidDependencies" Target
 
 The easiest way to install the required dependencies for your android application is to run the
 [`InstallAndroidDependencies`](../../building-apps/build-targets.md#installandroiddependencies)
