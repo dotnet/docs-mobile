@@ -33,9 +33,11 @@ dotnet build -t:InstallAndroidDependencies -f net8.0-android -p:AndroidSdkDirect
 Here are all the arguments which the target will use when installing the dependencies.
 
 * `-p:AndroidSdkDirectory="<PATH>"` installs or updates Android dependencies to the specified path.  
-    *Note*: You must use an absolute path without a tilde (`~`).
+    *Note*: You must use an absolute path; Unix developers should not use tilde (`~`).
+
 * `-p:JavaSdkDirectory="<PATH>"` installs Java to the specified path.  
-    *Note*: You must use an absolute path without a tilde (`~`).
+    *Note*: You must use an absolute path; Unix developers should not use tilde (`~`).
+
 * `-p:AcceptAndroidSDKLicenses=True` accepts the necessary Android licenses for development.
 
 To make development easier try to avoid using paths which contain spaces or non-ASCII characters.
@@ -44,38 +46,59 @@ To make development easier try to avoid using paths which contain spaces or non-
 
 You might find it necessary to install the Android SDK manually.
 
-* Go to <https://developer.android.com/studio#download>. Scroll down to the "Command Line Tools only" section and download the zip file for your operating system.
-* Create an 'android-sdk' directory somewhere on your hard drive. To make your life easier create it near to the root of the drive. For example 'c:\android-sdk'.
-* Extract the files from the zip file into this directory. You should end up with a folder structure like
-  'android-sdk\cmdline-tools'
-* Open a terminal or Command Prompt.
-* Navigate to the 'android-sdk\cmdline-tools\bin' directory within the directory you created.
-* Run the `sdkmanager` command to install the desired components. For example, to install the latest platform and platform tools, use:
+ 1. Go to <https://developer.android.com/studio#download>.  
+    Scroll down to the "Command Line Tools only" section and download the zip file for your operating system.
 
-```cmd
+ 2. Create an `android-sdk` directory somewhere on your hard drive. To make your life easier create it near to the root of the drive. For example `c:\android-sdk`.
+
+ 3. Extract the files from the zip file into this directory. You should end up with a folder structure like
+  `android-sdk\cmdline-tools`
+
+ 4. Open a terminal or Command Prompt.
+
+ 5. Navigate to the `android-sdk\cmdline-tools\bin` directory within the directory you created.
+
+ 6. Run the `sdkmanager` command to install the desired components.
+
+For example, to install the latest platform and platform tools, use:
+
+```sh
 sdkmanager "platforms;android-34" "platform-tools" "build-tools;34.0.0" "emulator" "system-images;android-34;default;x86_64" "cmdline-tools;11.0" --sdk_root=c:\android-sdk
 ```
 
-You will be prompted to accept the license, after which the sdk will install.
+Note that double-quotes should be used liberally to enclose the semicolon `;`, which is part of the component names.
+
+You will be prompted to accept the license, after which the Android SDK will install.
 
 You can use `sdkmanager` to install additional components. You can use the `--list` argument to get a list of all the available components. You can then look through the list and find the additional components you want.
 
-```cmd
+```sh
 sdkmanager --list
 ```
 
 The following component types are useful to know
 
-1. `platforms;android-XX`. Installs the platform `android-XX` into the sdk. Replace XX with the API Level of your chosen platform. For example `platforms;android-30` will install Android API 30, while `platforms;android-21` will install Android API 21.
-2. `system-images;android-XX;default;x86_64`. Installs an emulator image for the specific API level. The `x86_64` can be swapped out for different abis such as `x86`, `arm64-v8a`, and `x86_64`. These reflect the ABI of the image being installed. This can be useful if you have issues on specific ABI's.
+  * `platforms;android-XX`: Installs the platform `android-XX` into the sdk.
+    Replace *XX* with the API Level of your chosen platform.
+    For example `platforms;android-30` will install Android API 30, while
+    `platforms;android-21` will install Android API 21.
 
-It is also good practice to set the `ANDROID_HOME` environment variable, this allows you to use certain tooling from the command line.
+  * `system-images;android-XX;default;x86_64`: Installs an emulator image for
+    the specific API level. The `x86_64` can be swapped out for different ABIs
+    such as `x86`, `arm64-v8a`, and `x86_64`. These reflect the ABI of the image
+    being installed. This can be useful if you have issues on specific ABI's.
+
+It is also good practice to set the `ANDROID_HOME` environment variable, as this
+allows you to use certain tooling from the command line.
 
 ## Installing Microsoft JDK Manually
 
 In order to build .NET for Android applications or libraries you need to have a version of the Java Development Kit installed.
 We recommend you use the Microsoft Open JDK, this has been tested against our .NET for Android builds.
 
-* Download [Microsoft OpenJDK 11](/java/openjdk/download#openjdk-11).
-* Depending on your platform run the appropriate installer.
-* It is also good practice to set the `JAVA_HOME` environment variable. This will allow you to use the JDK from the Command Prompt or Terminal.
+ 1. Download [Microsoft OpenJDK 11](/java/openjdk/download#openjdk-11).
+
+ 2. Depending on your platform run the appropriate installer.
+
+ 3. It is also good practice to set the `JAVA_HOME` environment variable.
+    This will allow you to use the JDK from the Command Prompt or Terminal.
