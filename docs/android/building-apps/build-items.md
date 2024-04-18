@@ -68,7 +68,7 @@ assets into the asset pack.
 In this example, `movie.mp4` and `some.png` will end up in the `base` aab file, while all the other assets
 will end up in the `assets1` asset pack.
 
-The additional metadata is only supported on .NET Android 9 and above.
+The additional metadata is only supported on .NET for Android 9 and above.
 
 ## AndroidAarLibrary
 
@@ -246,8 +246,8 @@ installing app bundles.
 ## AndroidMavenLibrary
 
 `<AndroidMavenLibrary>` allows a Maven artifact to be specified which will 
-automatically be downloaded and added to a .NET Android binding project. 
-This can be useful to simplify maintenance of .NET Android bindings for artifacts 
+automatically be downloaded and added to a .NET for Android binding project. 
+This can be useful to simplify maintenance of .NET for Android bindings for artifacts 
 hosted in Maven.
 
 ```xml

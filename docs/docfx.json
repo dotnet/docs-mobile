@@ -60,7 +60,7 @@
       "ms.author": "dotnetcontent",
       "ms.topic": "conceptual",
       "ms.service": "dotnet-mobile",
-      "uhfHeaderId": "MSDocsHeader-DotNet",
+      "uhfHeaderId": "MSDocsHeader-DotNet"
     },
     "fileMetadata": {
       "author": {
@@ -81,7 +81,7 @@
       },
       "searchScope": {
         "android/**/*.md": [ ".NET for Android" ],
-        "ios/**/*.md": [ ".NET for iOS" ],
+        "ios/**/*.md": [ ".NET for iOS" ]
       },
       "open_source_feedback_productName": {
         "android/**/*.md": ".NET for Android",
