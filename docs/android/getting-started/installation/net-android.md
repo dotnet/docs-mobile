@@ -5,7 +5,7 @@ ms.date: 11/01/2023
 ---
 # Install .NET for Android
 
-Developing native, .NET for Android apps requires dotnet 6 or higher. Various IDE's can be used however
+Developing native, .NET for Android apps requires .NET 6 or higher. Various IDE's can be used, however
 we recommend Visual Studio 2022 17.3 or greater, or Visual Studio Code.
 
 <!-- markdownlint-disable MD025 -->
