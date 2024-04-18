@@ -13,16 +13,23 @@ metadata:
   ms.topic: hub-page
   author: jonpryor
   ms.author: jopryo
-  ms.date: 04/15/2024
+  ms.date: 04/18/2024
 
+# highlightedContent section (Optional; Remove if not applicable.)
+# Maximum of 8 items
+highlightedContent:
+# itemType: architecture | concept | deploy | download | get-started | how-to-guide | training | overview | quickstart | reference | sample | tutorial | video | whats-new
+  items:
+    # Card
+    - title: Install .NET for Android
+      itemType: get-started
+      url: ./getting-started/installation/index.md
 
 conceptualContent:
 # itemType: reference
   # Supports up to 3 subsections
   sections:
     - title: .NET for Android reference
-      summary: >
-        The .NET for Android reference provides an informative reference for .NET for Android.
       items:
         # Card
         - title: Building Android Apps

@@ -1,30 +1,40 @@
 - name: .NET for Android
   items:
-  - name: Building Apps
+  - name: Getting Started
     items:
-    - name: Build Process
+    - name: Installation
+      items:
+        - name: Overview
+          href: getting-started/installation/index.md
+        - name: Install .NET for Android
+          href: getting-started/installation/net-android.md
+        - name: Install dependencies
+          href: getting-started/installation/dependencies.md
+  - name: Building apps
+    items:
+    - name: Build process
       href: building-apps/build-process.md
-    - name: Build Targets
+    - name: Build targets
       href: building-apps/build-targets.md
-    - name: Build Properties
+    - name: Build properties
       href: building-apps/build-properties.md
-    - name: Build Items
+    - name: Build items
       href: building-apps/build-items.md
   - name: Features
     items:
-    - name: Layout Code Behind
+    - name: Layout code behind
       href: features/layout-code-behind/index.md
     - name: Maven
       items:
-      - name: "@(AndroidMavenLibrary) Build Item"
+      - name: "@(AndroidMavenLibrary) build item"
         href: features/maven/android-maven-library.md
-      - name: Resolving Java Dependencies
+      - name: Resolving Java ependencies
         href: features/maven/resolving-java-dependencies.md
-      - name: Java Dependency Verification
+      - name: Java dependency verification
         href: features/maven/java-dependency-verification.md
-  - name: Message Reference
+  - name: Message reference
     items:
-    - name: Message Reference
+    - name: Overview
       href: messages/index.md
     - name: "ADBxxxx: ADB tooling"
       items:
@@ -68,9 +78,9 @@
         href: messages/apt2264.md
       - name: APT2265
         href: messages/apt2265.md
-    - name: "JAVAxxxx: Java Tool"
+    - name: "JAVAxxxx: Java tool"
       items:
-      - name: "JAVAxxxx: Java Tool"
+      - name: "JAVAxxxx: Java tool"
         href: "messages/index.md#javaxxxx-java-tool"
       - name: JAVA0000
         href: messages/java0000.md
@@ -322,12 +332,11 @@
         href: messages/xa5302.md
     - name: "XA6xxx: Internal tools"
       href: "messages/index.md#xa6xxx-internal-tools"
-    - name: "XAccc7xxx: Unhandled MSBuild Exceptions"
+    - name: "XAccc7xxx: Unhandled MSBuild exceptions"
       href: "messages/index.md#xaccc7xxx-unhandled-msbuild-exceptions"
-    - name: "XA8xxx: Linker Step Errors"
+    - name: "XA8xxx: Linker step errors"
       items:
-      - name: "XA8xxx: Linker Step Errors"
+      - name: "XA8xxx: Linker step errors"
         href: "messages/index.md#xa8xxx-linker-step-errors"
       - name: XA8000/IL8000
         href: messages/xa8000.md
-

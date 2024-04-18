@@ -75,7 +75,7 @@ To enable these new features, set the
 [`$(AndroidGenerateLayoutBindings)`](../../building-apps/build-properties.md#androidgeneratelayoutbindings)
 MSBuild property to `True` either on the msbuild command line:
 
-```dotnet
+```dotnetcli
 dotnet build -p:AndroidGenerateLayoutBindings=true MyProject.csproj
 ```
 
@@ -563,7 +563,7 @@ single element with the `//*/@android:id` attribute, set the
 `$(AndroidGenerateLayoutBindings)` MSBuild property to `True` either on the
 msbuild command line:
 
-```dotnet
+```dotnetcli
 dotnet build -p:AndroidGenerateLayoutBindings=true MyProject.csproj
 ```
 

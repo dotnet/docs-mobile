@@ -9,7 +9,7 @@ Note: This feature is only available in .NET 9+.
 
 ## Description
 
-A common problem when creating Java binding libraries for .NET Android is not providing the required Java dependencies. The binding process ignores API that requires missing dependencies, so this can result in large portions of desired API not being bound.
+A common problem when creating Java binding libraries for .NET for Android is not providing the required Java dependencies. The binding process ignores API that requires missing dependencies, so this can result in large portions of desired API not being bound.
 
 Unlike .NET assemblies, a Java library does not specify its dependencies in the package. The dependency information is stored in external files called POM files. In order to consume this information to ensure correct dependencies an additional layer of files must be added to a binding project.
 
