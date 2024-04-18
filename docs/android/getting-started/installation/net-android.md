@@ -12,7 +12,7 @@ we recommend Visual Studio 2022 17.3 or greater, or Visual Studio Code.
 ## [Install via the Command Prompt or Terminal](#tab/commandline)
 <!-- markdownlint-enable MD025 -->
 
- 1. Install the latest .NET <https://dotnet.microsoft.com/download> for your particular platform
+ 1. Install the [latest .NET](https://dotnet.microsoft.com/download) for your particular platform
     and follow its [installation instructions](/dotnet/core/install).
 
  2. From a Command Prompt or Terminal run:
@@ -29,13 +29,13 @@ we recommend Visual Studio 2022 17.3 or greater, or Visual Studio Code.
 ## [Install via Visual Studio](#tab/visualstudio)
 <!-- markdownlint-enable MD025 -->
 
- 1. Install the latest Visual Studio: <https://visualstudio.microsoft.com/downloads/>
+ 1. Install the [latest Visual Studio](https://visualstudio.microsoft.com/downloads/).
 
- 2. Select the .NET Multi Platform App UI Development and any other workloads you want.
+ 2. Select the .NET Multi Platform App UI Development workload and any other workloads you want.
 
     ![Select .Net Multi Platform App UI WorkLoad](images/vs-install-select-maui.png)
 
- 3. Or select the .NET for Android SDK from the Individual Components Tab.
+ 3. Or select the .NET for Android SDK component from the Individual Components tab.
 
     ![Select .NET for Android SDK Component](images/vs-install-select-android-components.png)
 

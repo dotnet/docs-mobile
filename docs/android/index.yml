@@ -13,8 +13,28 @@ metadata:
   ms.topic: hub-page
   author: jonpryor
   ms.author: jopryo
-  ms.date: 04/15/2024
+  ms.date: 04/18/2024
 
+# highlightedContent section (Optional; Remove if not applicable.)
+# Maximum of 8 items
+highlightedContent:
+# itemType: architecture | concept | deploy | download | get-started | how-to-guide | training | overview | quickstart | reference | sample | tutorial | video | whats-new
+  items:
+    # Card
+    - title: Install .NET for Android
+      itemType: get-started
+      url: ./getting-started/installation/index.md
+
+# productDirectory section (Optional; Remove if not applicable.)
+productDirectory:
+  title: Learn to program with .NET for Android
+  summary: Major concepts and features of .NET for Android
+  items:
+    # Card
+    - title: Get started with .NET for Android
+      links:
+        - url: getting-started/installation/index.md
+          text: Installation
 
 conceptualContent:
 # itemType: reference
