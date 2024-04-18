@@ -9,6 +9,3 @@
     - name: Android
       tocHref: /dotnet/android/
       topicHref: /dotnet/android/index
-    - name: iOS
-      tocHref: /dotnet/ios/
-      topicHref: /dotnet/ios/index
