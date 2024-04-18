@@ -31,22 +31,6 @@ In broad terms, there are two types of Android application packages
 These package types match the MSBuild `Configuration` which
 produces the package.
 
-## Shared Runtime
-
-Prior to Xamarin.Android 11.2, the *shared runtime* was a pair
-of extra Android packages which
-provide the Base Class Library (`mscorlib.dll`, etc.) and the
-Android binding library (`Mono.Android.dll`, etc.). Debug builds
-rely upon the shared runtime in lieu of including the Base Class Library and
-Binding assemblies within the Android application package, allowing the
-Debug package to be smaller.
-
-The shared runtime could be disabled in Debug builds by setting the
-[`$(AndroidUseSharedRuntime)`](build-properties.md#androidusesharedruntime)
-property to `False`.
-
-Support for the Shared Runtime was removed in Xamarin.Android 11.2.
-
 <a name="Fast_Deployment"></a>
 
 ## Fast Deployment
