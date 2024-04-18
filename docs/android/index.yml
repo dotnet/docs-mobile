@@ -30,8 +30,6 @@ conceptualContent:
   # Supports up to 3 subsections
   sections:
     - title: .NET for Android reference
-      summary: >
-        The .NET for Android reference provides an informative reference for .NET for Android.
       items:
         # Card
         - title: Building Android Apps
