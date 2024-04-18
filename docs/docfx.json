@@ -48,6 +48,7 @@
     "externalReference": [],
     "globalMetadata": {
       "author": "dotnet-bot",
+      "breadcrumb_path": "/dotnet/android/breadcrumb/toc.json",
       "feedback_system": "OpenSource",
       "feedback_github_repo": "dotnet/docs-mobile",
       "feedback_product_url": "https://developercommunity.visualstudio.com/",
@@ -85,10 +86,6 @@
       "open_source_feedback_productName": {
         "android/**/*.md": ".NET for Android",
         "ios/**/*.md": ".NET for iOS"
-      },
-      "breadcrumb_path" : {
-        "android/**/*.md": "/dotnet/android/breadcrumb/toc.json",
-        "ios/**/*.md": "/dotnet/ios/breadcrumb/toc.json"
       }
     },
     "template": [],
