@@ -32,6 +32,7 @@ productDirectory:
   items:
     # Card
     - title: Get started with .NET for Android
+      imageSrc: media/android.png
       links:
         - url: getting-started/installation/index.md
           text: Installation
