@@ -17,7 +17,7 @@ we recommend Visual Studio 2022 17.3 or greater, or Visual Studio Code.
 
  2. From a Command Prompt or Terminal run:
 
-    ```dotnet
+    ```dotnetcli
     dotnet workload install android
     ```
 

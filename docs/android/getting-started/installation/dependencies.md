@@ -26,17 +26,19 @@ on a clean machine. You can change the destination of the installation by settin
 `AndroidSdkDirectory` MSBuild property.  It will also install the Java SDK if the `JavaSdkDirectory`
 MSBuild property is provided.
 
-```dotnet
+```dotnetcli
 dotnet build -t:InstallAndroidDependencies -f net8.0-android -p:AndroidSdkDirectory=c:\work\android-sdk -p:JavaSdkDirectory=c:\work\jdk -p:AcceptAndroidSdkLicenses=True
 ```
 
 Here are all the arguments which the target will use when installing the dependencies.
 
 * `-p:AndroidSdkDirectory="<PATH>"` installs or updates Android dependencies to the specified path.  
-    *Note*: You must use an absolute path; Unix developers should not use tilde (`~`).
+    *Note*: You must use an absolute path; Unix developers should not use tilde (`~`), as it is
+    not expanded when used *within* a command-line argument.
 
 * `-p:JavaSdkDirectory="<PATH>"` installs Java to the specified path.  
-    *Note*: You must use an absolute path; Unix developers should not use tilde (`~`).
+    *Note*: You must use an absolute path; Unix developers should not use tilde (`~`), as it is
+    not expanded when used *within* a command-line argument.
 
 * `-p:AcceptAndroidSDKLicenses=True` accepts the necessary Android licenses for development.
 
