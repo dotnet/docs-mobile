@@ -25,18 +25,6 @@ highlightedContent:
       itemType: get-started
       url: ./getting-started/installation/index.md
 
-# productDirectory section (Optional; Remove if not applicable.)
-productDirectory:
-  title: Learn to program with .NET for Android
-  summary: Major concepts and features of .NET for Android
-  items:
-    # Card
-    - title: Get started with .NET for Android
-      imageSrc: media/android.png
-      links:
-        - url: getting-started/installation/index.md
-          text: Installation
-
 conceptualContent:
 # itemType: reference
   # Supports up to 3 subsections
