@@ -9,7 +9,7 @@ Note: This feature is only available in .NET 9+.
 
 ## Description
 
-`<AndroidMavenLibrary>` allows a Maven artifact to be specified which will automatically be downloaded and added to a .NET Android binding project. This can be useful to simplify maintenance of .NET Android bindings for artifacts hosted in Maven.
+`<AndroidMavenLibrary>` allows a Maven artifact to be specified which will automatically be downloaded and added to a .NET for Android binding project. This can be useful to simplify maintenance of .NET for Android bindings for artifacts hosted in Maven.
 
 ## Specification
 
@@ -24,10 +24,10 @@ Note: This feature is only available in .NET 9+.
 
 This will do several things at build time:
 - Download the Java [artifact](https://central.sonatype.com/artifact/com.squareup.okhttp3/okhttp/4.9.3) with group id `com.squareup.okhttp3`, artifact id `okhttp`, and version `4.9.3` from [Maven Central](https://central.sonatype.com/) to a local cache (if not already cached).
-- Add the cached package to the .NET Android bindings build as an [`<AndroidLibrary>`](../../building-apps/build-items.md#androidlibrary).
+- Add the cached package to the .NET for Android bindings build as an [`<AndroidLibrary>`](../../building-apps/build-items.md#androidlibrary).
 - Download the Java artifact's POM file (and any needed parent/imported POM files) to enable [Java Dependency Verification](java-dependency-verification.md). To opt out of this feature, add `VerifyDependencies="false"` to the `<AndroidMavenLibrary>` item.
 
-Note that only the requested Java artifact is added to the .NET Android bindings build. Any artifact dependencies are not added. If the requested artifact has dependencies, they must be fulfilled individually.
+Note that only the requested Java artifact is added to the .NET for Android bindings build. Any artifact dependencies are not added. If the requested artifact has dependencies, they must be fulfilled individually.
 
 ### Options
 
