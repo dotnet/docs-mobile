@@ -1,11 +1,13 @@
 ---
 title: Resolving Java Dependencies in .NET for Android
 description: Resolving Java Dependencies in .NET for Android
-ms.date: 04/11/2024
+ms.author: jopobst
+ms.date: 05/11/2024
 ---
 # Resolving Java Dependencies
 
-Note: This feature is only available in .NET 9+.
+> [!NOTE]
+> Note: This feature is only available in .NET 9+.
 
 ## Description
 

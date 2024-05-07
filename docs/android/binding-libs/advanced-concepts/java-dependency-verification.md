@@ -1,7 +1,8 @@
 ---
 title: Java Dependency Verification in .NET for Android
 description: Java Dependency Verification in .NET for Android
-ms.date: 04/11/2024
+ms.author: jopobst
+ms.date: 05/11/2024
 ---
 # Java Dependency Verification
 
@@ -13,7 +14,8 @@ A common problem when creating Java binding libraries for .NET for Android is no
 
 Unlike .NET assemblies, a Java library does not specify its dependencies in the package. The dependency information is stored in external files called POM files. In order to consume this information to ensure correct dependencies an additional layer of files must be added to a binding project.
 
-Note: the preferred way of interacting with this system is to use [`<AndroidMavenLibrary>`](android-maven-library.md) which will automatically download any needed POM files.
+> [!TIP]
+> The preferred way of interacting with this system is to use [`<AndroidMavenLibrary>`](android-maven-library.md) which will automatically download any needed POM files.
 
 For example:
 
