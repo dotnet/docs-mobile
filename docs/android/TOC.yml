@@ -340,3 +340,15 @@
         href: "messages/index.md#xa8xxx-linker-step-errors"
       - name: XA8000/IL8000
         href: messages/xa8000.md
+  - name: Resources
+    items:
+    - name: .NET 8 Release Notes
+      items:
+      - name: .NET 8 34.0.95
+        href: https://github.com/xamarin/xamarin-android/releases/tag/34.0.95
+      - name: .NET 8 34.0.85
+        href: https://github.com/xamarin/xamarin-android/releases/tag/34.0.85
+      - name: .NET 8 34.0.79
+        href: https://github.com/xamarin/xamarin-android/releases/tag/34.0.85
+      - name: .NET 8 34.0.52
+        href: https://github.com/xamarin/xamarin-android/releases/tag/34.0.52
