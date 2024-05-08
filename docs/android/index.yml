@@ -78,7 +78,7 @@ additionalContent:
         # Card
         - title: ".NET API reference"
           summary: API reference documentation for .NET
-          url: /dotnet/api/index.md?view=net-8.0
+          url: /dotnet/api/?view=net-8.0
         # Card
         - title: ".NET for Android reference"
           summary: Android-specific API reference

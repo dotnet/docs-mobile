@@ -28,7 +28,7 @@ The following MSBuild metadata are required:
 - `%(JavaArtifact)`: The group and artifact id of the Java library matching the specifed POM
   file in the form `{GroupId}:{ArtifactId}`.
 - `%(JavaVersion)`: The version of the Java library matching the specified POM file.
-  
+
 See the [Java Dependency Resolution documentation](../features/maven/java-dependency-verification.md)
 for more details.
 
@@ -202,7 +202,7 @@ This simplification means you can use **AndroidLibrary** everywhere.
 ## AndroidLintConfig
 
 The Build action 'AndroidLintConfig' should be used in conjunction with the
-[`$(AndroidLintEnabled)`](/xamarin/android/deploy-test/building-apps/build-properties.md#androidlintenabled)
+[`$(AndroidLintEnabled)`](/xamarin/android/deploy-test/building-apps/build-properties#androidlintenabled)
 property. Files with this build action will be merged together and passed to the
 android `lint` tooling. They should be XML files containing information on
 tests to enable and disable.
@@ -245,9 +245,9 @@ installing app bundles.
 
 ## AndroidMavenLibrary
 
-`<AndroidMavenLibrary>` allows a Maven artifact to be specified which will 
-automatically be downloaded and added to a .NET for Android binding project. 
-This can be useful to simplify maintenance of .NET for Android bindings for artifacts 
+`<AndroidMavenLibrary>` allows a Maven artifact to be specified which will
+automatically be downloaded and added to a .NET for Android binding project.
+This can be useful to simplify maintenance of .NET for Android bindings for artifacts
 hosted in Maven.
 
 ```xml
@@ -319,7 +319,7 @@ However these Items MUST be URL encoded or use
 [`$([MSBuild]::Escape(''))`](/visualstudio/msbuild/how-to-escape-special-characters-in-msbuild).
 This is so MSBuild does not try to interpret them as actual file wildcards.
 
-For example 
+For example
 
 ```xml
 <ItemGroup>
@@ -331,7 +331,7 @@ For example
 NOTE: `*`, `?` and `.` will be replaced in the `BuildApk` task with the
 appropriate file globs.
 
-If the default file glob is too restrictive you can remove it by adding the 
+If the default file glob is too restrictive you can remove it by adding the
 following to your csproj
 
 ```xml
@@ -356,7 +356,7 @@ included from the final package. The default values are as follows
 Items can use file blob characters for wildcards such as `*` and `?`.
 However these Items MUST use URL encoding or '$([MSBuild]::Escape(''))'.
 This is so MSBuild does not try to interpret them as actual file wildcards.
-For example 
+For example
 
 ```xml
 <ItemGroup>
@@ -531,5 +531,5 @@ this build action, see
 [ProGuard](/xamarin/android/deploy-test/release-prep/proguard).
 
 These files are ignored unless the
-[`$(EnableProguard)`](/xamarin/android/deploy-test/building-apps/build-properties.md#enableproguard)
+[`$(EnableProguard)`](/xamarin/android/deploy-test/building-apps/build-properties#enableproguard)
 MSBuild property is `True`.

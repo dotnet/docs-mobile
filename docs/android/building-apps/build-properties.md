@@ -439,8 +439,8 @@ This property is `False` by default.
 
 An enum-style property with valid values of `obsolete` and `disable`.
 
-When set to `obsolete`, types and members that are marked with the Java annotation 
-`androidx.annotation.RestrictTo` *or* are in non-exported Java packages will 
+When set to `obsolete`, types and members that are marked with the Java annotation
+`androidx.annotation.RestrictTo` *or* are in non-exported Java packages will
 be marked with an `[Obsolete]` attribute in the C# binding.
 
 This `[Obsolete]` attribute has a descriptive message explaining that the
@@ -452,9 +452,9 @@ independently of "normal" obsolete API.
 When set to `disable`, API will be generated as normal with no additional
 attributes. (This is the same behavior as before .NET 8.)
 
-Adding `[Obsolete]` attributes instead of automatically removing the API was done to 
-preserve API compatibility with existing packages. If you would instead prefer to 
-*remove* members that have the `@RestrictTo` annotation *or* are in non-exported 
+Adding `[Obsolete]` attributes instead of automatically removing the API was done to
+preserve API compatibility with existing packages. If you would instead prefer to
+*remove* members that have the `@RestrictTo` annotation *or* are in non-exported
 Java packages, you can use [Transform files](/xamarin/android/platform/binding-java-library/customizing-bindings/java-bindings-metadata#metadataxml-transform-file) in addition to
 this property to prevent these types from being bound:
 
@@ -889,7 +889,7 @@ merging *AndroidManifest.xml* files. This is an enum-style property
 where `legacy` selects the original C# implementation
 and `manifestmerger.jar` selects Google's Java implementation.
 
-The default value is currently `manifestmerger.jar`. If you want to 
+The default value is currently `manifestmerger.jar`. If you want to
 use the old version add the following to your csproj
 
 ```xml
@@ -1551,8 +1551,7 @@ of the packaging process. If not specified, then the `-Xmx` option
 supplies **java** with a value of `1G`. This was found to be commonly
 required on Windows in comparison to other platforms.
 
-Specifying this property is necessary if the
-[`_CompileDex` target throws a `java.lang.OutOfMemoryError`](https://bugzilla.xamarin.com/18/18327/bug.html).
+Specifying this property is necessary if the `_CompileDex` target throws a `java.lang.OutOfMemoryError`.
 
 Customize the value by changing:
 
