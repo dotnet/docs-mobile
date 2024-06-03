@@ -5,13 +5,7 @@ ms.author: jopobst
 ms.date: 05/06/2024
 ---
 
-# Customizing Namespaces
-
-_Renaming Java package names to better fit C# namespaces conventions is a very common use of binding
- metadata. In order to make this task easier, customizations can be made in the MSBuild project file
- instead of writing metadata._
-
-## Overview
+# Customizing namespaces
 
 Java package names often do not match C# namespace conventions due to issues such as extra prefixes
 and capitalization differences.
@@ -53,7 +47,7 @@ If `@managedName` is used, you are opting to provide the exact desired name, it 
 
 Unlike unused metadata, these replacement will not raise a warning if they are unused.
 
-### Case Sensitivity
+### Case sensitivity
 
 Replacements run **_after_** the automatic Pascal case transform, but the compare is case-insensitive.
 
@@ -63,7 +57,7 @@ Thus, both of the following are equivalent:
 <AndroidNamespaceReplacement Include='androidx' Replacement='AndroidX' />
 ```
 
-### Word Bounds
+### Word bounds
 
 Replacements take place **_only_** on full words (namespace parts).
 
@@ -81,7 +75,7 @@ Multiple full words can be used:
 <AndroidNamespaceReplacement Include='Com.Androidx' Replacement='Microsoft.AndroidX' />
 ```
 
-### Word Position
+### Word position
 
 The word part match can be constrained to the beginning or end of a namespace by appending a `.` or prepending a `.`, respectively.
 
@@ -107,7 +101,7 @@ Both prepending and appending a `.` makes it an exact match.
 
 matches `Androidx`, but not `Google.Androidx.Core`.
 
-### Replacement Order
+### Replacement order
 
 Replacements run in the order specified by the `<ItemGroup>`, however adding to this group at different times may result in an unintended order.
 
@@ -120,7 +114,7 @@ Replacements are run sequentially, and multiple replacements may affect a single
 
 changes `Androidx.View` to `Microsoft.AndroidX.Views`.
 
-## Relation to Metadata
+## Relation to metadata
 
 Technically `@(AndroidNamespaceReplacement)` is implemented as a special case of `<metadata>`, and can be placed directly in a `metadata.xml` file in  
 metadata form if desired.

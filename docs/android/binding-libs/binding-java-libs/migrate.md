@@ -7,10 +7,6 @@ ms.date: 05/08/2024
 
 # Migrating a Xamarin.Android binding project
 
-_This documentation provides guidance on migrating a Classic Xamarin.Android bindings project to a .NET for Android bindings project._
-
-## Overview
-
 The [MAUI documentation](/dotnet/maui) provides an upgrade guide for migrating Classic Xamarin.Android bindings project (`MonoAndroid13.0`, etc)
 to .NET for Android bindings projects (`net8.0-android`, etc.).
 

@@ -4,12 +4,11 @@ description: Resolving Java Dependencies in .NET for Android
 ms.author: jopobst
 ms.date: 05/11/2024
 ---
-# Resolving Java Dependencies
+
+# Resolving Java dependencies
 
 > [!NOTE]
-> Note: This feature is only available in .NET 9+.
-
-## Description
+> This feature is only available in .NET 9+.
 
 Once Java dependency verification has been enabled for a bindings project, either automatically via `<AndroidMavenLibrary>` or manually via `<AndroidLibrary>`, there may be errors to resolve, such as:
 
@@ -46,7 +45,8 @@ However there may be NuGet packages which fulfill a dependency but have not had 
 
 With this, the binding process knows the Java dependency is satisfied by the NuGet package.
 
-> Note: NuGet packages specify their own dependencies, so you will not need to worry about transitive dependencies.
+> [!NOTE]
+> NuGet packages specify their own dependencies, so you will not need to worry about transitive dependencies.
 
 ## `<ProjectReference>`
 
@@ -61,7 +61,8 @@ If the needed Java dependency is provided by another project in your solution, y
 
 With this, the binding process knows the Java dependency is satisfied by the referenced project.
 
-> Note: Each project specifies their own dependencies, so you will not need to worry about transitive dependencies.
+> [!NOTE]
+> Each project specifies their own dependencies, so you will not need to worry about transitive dependencies.
 
 ## `<AndroidLibrary>`
 
@@ -93,7 +94,8 @@ Alternatively, `<AndroidMavenLibrary>` can be used to retrieve a Java library fr
 </ItemGroup>
 ```
 
-> Note: If the dependency library has its own dependencies, you will be required to ensure they are fulfilled.
+> [!NOTE]
+> If the dependency library has its own dependencies, you will be required to ensure they are fulfilled.
 
 ## `<AndroidIgnoredJavaDependency>`
 

@@ -5,7 +5,7 @@ ms.author: jopobst
 ms.date: 05/08/2024
 ---
 
-# Creating Enumerations
+# Creating enumerations
 
 There are cases where Java Android libraries use integer constants to 
 represent states that are passed to properties or methods of the 
@@ -26,7 +26,7 @@ constants and a C# enumeration
 currently take an `int` method parameter or have an `int` return type
 should be modified to use an enumeration instead.
 
-### Defining an Enum using EnumFields.xml
+### Defining an enum using EnumFields.xml
 
 The **EnumFields.xml** file contains the mapping between Java `int` 
 constants and C# `enums`. Let's take the following example of a C# enum 
@@ -47,7 +47,7 @@ the Java constant (example `UNIT_SECOND`), the name of the enum entry
 (example `Second`), and the integer value represented by both 
 entities (example `0`). 
 
-### Defining Getter/Setter Methods using EnumMethods.xml
+### Defining getter/setter methods using EnumMethods.xml
 
 The **EnumMethods.xml** file allows changing method parameters and
 return types from Java `int` constants to C# `enums`. In other words,

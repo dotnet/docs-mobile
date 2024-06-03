@@ -6,9 +6,8 @@ ms.date: 05/11/2024
 ---
 # AndroidMavenLibrary
 
-Note: This feature is only available in .NET 9+.
-
-## Description
+> [!NOTE]
+> This feature is only available in .NET 9+.
 
 `<AndroidMavenLibrary>` allows a Maven artifact to be specified which will automatically be downloaded and added to a .NET for Android binding project. This can be useful to simplify maintenance of .NET for Android bindings for artifacts hosted in Maven.
 

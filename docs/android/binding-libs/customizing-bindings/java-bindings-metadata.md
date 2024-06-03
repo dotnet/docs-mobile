@@ -5,11 +5,7 @@ ms.author: jopobst
 ms.date: 05/09/2024
 ---
 
-# Java Bindings Metadata
-
-_C# code in .NET for Android calls Java libraries through bindings, which are a mechanism that abstracts the low-level details that are specified in Java Native Interface (JNI). .NET for Android provides a tool that generates these bindings. This tooling lets the developer control how a binding is created by using metadata, which allows procedures such as modifying namespaces and renaming members. This document discusses how metadata works, summarizes the attributes that metadata supports, and explains how to resolve binding problems by modifying this metadata._
-
-## Overview
+# Java bindings metadata
 
 A .NET for Android **Java Binding Library** tries to automate much of
 the work necessary for binding an existing Android library with the
@@ -71,7 +67,7 @@ allows general-purpose changes to the binding such as:
 - Adding additional support classes to make the design of the binding 
     follow .NET framework patterns. 
 
-## Metadata.xml Transform File
+## Metadata.xml transform file
 
 As we've already learned, the file **Metadata.xml** is used by the
 Bindings Generator to influence the creation of the binding assembly.
@@ -117,7 +113,7 @@ the Java API's:
 
 - `parameter` &ndash; Identify a parameter for a method. e.g. `/parameter[@name='p0']`
 
-### Adding Types
+### Adding types
 
 The `add-node` element will tell the .NET for Android binding project to
 add a new class to **api.xml**. For example, the following
@@ -133,7 +129,7 @@ constructor and a single field:
 </add-node>
 ```
 
-### Removing Types
+### Removing types
 
 It is possible to instruct the .NET for Android Bindings Generator to
 ignore a Java type and not bind it. This is done by adding a
@@ -143,7 +139,7 @@ ignore a Java type and not bind it. This is done by adding a
 <remove-node path="/api/package[@name='{package_name}']/class[@name='{name}']" />
 ```
 
-### Renaming Members
+### Renaming members
 
 Renaming members cannot be done by directly editing the **api.xml**
 file because .NET for Android requires the original Java 
@@ -187,7 +183,7 @@ as classes, interfaces, methods, and parameters.
 
 <a name="Renaming_EventArg_Wrapper_Classes"></a>
 
-#### Renaming `EventArg` Wrapper Classes
+#### Renaming `EventArg` wrapper classes
 
 When the .NET for Android binding generator identifies an `onXXX` setter
 method for a _listener type_, a C# event and `EventArgs` subclass will
@@ -218,7 +214,7 @@ for the `EventArgs` subclass:
     name="argsType">NavigationManager.TwoDSignNextManueverEventArgs</attr>
 ```
 
-## Supported Attributes
+## Supported attributes
 
 The following sections describe some of the attributes for transforming Java APIs.
 
@@ -364,8 +360,8 @@ Java method so that it's corresponding C# wrapper is `public`:
 <attr path="/api/package[@name='namespace']/class[@name='ClassName']/method[@name='MethodName']" name="visibility">public</attr>
 ```
 
-## Related Links
+## Related links
 
-- [Binding Java libraries](../binding-java-libs/overview.md)
+- [Binding Java libraries](../binding-java-libs/index.md)
 - [Metadata cheat sheet](https://github.com/xamarin/java.interop/wiki/Metadata-Cheat-Sheet)
 - [Troubleshooting bindings](troubleshooting-bindings.md)
