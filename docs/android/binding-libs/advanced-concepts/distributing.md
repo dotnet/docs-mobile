@@ -7,8 +7,6 @@ ms.date: 05/08/2024
 
 # Distributing bindings libraries
 
-_Once a Java library has been bound, it may be desirable to distribute it internally or via NuGet for consumption._
-
 Once a Java library has been bound to be used in .NET for Android, there
 are multiple ways it can be consumed:
 
@@ -68,7 +66,7 @@ using a `<ProjectReference>` is generally the easiest way to consume the binding
 The build system will be responsible for adding the managed bindings as well as any
 `.jar`/`.aar` files to the application project.
 
-## NuGet Package
+## NuGet package
 
 As a property inherited from .NET SDK-style projects, any bindings library can be
 trivially packaged into a redistributable NuGet package by using the "Pack" command
@@ -87,7 +85,7 @@ in the NuGet package.
 
 NuGet packages can be customized using the [standard .NET MSBuild elements](/nuget/create-packages/creating-a-package-dotnet-cli#set-properties).
 
-## File Reference
+## File reference
 
 If neither of the above options are possible, the binding `.dll` can be referenced
 directly with a `<Reference>` element. Note that any Java libraries that are part

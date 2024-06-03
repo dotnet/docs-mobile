@@ -55,7 +55,7 @@ conceptualContent:
         # Card
         - title: Bind Android Java libraries
           links:
-            - url: ./binding-libs/binding-java-libs/overview.md
+            - url: ./binding-libs/binding-java-libs/index.md
               itemType: reference
               text: Overview
             - url: ./binding-libs/binding-java-libs/binding-java-library.md
@@ -64,7 +64,7 @@ conceptualContent:
             - url: ./binding-libs/binding-java-libs/binding-java-maven-library.md
               itemType: reference
               text: Bind a Java library from Maven
-            - url: ./binding-libs/customizing-bindings/overview.md
+            - url: ./binding-libs/customizing-bindings/index.md
               itemType: reference
               text: Customize bindings
             - url: ./binding-libs/customizing-bindings/troubleshooting-bindings.md

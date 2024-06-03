@@ -5,14 +5,12 @@ ms.author: jopobst
 ms.date: 05/08/2024
 ---
 
-# Binding Projects MSBuild Items
-
-_This guide documents the various MSBuild items available for Java library bindings projects._
+# Binding projects MSBuild items
 
 > [!NOTE]
 > In .NET for Android there is technically no distinction between an application and a bindings project, so these items will work in both. In practice it is highly recommended to create separate application and bindings projects. Build items that are primarily used in application projects are documented in the [MSBuild items](../../building-apps/build-items.md) reference guide.
 
-## Build Items
+## Build items
 
 | Item | Description |
 | - | - |
@@ -24,7 +22,7 @@ _This guide documents the various MSBuild items available for Java library bindi
 | `AndroidNamespaceReplacement ` | Represents a transform that should be applied to a Java package name to make the resulting managed namespace better fit .NET conventions.<br /><br />[Documentation](../customizing-bindings/namespace-customization.md) |
 | `JavaSourceJar` | Represents a Java **source code** `.jar` that API documentation should be imported from.<br /><br />[Documentation](#javasourcejar) |
 
-## Deprecated Build Items
+## Deprecated build items
 
 These MSBuild items have been deprecated. While they continue to function, it is recommended to migrate to
 the listed newer items.

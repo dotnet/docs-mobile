@@ -27,7 +27,7 @@
   - name: Bind Java libraries
     items:
     - name: Overview
-      href: binding-libs/binding-java-libs/overview.md
+      href: binding-libs/binding-java-libs/index.md
     - name: Bind a Java library
       href: binding-libs/binding-java-libs/binding-java-library.md
     - name: Bind a Java library from Maven
@@ -37,7 +37,7 @@
     - name: Customize bindings
       items:
       - name: Overview
-        href: binding-libs/customizing-bindings/overview.md
+        href: binding-libs/customizing-bindings/index.md
       - name: Customize namespaces
         href: binding-libs/customizing-bindings/namespace-customization.md
       - name: Java bindings metadata

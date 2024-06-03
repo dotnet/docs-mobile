@@ -5,7 +5,7 @@ ms.author: jopobst
 ms.date: 05/11/2024
 ---
 
-# Binding a Java Library from Maven
+# Binding a Java library from Maven
 
 A common binding scenario is binding a Java library hosted in a Maven repository (like [Maven Central](https://central.sonatype.com/)).
 
@@ -30,7 +30,7 @@ identifiers for this library which will be needed later:
 </dependency>
 ```
 
-### Creating the Bindings Library
+### Creating the bindings library
 
 First, create a new Bindings Library project. This can be done with the "Android Java Binding Library" project
 template available in Visual Studio or via the `dotnet` command line with:
@@ -58,9 +58,9 @@ dotnet build
 This Java library has now been bound and it ready to be referenced by a .NET for Android application project
 or published to NuGet for public consumption.
 
-## Additional Options
+## Additional options
 
-### Skip Managed Bindings
+### Skip managed bindings
 
 By default, C# bindings will be created for any .JAR/.AAR placed in the project. However C# bindings can be
 tricky to create and are not necessary if you do not intend to call the Java API from C#.
@@ -75,7 +75,7 @@ include the Java dependency but not bind it.
 </ItemGroup>
 ```
 
-## Next Steps
+## Next steps
 
 - **`AndroidMavenLibrary` Options** - The walkthrough library was automatically downloaded from Maven
 Central which is the default repository. Other Maven repositories and options can be specified.

@@ -5,11 +5,7 @@ ms.author: jopobst
 ms.date: 05/09/2024
 ---
 
-# Troubleshooting Bindings
-
-_This article summarizes serveral common errors that may occur when generating bindings, along with possible causes and suggested ways to resolve them._
-
-## Overview
+# Troubleshooting bindings
 
 Binding an Android library (an **.aar** or a **.jar**) file is seldom a
 straightforward affair; it usually requires additional effort to
@@ -45,7 +41,7 @@ It can also prove helpful to decompile the Android library and examine
 the types and methods that .NET for Android is trying to bind. This is
 covered in more detail later on in this guide.
 
-## Decompiling an Android Library
+## Decompiling an Android library
 
 Inspecting the classes and methods of the Java classes can provide
 valuable information that will assist in binding a library.
@@ -80,7 +76,7 @@ Once you have decompiled the Android library, examine the source code. Generally
 > of a legal professional before attempting to decompile a Java library
 > and inspect the source code.
 
-## Inspect API.XML
+## Inspect api.xml
 
 As a part of building a binding project, .NET for Android will generate
 an XML file name **obj/Debug/api.xml**:
@@ -95,7 +91,7 @@ be causing any binding problems. For example, **api.xml** might reveal
 that a property is returning an inappropriate type, or that there are
 two types that share the same managed name.
 
-## Known Issues
+## Known issues
 
 This section will list some of the common error messages or symptoms
 that my occur when trying to bind an Android library.
@@ -106,7 +102,7 @@ The binding **.dll** builds but misses some Java types, or the
 generated C# source does not build due to an error stating there are
 missing types.
 
-#### Possible Causes:
+#### Possible causes:
 
 This error may occur due to several reasons as listed below:
 
@@ -147,7 +143,7 @@ This error may occur due to several reasons as listed below:
 The generated C# source does not build. Overridden method's parameter
 types do not match.
 
-#### Possible Causes:
+#### Possible causes:
 
 .NET for Android includes a variety of Java fields that are mapped to
 enums in the C# bindings. These can cause type incompatibilities in the
@@ -165,7 +161,7 @@ occurs:
 error CS0102: The type `Com.Google.Ads.Mediation.DismissScreenEventArgs' already contains a definition for `p0'
 ```
 
-#### Possible Causes:
+#### Possible causes:
 
 This is because there is some conflict between event types that come
 from more than one interface "listener" type that shares methods having
@@ -221,7 +217,7 @@ implement interface member 'Oauth.Signpost.Http.IHttpRequest.Unwrap()'.
 return type of 'Java.Lang.Object'
 ```
 
-#### Possible Causes:
+#### Possible causes:
 
 This is a problem that occurs with binding Java methods with covariant
 return types. In this example, the method
@@ -257,7 +253,7 @@ issue:
   </attr>
   ```
 
-### Problem: Name Collisions on Inner Classes / Properties
+### Problem: Name collisions on inner classes / properties
 
 Conflicting visibility on inherited objects.
 
@@ -276,7 +272,7 @@ how to change a Java package name from `com.evernote.android.job` to
 <attr path="/api/package[@name='namespace']/class[@name='ClassName']/method[@name='MethodName']" name="visibility">public</attr>
 ```
 
-### Problem: A **.so** Library Required by the Binding is Not Loading
+### Problem: A **.so** library required by the binding is not loading
 
 Some binding projects may also depend on functionality in a **.so**
 library. It is possible that .NET for Android will not automatically
@@ -296,7 +292,7 @@ before using the shared library) will load the **.so** library:
 Java.Lang.JavaSystem.LoadLibrary("pocketsphinx_jni");
 ```
 
-## Related Links
+## Related links
 
 - [Troubleshooting Tips on Binding Tooling GitHub repository wiki](https://github.com/xamarin/java.interop/wiki/Troubleshooting-Android-Bindings-Issues)
 - [Library Projects](https://developer.android.com/tools/projects/index.html#LibraryProjects)

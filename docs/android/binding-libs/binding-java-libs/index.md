@@ -5,11 +5,7 @@ ms.author: jopobst
 ms.date: 05/08/2024
 ---
 
-# Binding Java Libraries
-
-_The Android community has many Java libraries that you may want to use in your app; this guide explains how to incorporate Java libraries into your .NET for Android application by creating a Bindings Library._
-
-## Overview
+# Binding Java libraries
 
 The third-party library ecosystem for Android is massive. Because of this, it frequently makes sense to use an existing 
 Android library than to create a new one. 
@@ -73,7 +69,7 @@ The .NET for Android Binding Generator will change some Java idioms and patterns
 
 - An _Inner class_ in Java is a _Nested class_ with an instance constructor in C#.
 
-## Including a Native Library in a Binding
+## Including a native library in a binding
 
 It may be necessary to include a **.so** library in a .NET for Android binding project as a part of binding a Java library. When the wrapped Java code executes, .NET for Android will fail to make the JNI call and the error message _java.lang.UnsatisfiedLinkError: Native method not found:_ will appear in the logcat out for the application.
 
@@ -83,7 +79,7 @@ The fix for this is to manually load the **.so** library with a call to `Java.La
 Java.Lang.JavaSystem.LoadLibrary("pocketsphinx_jni");
 ```
 
-## Binding Scenarios
+## Binding scenarios
 
 The following binding scenario guides can help you bind a Java library (or libraries) for incorporation into your app:
 
@@ -92,6 +88,6 @@ The following binding scenario guides can help you bind a Java library (or libra
 
 - [Binding a Java library from Maven](binding-java-maven-library.md) is a walkthrough for creating Bindings Libraries for **.jar**/**.aar** files that are hosted in a Maven repository.
 
-- [Customizing bindings](../customizing-bindings/overview.md) explains how to make manual modifications to the binding to resolve build errors and shape the resulting API so that it is more "C#-like".
+- [Customizing bindings](../customizing-bindings/index.md) explains how to make manual modifications to the binding to resolve build errors and shape the resulting API so that it is more "C#-like".
 
 - [Troubleshooting bindings](../customizing-bindings/troubleshooting-bindings.md) lists common binding error scenarios, explains possible causes, and offers suggestions for resolving these errors.

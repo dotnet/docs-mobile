@@ -4,11 +4,11 @@ description: Java Dependency Verification in .NET for Android
 ms.author: jopobst
 ms.date: 05/11/2024
 ---
-# Java Dependency Verification
 
-Note: This feature is only available in .NET 9+.
+# Java dependency Verification
 
-## Description
+> [!NOTE]
+> This feature is only available in .NET 9+.
 
 A common problem when creating Java binding libraries for .NET for Android is not providing the required Java dependencies. The binding process ignores API that requires missing dependencies, so this can result in large portions of desired API not being bound.
 
@@ -67,7 +67,7 @@ error : Java dependency 'androidx.collection:collection' version '1.0.0' is not 
 
 Seeing these error(s) or no errors should indicate that the Java dependency verification is working. Follow the [Resolving Java Dependencies](resolving-java-dependencies.md) guide to fix any missing dependency errors.
 
-## Additional POM Files
+## Additional POM files
 
 POM files can sometimes have some optional features in use that make them more complicated than the above example.
 

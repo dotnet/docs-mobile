@@ -5,7 +5,7 @@ ms.author: jopobst
 ms.date: 05/07/2024
 ---
 
-# Binding a Java Library
+# Binding a Java library
 
 The Android community offers many Java libraries that you may want to
 use in your app. These Java libraries are often packaged in .JAR (Java
@@ -25,7 +25,7 @@ In this walkthrough, we are going to bind version `3.1.0` of CircleImageView, a 
 From the [Maven repository](https://mvnrepository.com/artifact/de.hdodenhof/circleimageview/3.1.0), 
 download `circleimageview-3.1.0.aar` locally to be bound.
 
-### Creating the Bindings Library
+### Creating the bindings library
 
 First, create a new Bindings Library project. This can be done with the "Android Java Binding Library" project
 template available in Visual Studio or via the `dotnet` command line with:
@@ -49,9 +49,9 @@ dotnet build
 This Java library has now been bound and it ready to be referenced by a .NET for Android application project
 or published to NuGet for public consumption.
 
-## Additional Options
+## Additional options
 
-### Skip Managed Bindings
+### Skip managed bindings
 
 By default, C# bindings will be created for any .JAR/.AAR placed in the project. However C# bindings can be
 tricky to create and are not necessary if you do not intend to call the Java API from C#.
@@ -69,7 +69,7 @@ include the Java dependency but not bind it.
 Note if using automatic imports you will need to use `Update` to change the automatically imported file
 instead of adding an additional copy with `Include`.
 
-### Java Dependencies
+### Java dependencies
 
 A Java library may depend on other Java libraries which will be required to be packaged with your application
 in order for your application to work. This information is traditionally provided in a .POM file, and it
@@ -111,7 +111,7 @@ error XA4242: Java dependency 'org.jetbrains.kotlin:kotlin-stdlib:1.9.0' is not 
 Additional information on configuring Java Dependency Verification and how to satisfy dependencies can
 by found in the [documentation](../advanced-concepts/java-dependency-verification.md).
 
-## Next Steps
+## Next steps
 
 - **Customizing Bindings with Metadata** - The Java library bound in the walkthrough is trivial and the
 binding tooling was able to fully automatically convert it to a C# API. Unfortunately this is often not

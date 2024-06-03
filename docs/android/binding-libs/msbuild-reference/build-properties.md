@@ -5,14 +5,12 @@ ms.author: jopobst
 ms.date: 05/08/2024
 ---
 
-# Binding Projects MSBuild Properties
-
-_This guide documents the various MSBuild properties available for Java library bindings projects._
+# Binding projects MSBuild properties
 
 > [!NOTE]
 > In .NET for Android there is technically no distinction between an application and a bindings project, so these properties will work in both. In practice it is highly recommended to create separate application and bindings projects. Build properties that are primarily used in application projects are documented in the [MSBuild properties](../../building-apps/build-properties.md) reference guide.
 
-## Build Properties
+## Build properties
 
 | Property | Default | Description |
 |----------------------------------|------------------------| - | - |
