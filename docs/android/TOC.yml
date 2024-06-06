@@ -33,7 +33,7 @@
     - name: Bind a Java library from Maven
       href: binding-libs/binding-java-libs/binding-java-maven-library.md
     - name: Migrate a Xamarin.Android bindings project
-      href: binding-libs/binding-java-libs/migrate.md
+      href: /dotnet/maui/migration/android-binding-projects?toc=/dotnet/android/toc.json&bc=/dotnet/android/breadcrumb/toc.json
     - name: Customize bindings
       items:
       - name: Overview
