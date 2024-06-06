@@ -9,3 +9,6 @@
     - name: Android
       tocHref: /dotnet/android/
       topicHref: /dotnet/android/index
+    - name: Android
+      tocHref: /dotnet/maui/
+      topicHref: /dotnet/android/index
