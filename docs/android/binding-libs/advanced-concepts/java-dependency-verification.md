@@ -5,7 +5,7 @@ ms.author: jopobst
 ms.date: 05/11/2024
 ---
 
-# Java dependency Verification
+# Java dependency verification
 
 > [!NOTE]
 > This feature is only available in .NET 9+.

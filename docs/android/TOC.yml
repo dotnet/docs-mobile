@@ -54,7 +54,7 @@
       items:
       - name: AndroidMavenLibrary reference
         href: binding-libs/advanced-concepts/android-maven-library.md
-      - name: Java dependency resolution
+      - name: Java dependency verification
         href: binding-libs/advanced-concepts/java-dependency-verification.md
       - name: Resolve Java dependencies
         href: binding-libs/advanced-concepts/resolving-java-dependencies.md
