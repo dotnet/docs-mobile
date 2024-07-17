@@ -29,13 +29,11 @@ automatically gets expanded to:
 <AndroidLibrary 
   Include="<MavenCacheDir>/Central/com.squareup.okio/okio/1.17.4/com.squareup.okio_okio.jar" 
   Manifest="<MavenCacheDir>/Central/com.squareup.okio/okio/1.17.4/com.squareup.okio_okio.pom"
-  JavaArtifact="com.squareup.okio:okio" 
-  JavaVersion="1.17.4" />
+  JavaArtifact="com.squareup.okio:okio:1.17.4" />
   
 <AndroidAdditionalJavaManifest
   Include="<MavenCacheDir>/Central/com.squareup.okio/okio-parent/1.17.4/okio-parent-1.17.4.pom"
-  JavaArtifact="com.squareup.okio:okio-parent"
-  JavaVersion="1.17.4" />
+  JavaArtifact="com.squareup.okio:okio-parent:1.17.4" />
   
 etc.
 ```
@@ -44,16 +42,15 @@ However it is also possible to manually opt in to Java dependency verification u
 
 ## Specification
 
-To manually opt in to Java dependency verification, add the `Manifest`, `JavaArtifact`, and `JavaVersion` attributes to an `<AndroidLibrary>` item:
+To manually opt in to Java dependency verification, add the `Manifest` and `JavaArtifact` attributes to an `<AndroidLibrary>` item:
 
 ```xml
-<!-- JavaArtifact format is {GroupId}:{ArtifactId} -->
+<!-- JavaArtifact format is {GroupId}:{ArtifactId}:{Version} -->
 <ItemGroup>
   <AndroidLibrary
     Include="my_binding_library.jar"
     Manifest="my_binding_library.pom"
-    JavaArtifact="com.example:mybinding"
-    JavaVersion="1.0.0" />
+    JavaArtifact="com.example:mybinding:1.0.0" />
 </ItemGroup>
 ```
 
@@ -106,12 +103,11 @@ error : Unable to resolve POM for artifact 'com.squareup.okio:okio-parent:1.17.4
 In this case, we need to provide the POM file for `com.squareup.okio:okio-parent:1.17.4`:
 
 ```xml
-<!-- JavaArtifact format is {GroupId}:{ArtifactId} -->
+<!-- JavaArtifact format is {GroupId}:{ArtifactId}:{Version} -->
 <ItemGroup>
   <AndroidAdditionalJavaManifest
     Include="com.square.okio.okio-parent.1.17.4.pom"
-    JavaArtifact="com.squareup.okio:okio-parent"
-    JavaVersion="1.17.4" />
+    JavaArtifact="com.squareup.okio:okio-parent:1.17.4" />
 </ItemGroup>
 ```
 

@@ -33,14 +33,13 @@ Adding the `Xamarin.AndroidX.Collection` package to the project should automatic
 <PackageTags>artifact=androidx.collection:collection:1.0.0</PackageTags>
 ```
 
-However there may be NuGet packages which fulfill a dependency but have not had this metadata added to it.  In this case, you will need to explicitly specify which dependency the package contains with `JavaArtifact` and `JavaVersion`:
+However there may be NuGet packages which fulfill a dependency but have not had this metadata added to it.  In this case, you will need to explicitly specify which dependency the package contains with `JavaArtifact`:
 
 ```xml
 <PackageReference 
   Include="Xamarin.Kotlin.StdLib" 
   Version="1.7.10" 
-  JavaArtifact="org.jetbrains.kotlin:kotlin-stdlib" 
-  JavaVersion="1.7.10" />
+  JavaArtifact="org.jetbrains.kotlin:kotlin-stdlib:1.7.10" />
 ```
 
 With this, the binding process knows the Java dependency is satisfied by the NuGet package.
@@ -55,8 +54,7 @@ If the needed Java dependency is provided by another project in your solution, y
 ```xml
 <ProjectReference 
   Include="..\My.Other.Binding\My.Other.Binding.csproj" 
-  JavaArtifact="my.other.binding:helperlib" 
-  JavaVersion="1.0.0" />
+  JavaArtifact="my.other.binding:helperlib:1.0.0" />
 ```
 
 With this, the binding process knows the Java dependency is satisfied by the referenced project.
@@ -72,7 +70,7 @@ This can be done by adding additional `<AndroidLibrary>` items to the project:
 
 ```xml
 <ItemGroup>
-  <AndroidLibrary Include="mydependency.jar" JavaArtifact="my.library:dependency-library" JavaVersion="1.0.0" />
+  <AndroidLibrary Include="mydependency.jar" JavaArtifact="my.library:dependency-library:1.0.0" />
 </ItemGroup>
 ```
 
@@ -80,7 +78,7 @@ To include the Java library but not produce C# bindings for it, mark it with `Bi
 
 ```xml
 <ItemGroup>
-  <AndroidLibrary Include="mydependency.jar" JavaArtifact="my.library:dependency-library" JavaVersion="1.0.0" Bind="false" />
+  <AndroidLibrary Include="mydependency.jar" JavaArtifact="my.library:dependency-library:1.0.0" Bind="false" />
 </ItemGroup>
 ```
 
@@ -105,6 +103,9 @@ Note that while the error message will go away, it does not mean the package wil
 
 ```xml
 <ItemGroup>
-  <AndroidIgnoredJavaDependency Include="com.google.errorprone:error_prone_annotations" Version="2.15.0" />
+  <AndroidIgnoredJavaDependency Include="com.google.errorprone:error_prone_annotations:2.15.0" />
 </ItemGroup>
 ```
+
+> [!NOTE]
+> Any usage of `JavaArtifact` can specify multiple artifacts by delimiting them with a comma or semicolon.
