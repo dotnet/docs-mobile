@@ -29,23 +29,6 @@ For example, given the file `Reources\layout\Main.axml` with contents:
 </LinearLayout>
 ```
 
-Then during build-time a `_Microsoft.Android.Resource.Designer.dll` assembly
-with contents similar to:
-
-```csharp
-namespace _Microsoft.Android.Resource.Designer;
-
-partial class Resource {
-  partial class Id {
-    public static int myButton               {get;}
-    public static int log_fragment           {get;}
-    public static int secondary_log_fragment {get;}
-  }
-  partial class Layout {
-    public static int Main                   {get;}
-  }
-}
-```
 
 *Traditionally*, interacting with Resources would be done in code, using the
 constants from the `Resource` type and the `FindViewById<T>()` method:
