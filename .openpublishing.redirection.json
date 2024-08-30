@@ -1,0 +1,16 @@
+{
+    "redirections": [
+        {
+            "source_path": "docs/android/features/maven/android-maven-library.md",
+            "redirect_url": "docs/android/binding-libs/advanced-concepts/android-maven-library"
+        },
+        {
+            "source_path": "docs/android/features/maven/java-dependency-verification.md",
+            "redirect_url": "docs/android/binding-libs/advanced-concepts/java-dependency-verification"
+        },
+        {
+            "source_path": "docs/android/features/maven/resolving-java-dependencies.md",
+            "redirect_url": "docs/android/binding-libs/advanced-concepts/resolving-java-dependencies"
+        }
+    ]
+}
