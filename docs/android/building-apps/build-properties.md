@@ -11,6 +11,9 @@ MSBuild properties control the behavior of the
 They're specified within the project file, for example **MyApp.csproj**, within
 an [MSBuild PropertyGroup](/visualstudio/msbuild/propertygroup-element-msbuild).
 
+> [!NOTE]
+> In .NET for Android there is technically no distinction between an application and a bindings project, so properties will work in both. In practice it is highly recommended to create separate application and bindings projects. Properties that are primarily used in bindings projects are documented in the [MSBuild bindings project properties](../binding-libs/msbuild-reference/build-properties.md) reference guide.
+
 ## AdbTarget
 
 The `$(AdbTarget)` property specifies the Android target device the
@@ -153,7 +156,7 @@ for details about available feature switches.
 
 Added in .NET 8.
 
-[feature-switches]: https://github.com/dotnet/runtime/blob/main/docs/workflow/trimming/feature-switches.md
+[feature-switches]: /dotnet/core/deploying/trimming/trimming-options?pivots=dotnet-8-0#trim-framework-library-features
 
 ## AndroidBinUtilsPath
 
@@ -190,32 +193,6 @@ implements a .NET type or interface in terms of Java types, for example
 
   `System` is the default value.
 
-## AndroidBoundInterfacesContainConstants
-
-A boolean property that
-determines whether binding constants on interfaces will be supported,
-or the workaround of creating an `IMyInterfaceConsts` class
-will be used.
-
-The default value is `True`.
-
-## AndroidBoundInterfacesContainStaticAndDefaultInterfaceMethods
-
-A boolean property that
-whether default and static members on interfaces will be supported,
-or  old workaround of creating a sibling class containing static
-members like `abstract class MyInterface`.
-
-The default value is `True` in .NET 6 and `False` for legacy.
-
-## AndroidBoundInterfacesContainTypes
-
-A boolean property that
-whether types nested in interfaces will be supported, or the workaround
-of creating a non-nested type like `IMyInterfaceMyNestedClass`.
-
-The default value is `True` in .NET 6 and `False` for legacy.
-
 ## AndroidBuildApplicationPackage
 
 A boolean value that
@@ -246,30 +223,6 @@ This property is only relevant if
 Specifies
 command-line options to pass to the **bundletool** command when
 build app bundles.
-
-## AndroidClassParser
-
-A string property that controls how
-`.jar` files are parsed. Possible values include:
-
-- **class-parse**: Uses `class-parse.exe` to parse Java bytecode
-  directly, without assistance of a JVM.
-
-- **jar2xml**: this value is obsolete and is no longer supported.
-
-## AndroidCodegenTarget
-
-A string property that controls the code generation target ABI.
-Possible values include:
-
-- **XamarinAndroid**: this value is obsolete and is no longer supported.
-
-- **XAJavaInterop1**: Use Java.Interop for JNI invocations. Binding
-  assemblies using `XAJavaInterop1` can only build and execute with
-  Xamarin.Android 6.1 or later. Xamarin.Android 6.1 and later bind
-  `Mono.Android.dll` with this value.
-
-The default value is `XAJavaInterop1`.
 
 ## AndroidCreatePackagePerAbi
 
@@ -434,38 +387,6 @@ removing the existing one(s) and adding your own AOT profiles.
 
 This property is `False` by default.
 
-
-## AndroidEnableRestrictToAttributes
-
-An enum-style property with valid values of `obsolete` and `disable`.
-
-When set to `obsolete`, types and members that are marked with the Java annotation
-`androidx.annotation.RestrictTo` *or* are in non-exported Java packages will
-be marked with an `[Obsolete]` attribute in the C# binding.
-
-This `[Obsolete]` attribute has a descriptive message explaining that the
-Java package owner considers the API to be "internal" and warns against its use.
-
-This attribute also has a custom warning code `XAOBS001` so that it can be suppressed
-independently of "normal" obsolete API.
-
-When set to `disable`, API will be generated as normal with no additional
-attributes. (This is the same behavior as before .NET 8.)
-
-Adding `[Obsolete]` attributes instead of automatically removing the API was done to
-preserve API compatibility with existing packages. If you would instead prefer to
-*remove* members that have the `@RestrictTo` annotation *or* are in non-exported
-Java packages, you can use [Transform files](/xamarin/android/platform/binding-java-library/customizing-bindings/java-bindings-metadata#metadataxml-transform-file) in addition to
-this property to prevent these types from being bound:
-
-```xml
-<remove-node path="//*[@annotated-visibility]" />
-```
-
-Support for this property was added in .NET 8.
-
-This property is set to `obsolete` by default.
-
 ## AndroidEnableSGenConcurrent
 
 A boolean property that
@@ -622,7 +543,7 @@ for use with
 [`System.Type.GetType(string)`](/dotnet/api/system.type.gettype#System_Type_GetType_System_String_).
 
 In .NET 6 and newer, this property has effect only when used together
-with [`$(UseNativeHttpHandler)=true`](https://github.com/dotnet/runtime/blob/main/docs/workflow/trimming/feature-switches.md).
+with [`$(UseNativeHttpHandler)=true`][feature-switches].
 The most common values for this property are:
 
 - `Xamarin.Android.Net.AndroidMessageHandler`: Use the Android Java APIs
@@ -729,31 +650,6 @@ The default value is `true` for command line builds. When set to `true`, enables
 installation of the Java SDK when running the `<InstallAndroidDependencies/>` target.
 
 Support for this property was added in .NET 9.
-
-## AndroidJavadocVerbosity
-
-Specifies how "verbose"
-[C# XML Documentation Comments](/dotnet/csharp/codedoc)
-should be when importing Javadoc documentation within binding projects.
-
-Requires use of the
-[`@(JavaSourceJar)`](build-items.md#javasourcejar)
-build action.
-
-The `$(AndroidJavadocVerbosity)` property is enum-like, with possible values of `full` or
-`intellisense`:
-
-  * `intellisense`: Only emit the XML comments:
-    [`<exception/>`](/dotnet/csharp/codedoc#exception),
-    [`<param/>`](/dotnet/csharp/codedoc#param),
-    [`<returns/>`](/dotnet/csharp/codedoc#returns),
-    [`<summary/>`](/dotnet/csharp/codedoc#summary).
-  * `full`: Emit `intellisense` elements, as well as
-    [`<remarks/>`](/dotnet/csharp/codedoc#remarks),
-    [`<seealso/>`](/dotnet/csharp/codedoc#seealso),
-    and anything else that's supportable.
-
-The default value is `intellisense`.
 
 ## AndroidKeyStore
 
