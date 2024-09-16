@@ -156,7 +156,7 @@ for details about available feature switches.
 
 Added in .NET 8.
 
-[feature-switches]: https://github.com/dotnet/runtime/blob/main/docs/workflow/trimming/feature-switches.md
+[feature-switches]: /dotnet/core/deploying/trimming/trimming-options?pivots=dotnet-8-0#trim-framework-library-features
 
 ## AndroidBinUtilsPath
 
@@ -543,7 +543,7 @@ for use with
 [`System.Type.GetType(string)`](/dotnet/api/system.type.gettype#System_Type_GetType_System_String_).
 
 In .NET 6 and newer, this property has effect only when used together
-with [`$(UseNativeHttpHandler)=true`](https://github.com/dotnet/runtime/blob/main/docs/workflow/trimming/feature-switches.md).
+with [`$(UseNativeHttpHandler)=true`][feature-switches].
 The most common values for this property are:
 
 - `Xamarin.Android.Net.AndroidMessageHandler`: Use the Android Java APIs
