@@ -39,6 +39,9 @@ conceptualContent:
             - url: app-fundamentals/images-icons/alternate-app-icons.md
               itemType: how-to-guide
               text: Alternate app icons
+            - url: app-fundamentals/user-notifications/user-notifications.md
+              itemtype: how-to-guide
+              text: User notifications
 
 # additionalContent section (Optional; Remove if not applicable.)
 # Card with links style
