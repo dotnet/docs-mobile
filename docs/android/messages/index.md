@@ -1,4 +1,4 @@
----
+--
 title: .NET for Android errors and warnings reference
 description: Build and deployment error and warning codes in .NET for Android, their meanings, and guidance on how to address them.
 ms.date: 04/11/2024
@@ -102,7 +102,9 @@ Please file an issue with the exact error message using the 'Help->Send Feedback
 or 'Help->Report a Problem' in Visual Studio for Mac.
 + [XA0138](xa0138.md): %(AndroidAsset.AssetPack) and %(AndroidAsset.AssetPack) item metadata are only supported when `$(AndroidApplication)` is `true`.
 + [XA0139](xa0139.md): `@(AndroidAsset)` `{0}` has invalid `DeliveryType` metadata of `{1}`. Supported values are `installtime`, `ondemand` or `fastfollow`
-+ [XA0140](xa0140.md): 
++ [XA0140](xa0140.md):
++ [XA0141](xa0141.md): NuGet package '{0}' version '{1}' contains a shared library '{2}' which is not correctly aligned. See https://developer.android.com/guide/practices/page-sizes for more details
++ [XA0142](xa0142.md): Command '{0}' failed.\n{1}
 
 ## XA1xxx: Project related
 
@@ -142,6 +144,7 @@ or 'Help->Report a Problem' in Visual Studio for Mac.
 + [XA1036](xa1036.md): AndroidManifest.xml //uses-sdk/@android:minSdkVersion '29' does not match the $(SupportedOSPlatformVersion) value '21' in the project file (if there is no $(SupportedOSPlatformVersion) value in the project file, then a default value has been assumed).
 Either change the value in the AndroidManifest.xml to match the $(SupportedOSPlatformVersion) value, or remove the value in the AndroidManifest.xml (and add a $(SupportedOSPlatformVersion) value to the project file if it doesn't already exist).
 + [XA1037](xa1037.md): The '{0}' MSBuild property is deprecated and will be removed in .NET {1}. See https://aka.ms/net-android-deprecations for more details.
++ [XA1038](xa1038.md): The '{0}' MSBuild property has an invalid value. Value values are {1}.
 
 ## XA2xxx: Linker
 
@@ -215,6 +218,7 @@ Either change the value in the AndroidManifest.xml to match the $(SupportedOSPla
 + [XA4312](xa4312.md): Referencing an Android Wear application project from an Android application project is deprecated.
 + [XA4313](xa4313.md): Framework assembly has been deprecated.
 + [XA4314](xa4314.md): `$(Property)` is empty. A value for `$(Property)` should be provided.
++ [XA4315](xa4315.md): Ignoring {file}. Manifest does not have the required 'package' attribute on the manifest element.
 
 ## XA5xxx: GCC and toolchain
 

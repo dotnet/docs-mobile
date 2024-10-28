@@ -75,6 +75,14 @@ MSBuild items, properties and targets.
 
 <a name="Build_Targets"></a>
 
+## Binding Projects
+
+The following MSBuild properties are used with
+[Binding projects](/xamarin/android/platform/binding-java-library):
+
+- [`$(AndroidClassParser)`](build-properties.md#androidclassparser)
+- [`$(AndroidCodegenTarget)`](build-properties.md#androidcodegentarget)
+
 ## `Resource.designer.cs` Generation
 
 The Following MSBuild properties are used to control generation of the

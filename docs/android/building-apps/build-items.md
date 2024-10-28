@@ -1,7 +1,7 @@
 ---
 title: .NET for Android Build Items
 description: .NET for Android Build Items
-ms.date: 04/11/2024
+ms.date: 09/09/2024
 ---
 
 # Build Items
@@ -10,10 +10,35 @@ Build items control how a .NET for Android application
 or library project is built.
 
 They're specified within the project file, for example **MyApp.csproj**, within
-an [MSBuild PropertyGroup](/visualstudio/msbuild/itemgroup-element-msbuild).
+an [MSBuild ItemGroup](/visualstudio/msbuild/itemgroup-element-msbuild).
 
 > [!NOTE]
 > In .NET for Android there is technically no distinction between an application and a bindings project, so build items will work in both. In practice it is highly recommended to create separate application and bindings projects. Build items that are primarily used in bindings projects are documented in the [MSBuild bindings project items](../binding-libs/msbuild-reference/build-items.md) reference guide.
+
+## AndroidAdditionalJavaManifest
+
+`<AndroidAdditionalJavaManifest>` is used in conjunction with
+[Java Dependency Resolution](../features/maven/java-dependency-verification.md).
+
+It is used to specify additional POM files that will be needed to verify dependencies.
+These are often parent or imported POM files referenced by a Java library's POM file.
+
+```xml
+<ItemGroup>
+  <AndroidAdditionalJavaManifest Include="mylib-parent.pom" JavaArtifact="com.example:mylib-parent" JavaVersion="1.0.0" />
+</ItemGroup>
+```
+
+The following MSBuild metadata are required:
+
+- `%(JavaArtifact)`: The group and artifact id of the Java library matching the specifed POM
+  file in the form `{GroupId}:{ArtifactId}`.
+- `%(JavaVersion)`: The version of the Java library matching the specified POM file.
+  
+See the [Java Dependency Resolution documentation](../features/maven/java-dependency-verification.md)
+for more details.
+
+This build action was introduced in .NET 9.
 
 ## AndroidAsset
 
@@ -50,6 +75,18 @@ In this example, `movie.mp4` and `some.png` will end up in the `base` aab file, 
 will end up in the `assets1` asset pack.
 
 The additional metadata is only supported on .NET for Android 9 and above.
+
+## AndroidAarLibrary
+
+The Build action of `AndroidAarLibrary` should be used to directly
+reference `.aar` files. This build action will be most commonly used
+by Xamarin Components. Namely to include references to `.aar` files
+that are required to get Google Play and other services working.
+
+Files with this Build action will be treated in a similar fashion to
+the embedded resources found in Library projects. The `.aar` will be
+extracted into the intermediate directory. Then any assets, resource
+and `.jar` files will be included in the appropriate item groups.
 
 ## AndroidAotProfile
 
@@ -98,10 +135,109 @@ multiple files, and they will be evaluated in no particular order (so don't
 specify the same environment variable or system property in multiple
 files).
 
+## AndroidGradleProject
+
+`<AndroidGradleProject>` can be used to build and consume the outputs
+of Android Gradle projects created in Android Studio or elsewehere.
+
+The `Include` metadata should point to the top level `build.gradle` or `build.gradle.kts`
+file that will be used to build the project. This will be found in the root directory
+of your Gradle project, which should also contain `gradlew` wrapper scripts.
+
+```xml
+<ItemGroup>
+  <AndroidGradleProject Include="path/to/project/build.gradle.kts" ModuleName="mylibrary" />
+</ItemGroup>
+```
+
+The following MSBuild metadata are supported:
+
+- `%(Configuration)`: The name of the configuration to use to build or assemble
+  the project or project module specified. The default value is `Release`.
+- `%(ModuleName)`: The name of the [module or subproject](https://docs.gradle.org/current/userguide/intro_multi_project_builds.html) that should be built.
+  The default value is empty.
+- `%(OutputPath)`: Can be set to override the build output path of the Gradle project.
+  The default value is `$(IntermediateOutputPath)gradle/%(ModuleName)%(Configuration)-{Hash}`.
+- `%(CreateAndroidLibrary)`: Output AAR files will be added as an [`AndroidLibrary`](#androidlibrary) to the project.
+  Metadata supported by `<AndroidLibrary>` like `%(Bind)` or `%(Pack)` will be forwarded if set.
+  The default value is `true`.
+
+This build action was introduced in .NET 9.
+
+## AndroidJavaLibrary
+
+Files with a Build action of `AndroidJavaLibrary` are Java
+Archives ( `.jar` files) that will be included in the final Android
+package.
+
+## AndroidIgnoredJavaDependency
+
+`<AndroidIgnoredJavaDependency>` is used in conjunction with [Java Dependency Resolution](../features/maven/java-dependency-verification.md).
+
+It is used to specify a Java dependency that should be ignored. This can be
+used if a dependency will be fulfilled in a way that Java dependency resolution
+cannot detect.
+
+```xml
+<!-- Include format is {GroupId}:{ArtifactId} -->
+<ItemGroup>
+  <AndroidIgnoredJavaDependency Include="com.google.errorprone:error_prone_annotations" Version="2.15.0" />
+</ItemGroup>
+```
+
+The following MSBuild metadata are required:
+
+- `%(Version)`: The version of the Java library matching the specified `%(Include)`.
+
+See the [Java Dependency Resolution documentation](../features/maven/java-dependency-verification.md)
+for more details.
+
+This build action was introduced in .NET 9.
+
+## AndroidJavaSource
+
+Files with a Build action of `AndroidJavaSource` are Java source code that
+will be included in the final Android package.
+
+Starting with .NET 7, all `**\*.java` files within the project directory
+automatically have a Build action of `AndroidJavaSource`, *and* will be
+bound prior to the Assembly build.  Allows C# code to easily use
+types and members present within the `**\*.java` files.
+
+Set `%(AndroidJavaSource.Bind)` to False to disable this behavior.
+
+## AndroidLibrary
+
+**AndroidLibrary** is a new build action for simplifying how
+`.jar` and `.aar` files are included in projects.
+
+Any project can specify:
+
+```xml
+<ItemGroup>
+  <AndroidLibrary Include="foo.jar" />
+  <AndroidLibrary Include="bar.aar" />
+</ItemGroup>
+```
+
+The result of the above code snippet has a different effect for each
+.NET for Android project type:
+
+* Application and class library projects:
+  * `foo.jar` maps to [**AndroidJavaLibrary**](#androidjavalibrary).
+  * `bar.aar` maps to [**AndroidAarLibrary**](#androidaarlibrary).
+* Java binding projects:
+  * `foo.jar` maps to [**EmbeddedJar**](#embeddedjar).
+  * `foo.jar` maps to [**EmbeddedReferenceJar**](#embeddedreferencejar)
+    if `Bind="false"` metadata is added.
+  * `bar.aar` maps to [**LibraryProjectZip**](#libraryprojectzip).
+
+This simplification means you can use **AndroidLibrary** everywhere.
+
 ## AndroidLintConfig
 
 The Build action 'AndroidLintConfig' should be used in conjunction with the
-[`$(AndroidLintEnabled)`](/xamarin/android/deploy-test/building-apps/build-properties#androidlintenabled)
+[`$(AndroidLintEnabled)`](/xamarin/android/deploy-test/building-apps/build-properties.md#androidlintenabled)
 property. Files with this build action will be merged together and passed to the
 android `lint` tooling. They should be XML files containing information on
 tests to enable and disable.
@@ -141,6 +277,35 @@ You can use the following to add a manifest overlay for a debug build:
 
 Specifies the modules that get installed by **bundletool** command when
 installing app bundles.
+
+## AndroidMavenLibrary
+
+`<AndroidMavenLibrary>` allows a Maven artifact to be specified which will 
+automatically be downloaded and added to a .NET for Android binding project. 
+This can be useful to simplify maintenance of .NET for Android bindings for artifacts 
+hosted in Maven.
+
+```xml
+<!-- Include format is {GroupId}:{ArtifactId} -->
+<ItemGroup>
+  <AndroidMavenLibrary Include="com.squareup.okhttp3:okhttp" Version="4.9.3" />
+</ItemGroup>
+```
+
+The following MSBuild metadata are supported:
+
+- `%(Version)`: Required version of the Java library referenced by `%(Include)`.
+- `%(Repository)`: Optional Maven repository to use. Supported values are `Central` (default),
+   `Google`, or an `https` URL to a Maven repository.
+
+The `<AndroidMavenLibrary>` item is translated to
+[`AndroidLibrary`](#androidlibrary), so any metadata supported by
+`<AndroidLibrary>` like `%(Bind)` or `%(Pack)` are also supported.
+
+See the [AndroidMavenLibrary documentation](../features/maven/android-maven-library.md)
+for more details.
+
+This build action was introduced in .NET 9.
 
 ## AndroidNativeLibrary
 
@@ -189,7 +354,7 @@ However these Items MUST be URL encoded or use
 [`$([MSBuild]::Escape(''))`](/visualstudio/msbuild/how-to-escape-special-characters-in-msbuild).
 This is so MSBuild does not try to interpret them as actual file wildcards.
 
-For example
+For example 
 
 ```xml
 <ItemGroup>
@@ -201,7 +366,7 @@ For example
 NOTE: `*`, `?` and `.` will be replaced in the `BuildApk` task with the
 appropriate file globs.
 
-If the default file glob is too restrictive you can remove it by adding the
+If the default file glob is too restrictive you can remove it by adding the 
 following to your csproj
 
 ```xml
@@ -226,7 +391,7 @@ included from the final package. The default values are as follows
 Items can use file blob characters for wildcards such as `*` and `?`.
 However these Items MUST use URL encoding or '$([MSBuild]::Escape(''))'.
 This is so MSBuild does not try to interpret them as actual file wildcards.
-For example
+For example 
 
 ```xml
 <ItemGroup>
@@ -294,6 +459,26 @@ step).
 Attempting to use the `@(Content)` Build action will result in a
 [XA0101](../messages/xa0101.md) warning.
 
+## EmbeddedJar
+
+In a .NET for Android binding project, the **EmbeddedJar** build action
+binds the Java/Kotlin library and embeds the `.jar` file into the
+library. When a .NET for Android application project consumes the
+library, it will have access to the Java/Kotlin APIs from C# as well
+as include the Java/Kotlin code in the final Android application.
+
+You should instead use the
+[AndroidLibrary](#androidlibrary) build action as an alternative
+such as:
+
+```xml
+<Project>
+  <ItemGroup>
+    <AndroidLibrary Include="Library.jar" />
+  </ItemGroup>
+</Project>
+```
+
 ## EmbeddedNativeLibrary
 
 In a .NET for Android class library or Java binding project, the
@@ -305,6 +490,68 @@ will be included in the final Android application.
 You can use the
 [**AndroidNativeLibrary**](#androidnativelibrary) build action as an
 alternative.
+
+## EmbeddedReferenceJar
+
+In a .NET for Android binding project, the **EmbeddedReferenceJar**
+build action embeds the `.jar` file into the library but does not
+create a C# binding as [**EmbeddedJar**](#embeddedjar) does. When a
+.NET for Android application project consumes the library, it will
+include the Java/Kotlin code in the final Android application.
+
+You can use the
+[**AndroidLibrary**](#androidlibrary) build action as an alternative
+such as `<AndroidLibrary Include="..." Bind="false" />`:
+
+```xml
+<Project>
+  <ItemGroup>
+    <!-- A .jar file to bind & embed -->
+    <AndroidLibrary Include="Library.jar" />
+    <!-- A .jar file to only embed -->
+    <AndroidLibrary Include="Dependency.jar" Bind="false" />
+  </ItemGroup>
+</Project>
+```
+
+## JavaSourceJar
+
+In a .NET for Android binding project, the **JavaSourceJar** build action
+is used on `.jar` files that contain *Java source code*, that contain
+[Javadoc documentation comments](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html).
+
+Javadoc will instead be converted into
+[C# XML Documentation Comments](/dotnet/csharp/codedoc)
+within the generated binding source code.
+
+[`$(AndroidJavadocVerbosity)`](build-properties.md#androidjavadocverbosity)
+controls how "verbose" or "complete" the imported Javadoc is.
+
+The following MSBuild metadata is supported:
+
+* `%(CopyrightFile)`: A path to a file that contains copyright
+    information for the Javadoc contents, which will be appended to
+    all imported documentation.
+
+* `%(UrlPrefix)`: A URL prefix to support linking to online
+    documentation within imported documentation.
+
+* `%(UrlStyle)`: The "style" of URLs to generate when linking to
+    online documentation.  Only one style is currently supported:
+    `developer.android.com/reference@2020-Nov`.
+
+* `%(DocRootUrl)`: A URL prefix to use in place of all `{@docroot}`
+    instances in the imported documentation.
+
+
+## LibraryProjectZip
+
+The **LibraryProjectZip** build
+action binds the Java/Kotlin library and embeds the `.zip` or `.aar`
+file into the library. When a .NET for Android application project
+consumes the library, it will have access to the Java/Kotlin APIs from
+C# as well as include the Java/Kotlin code in the final Android
+application.
 
 ## LinkDescription
 
@@ -319,5 +566,5 @@ this build action, see
 [ProGuard](/xamarin/android/deploy-test/release-prep/proguard).
 
 These files are ignored unless the
-[`$(EnableProguard)`](/xamarin/android/deploy-test/building-apps/build-properties#enableproguard)
+[`$(EnableProguard)`](/xamarin/android/deploy-test/building-apps/build-properties.md#enableproguard)
 MSBuild property is `True`.

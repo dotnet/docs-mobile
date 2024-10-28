@@ -33,7 +33,7 @@
     - name: Bind a Java library from Maven
       href: binding-libs/binding-java-libs/binding-java-maven-library.md
     - name: Migrate a Xamarin.Android bindings project
-      href: /dotnet/maui/migration/android-binding-projects?toc=/dotnet/android/toc.json&bc=/dotnet/breadcrumb/android/toc.json    
+      href: /dotnet/maui/migration/android-binding-projects?toc=/dotnet/android/toc.json&bc=/dotnet/breadcrumb/android/toc.json
     - name: Customize bindings
       items:
       - name: Overview
@@ -60,6 +60,8 @@
         href: binding-libs/advanced-concepts/resolving-java-dependencies.md
       - name: Distribute bindings libraries
         href: binding-libs/advanced-concepts/distributing.md
+      - name: Native Library Interop
+        href: binding-libs/advanced-concepts/native-library-interop.md
     - name: Troubleshoot bindings
       href: binding-libs/customizing-bindings/troubleshooting-bindings.md
   - name: Message reference
@@ -214,6 +216,10 @@
         href: messages/xa0139.md
       - name: XA0140
         href: messages/xa0140.md
+      - name: XA0141
+        href: messages/xa0141.md
+      - name: XA0142
+        href: messages/xa0142.md
     - name: "XA1xxx: Project related"
       items:
       - name: "XA1xxx: Project related"
@@ -266,6 +272,8 @@
         href: messages/xa1036.md
       - name: XA1037
         href: messages/xa1037.md
+      - name: XA1038
+        href: messages/xa1038.md
     - name: "XA2xxx: Linker"
       items:
       - name: "XA2xxx: Linker"
@@ -348,6 +356,8 @@
         href: messages/xa4313.md
       - name: XA4314
         href: messages/xa4314.md
+      - name: XA4315
+        href: messages/xa4315.md
     - name: "XA5xxx: GCC and toolchain"
       items:
       - name: "XA5xxx: GCC and toolchain"
