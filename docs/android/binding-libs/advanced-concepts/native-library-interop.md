@@ -1,6 +1,6 @@
 ---
-title: AndroidMavenLibrary Build Action .NET for Android
-description: AndroidMavenLibrary Build Action .NET for Android
+title: Native Library Interop
+description: Native Library Interop
 ms.date: 10/21/2024
 ---
 # NativeLibraryInterop
@@ -28,5 +28,5 @@ the `@(AndroidGradleProject)` build action.
 
 Additional documentation and references can be found below:
 
-* https://learn.microsoft.com/en-us/dotnet/communitytoolkit/maui/native-library-interop
+* [.NET MAUI Community Toolkit - Native Library Interop](/dotnet/communitytoolkit/maui/native-library-interop)
 * https://github.com/CommunityToolkit/Maui.NativeLibraryInterop
