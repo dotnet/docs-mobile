@@ -4,7 +4,7 @@ description: .NET for Android Build Items
 ms.date: 09/09/2024
 ---
 
-# Build Items
+# Build items
 
 Build items control how a .NET for Android application
 or library project is built.
@@ -18,9 +18,8 @@ an [MSBuild ItemGroup](/visualstudio/msbuild/itemgroup-element-msbuild).
 ## AndroidAdditionalJavaManifest
 
 `<AndroidAdditionalJavaManifest>` is used in conjunction with
-[Java Dependency Resolution](../features/maven/java-dependency-verification.md).
-
-It is used to specify additional POM files that will be needed to verify dependencies.
+[Java Dependency Resolution](../features/maven/java-dependency-verification.md)
+to specify additional POM files that will be needed to verify dependencies.
 These are often parent or imported POM files referenced by a Java library's POM file.
 
 ```xml
@@ -325,7 +324,7 @@ used to specify the ABI that the library targets. Thus, if you add
 `lib/armeabi-v7a/libfoo.so` to the build, then the ABI will be "sniffed" as
 `armeabi-v7a`.
 
-### Item Attribute Name
+### Item attribute name
 
 **Abi** &ndash; Specifies the ABI of the native library.
 
