@@ -1,12 +1,12 @@
 ---
 title: Native Library Interop
-description: Native Library Interop
+description: Learn how to perform native library interop to access native SDKs in .NET for Android and .NET MAUI projects,
 ms.date: 10/21/2024
 ---
-# NativeLibraryInterop
+# Native library interop
 
 ## Overview
-Native Library Interop (formerly referred to as the "Slim Binding" approach), refers to a
+Native library interop (formerly referred to as the "Slim Binding" approach), refers to a
 pattern for accessing native SDKs in .NET for Android and .NET MAUI projects.
 
 Starting in .NET 9, the .NET for Android SDK supports building Gradle projects
