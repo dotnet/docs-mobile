@@ -41,7 +41,8 @@ Do the following:
     </PropertyGroup>
     ```
 
-    >[!NOTE] Existing projects typically specifies the app icon using the
+    > [!NOTE]
+    Existing projects typically specifies the app icon using the
     `XSAppIconAssets` key in the `Info.plist` file - this can still be used,
     but it's recommended to switch to the `AppIcon` property in the project
     file instead (which is simplier too, because its value is the name of the
@@ -77,7 +78,8 @@ UNUserNotificationCenter.Current.SetBadgeCount (badgeCount, (error) => {
 }
 ```
 
->[!NOTE] `UNUserNotificationCenter.SetBadgeCount` requires authorization from the user on iOS, which can be acquired by calling `UNUserNotificationCenter.Current.RequestAuthorization` before setting the badge count.
+> [!NOTE]
+`UNUserNotificationCenter.SetBadgeCount` requires authorization from the user on iOS, which can be acquired by calling `UNUserNotificationCenter.Current.RequestAuthorization` before setting the badge count.
 
 The `AlternateIconName` property of the `UIApplication` class allows the developer to get the name of the currently selected alternate app icon or it returns `null` if the app is using the Primary Icon. For example:
 
@@ -122,8 +124,8 @@ If the user switches back to the primary icon, an alert like the following will 
 - [iOS sample](https://github.com/dotnet/macios-samples/pull/2)
 - [tvOS sample](https://github.com/dotnet/macios-samples/pull/2)
 
-[1]: https://learn.microsoft.com/en-us/dotnet/api/uikit.uiapplication.applicationiconbadgenumber
-[2]: https://learn.microsoft.com/en-us/dotnet/api/uikit.uiapplication
-[3]: https://learn.microsoft.com/en-us/dotnet/api/uikit.uiapplication.supportsalternateicons
-[4]: https://learn.microsoft.com/en-us/dotnet/api/uikit.uiapplication.alternateiconname
-[5]: https://learn.microsoft.com/en-us/dotnet/api/uikit.uiapplication.setalternateiconname
+[1]: /dotnet/api/uikit.uiapplication.applicationiconbadgenumber
+[2]: /dotnet/api/uikit.uiapplication
+[3]: /dotnet/api/uikit.uiapplication.supportsalternateicons
+[4]: /dotnet/api/uikit.uiapplication.alternateiconname
+[5]: /dotnet/api/uikit.uiapplication.setalternateiconname
