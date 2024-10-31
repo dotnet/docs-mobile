@@ -1,12 +1,10 @@
 ---
-title: "Alternate App Icons in .NET for iOS and tvOS"
+title: "Alternate app icons in .NET for iOS and tvOS"
 description: "This document describes how to use alternate app icons. It discusses how to add these icons to a .NET for iOS or tvOS project, and how to manage the app's icon programmatically."
 ms.date: 10/29/2024
 ---
 
-# Alternate App Icons in .NET for iOS and tvOS
-
-_This article covers using alternate app icons in .NET for iOS and tvOS._
+# Alternate app icons in .NET for iOS and tvOS
 
 Apple has several [UIApplication][2] APIs that allow an app to manage its icon:
 
@@ -16,8 +14,6 @@ Apple has several [UIApplication][2] APIs that allow an app to manage its icon:
 - `UNUserNotificationCenter.Current.SetBadgeCount` - Sets the badge count of the app icon in the Springboard (deprecated in iOS 16+ and tvOS 16+)
 
 ![A sample alert when an app changes its icon](alternate-app-icons-images/ScreenshotGreen.png)
-
-<a name="Adding-Alternate-Icons"></a>
 
 ## Adding Alternate Icons to a .NET Project
 
@@ -121,13 +117,7 @@ If the user switches back to the primary icon, an alert like the following will 
 
 ![A sample alert when an app changes to the primary icon](alternate-app-icons-images/ScreenshotBlue.png)
 
-<a name="Summary"></a>
-
-## Summary
-
-This article has covered adding alternate app icons to a .NET project and using them inside of the app.
-
-## Related Links
+## See also
 
 - [iOS sample](https://github.com/dotnet/macios-samples/pull/2)
 - [tvOS sample](https://github.com/dotnet/macios-samples/pull/2)
