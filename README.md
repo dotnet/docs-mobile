@@ -1,6 +1,6 @@
-# .NET for Android docs
+# .NET for mobile docs
 
-This repository contains the conceptual documentation for .NET for Android.
+This repository contains the conceptual documentation for .NET for Android, iOS, tvOS, Mac Catalyst and macOS.
 
 ## Code of Conduct
 
