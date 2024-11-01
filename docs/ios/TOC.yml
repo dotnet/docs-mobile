@@ -2,8 +2,6 @@
   items:
     - name: Application fundamentals
       items:
-        - name: Overview
-          href: app-fundamentals/index.md
         - name: Images & icons
           href: app-fundamentals/images-icons/index.md
           items:
