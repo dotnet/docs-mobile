@@ -11,7 +11,7 @@ Apple has several [UIApplication][uiapplication] APIs that allow an app to manag
 - [UIApplication.SupportsAlternateIcons][supportsalternateicons] - If `true` the app has an alternate set of icons.
 - [UIApplication.AlternateIconName][alternateiconname] - Returns the name of the alternate icon currently selected or `null` if using the primary icon.
 - [UIApplication.SetAlternateIconName][setalternateiconname] - Use this method to switch the app's icon to the given alternate icon.
-- `UNUserNotificationCenter.Current.SetBadgeCount` - Sets the badge count of the app icon in the Springboard (deprecated in iOS 16+ and tvOS 16+)
+- `UNUserNotificationCenter.Current.SetBadgeCount` - Sets the badge count of the app icon in the Springboard (deprecated in iOS 16+ and tvOS 16+).
 
 ![A sample alert when an app changes its icon](alternate-app-icons-images/ScreenshotGreen.png)
 
