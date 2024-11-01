@@ -44,5 +44,5 @@ Apple has several [UIApplication][uiapplication] APIs that allow an app to manag
 [alternateiconname]: xref:UIKit.UIApplication.AlternateIconName
 [setalternateiconname]: xref:UIKit.UIApplication.SetAlternateIconName%2A
 [uibutton]: xref:UIKit.UIButton
-[uiimageview]: xref:UIKIt.UIImageView
+[uiimageview]: xref:UIKit.UIImageView
 [uiimage]: xref:UIKit.UIImage
