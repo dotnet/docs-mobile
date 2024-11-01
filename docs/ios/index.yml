@@ -1,0 +1,29 @@
+### YamlMime:Hub
+
+#root section (Required)
+title: .NET for iOS, tvOS, macOS and Mac Catalyst documentation
+summary: >
+  .NET for iOS, tvOS, macOS and Mac Catalyst allows you to write apps for iOS, tvOS, macOS or Mac Catalyst using .NET languages.
+brand: dotnet
+
+metadata:
+  title: .NET for iOS, tvOS, macOS and Mac Catalyst
+  description: The .NET for iOS, tvOS, macOS and Mac Catalyst guide has everything you need to learn .NET for these platform.
+  ms.service: dotnet-ios
+  ms.topic: hub-page
+  author: rolfbjarne
+  ms.author: rokvin
+  ms.date: 11/01/2024
+
+landingContent:
+  - title: Application fundamentals
+    linkLists:
+      - linkListType: concept
+        links:
+          - text: Alternate app icons
+            url: ~/ios/app-fundamentals/images-icons/alternate-app-icons.md
+          - text: See more >
+            url: ~/ios/app-fundamentals/index.md
+
+  # footer (Optional; Remove if not applicable.)
+  footer: "Are you interested in contributing to the .NET docs? For more information, see our [contributor guide](/contribute/dotnet/dotnet-contribute)."
