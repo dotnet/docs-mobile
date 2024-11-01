@@ -9,7 +9,7 @@ brand: dotnet
 metadata:
   title: .NET for iOS, tvOS, macOS and Mac Catalyst
   description: The .NET for iOS, tvOS, macOS and Mac Catalyst guide has everything you need to learn .NET for these platform.
-  ms.service: dotnet-ios
+  ms.subservice: dotnet-ios
   ms.topic: hub-page
   author: rolfbjarne
   ms.author: rokvin
@@ -27,9 +27,6 @@ conceptualContent:
             - url: ~/ios/app-fundamentals/images-icons/alternate-app-icons.md
               itemType: reference
               text: Alternate app icons
-            - url: ~/ios/app-fundamentals/index.md
-              itemType: reference
-              text: See more >
 
 # additionalContent section (Optional; Remove if not applicable.)
 # Card with links style

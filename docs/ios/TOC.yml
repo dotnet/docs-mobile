@@ -4,8 +4,8 @@
       items:
         - name: Overview
           href: app-fundamentals/index.md
-        - name: Images & Icons
+        - name: Images & icons
           href: app-fundamentals/images-icons/index.md
           items:
-            - name: Alternate App Icons
+            - name: Alternate app icons
               href: app-fundamentals/images-icons/alternate-app-icons.md

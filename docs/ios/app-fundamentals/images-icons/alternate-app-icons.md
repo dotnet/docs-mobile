@@ -17,9 +17,7 @@ Apple has several [UIApplication][uiapplication] APIs that allow an app to manag
 
 ## Adding Alternate Icons to a .NET Project
 
-To allow an app to switch to an alternate icon, a new `.appiconset` folder with a collection of icon images will need to be included in the project's asset catalog.
-
-Do the following:
+To allow an app to switch to an alternate icon, a new `.appiconset` folder with a collection of icon images will need to be included in the project's asset catalog:
 
 1. Open the project's asset catalog (**Assets.xcassets**) in Finder:
 
