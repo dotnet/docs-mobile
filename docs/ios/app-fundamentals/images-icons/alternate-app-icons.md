@@ -6,11 +6,11 @@ ms.date: 10/29/2024
 
 # Alternate app icons in .NET for iOS and tvOS
 
-Apple has several [UIApplication][2] APIs that allow an app to manage its icon:
+Apple has several [UIApplication][uiapplication] APIs that allow an app to manage its icon:
 
-- [UIApplication.SupportsAlternateIcons][3] - If `true` the app has an alternate set of icons.
-- [UIApplication.AlternateIconName][4] - Returns the name of the alternate icon currently selected or `null` if using the primary icon.
-- [UIApplication.SetAlternateIconName][5] - Use this method to switch the app's icon to the given alternate icon.
+- [UIApplication.SupportsAlternateIcons][supportsalternateicons] - If `true` the app has an alternate set of icons.
+- [UIApplication.AlternateIconName][alternateiconname] - Returns the name of the alternate icon currently selected or `null` if using the primary icon.
+- [UIApplication.SetAlternateIconName][setalternateiconname] - Use this method to switch the app's icon to the given alternate icon.
 - `UNUserNotificationCenter.Current.SetBadgeCount` - Sets the badge count of the app icon in the Springboard (deprecated in iOS 16+ and tvOS 16+)
 
 ![A sample alert when an app changes its icon](alternate-app-icons-images/ScreenshotGreen.png)
@@ -60,7 +60,7 @@ Do the following:
 
 With the icon images included in the .NET project, the developer can the following ways to control the app's icon.
 
-The `SupportsAlternateIcons` property of the `UIApplication` class allows the developer to see if an app supports alternate icons. For example:
+The [SupportsAlternateIcons][supportsalternateicons] property of the [UIApplication][uiapplication] class allows the developer to see if an app supports alternate icons. For example:
 
 ```csharp
 // Can the app select a different icon?
@@ -68,7 +68,7 @@ primaryIconButton.Enabled = UIApplication.SharedApplication.SupportsAlternateIco
 alternateIconButton.Enabled = UIApplication.SharedApplication.SupportsAlternateIcons;
 ```
 
-The `ApplicationIconBadgeNumber` property of the `UIApplication` class allows the developer to get or set the current badge number of the app icon in the Springboard. The default value is zero (0). For example:
+The [ApplicationIconBadgeNumber][applicationiconbadgenumber] property of the [UIApplication][uiapplication] class allows the developer to get or set the current badge number of the app icon in the Springboard. The default value is zero (0). For example:
 
 ```csharp
 // Set the badge number to 1
@@ -81,7 +81,7 @@ UNUserNotificationCenter.Current.SetBadgeCount (badgeCount, (error) => {
 > [!NOTE]
 `UNUserNotificationCenter.SetBadgeCount` requires authorization from the user on iOS, which can be acquired by calling `UNUserNotificationCenter.Current.RequestAuthorization` before setting the badge count.
 
-The `AlternateIconName` property of the `UIApplication` class allows the developer to get the name of the currently selected alternate app icon or it returns `null` if the app is using the Primary Icon. For example:
+The [AlternateIconName][alternateiconname] property of the [UIApplication][uiapplication] class allows the developer to get the name of the currently selected alternate app icon or it returns `null` if the app is using the Primary Icon. For example:
 
 ```csharp
 // Get the name of the currently selected alternate
@@ -93,7 +93,7 @@ if (name != null ) {
 }
 ```
 
-The `SetAlternameIconName` property of the `UIApplication` class allows the developer to change the app icon. Pass the name of the icon to select or `null` to return to the primary icon. For example:
+The [SetAlternameIconName][setalternateiconname] property of the [UIApplication][uiapplication] class allows the developer to change the app icon. Pass the name of the icon to select or `null` to return to the primary icon. For example:
 
 ```csharp
 void UsePrimaryIcon (Foundation.NSObject sender)
@@ -124,8 +124,8 @@ If the user switches back to the primary icon, an alert like the following will 
 - [iOS sample](https://github.com/dotnet/macios-samples/pull/2)
 - [tvOS sample](https://github.com/dotnet/macios-samples/pull/2)
 
-[1]: xref:UIKit.UIApplication.ApplicationIconBadgeNumber
-[2]: xref:UIKit.UIApplication
-[3]: xref:UIKit.UIApplication.SupportsAlternateIcons
-[4]: xref:UIKit.UIApplication.AlternateIconName
-[5]: xref:UIKit.UIApplication.SetAlternateIconName%2A
+[uiapplication]: xref:UIKit.UIApplication
+[applicationiconbadgenumber]: xref:UIKit.UIApplication.ApplicationIconBadgeNumber
+[supportsalternateicons]: xref:UIKit.UIApplication.SupportsAlternateIcons
+[alternateiconname]: xref:UIKit.UIApplication.AlternateIconName
+[setalternateiconname]: xref:UIKit.UIApplication.SetAlternateIconName%2A

@@ -31,18 +31,18 @@ provide the required functionality:
 
 ## [Alternate App Icons](~/ios/app-fundamentals/images-icons/alternate-app-icons.md)
 
-Apple has several [UIApplication][2] APIs that allow an app to manage its icon:
+Apple has several [UIApplication][uiapplication] APIs that allow an app to manage its icon:
 
-- [UIApplication.SupportsAlternateIcons][3] - If `true` the app has an alternate set of icons.
-- [UIApplication.AlternateIconName][4] - Returns the name of the alternate icon currently selected or `null` if using the primary icon.
-- [UIApplication.SetAlternateIconName][5] - Use this method to switch the app's icon to the given alternate icon.
+- [UIApplication.SupportsAlternateIcons][supportsalternateicons] - If `true` the app has an alternate set of icons.
+- [UIApplication.AlternateIconName][alternateiconname] - Returns the name of the alternate icon currently selected or `null` if using the primary icon.
+- [UIApplication.SetAlternateIconName][setalternateiconname] - Use this method to switch the app's icon to the given alternate icon.
 - `UNUserNotificationCenter.Current.SetBadgeCount` - Sets the badge count of the app icon in the Springboard (deprecated in iOS 16+ and tvOS 16+)
 
-[1]: xref:UIKit.UIApplication.ApplicationIconBadgeNumber
-[2]: xref:UIKit.UIApplication
-[3]: xref:UIKit.UIApplication.SupportsAlternateIcons
-[4]: xref:UIKit.UIApplication.AlternateIconName
-[5]: xref:UIKit.UIApplication.SetAlternateIconName%2A
+[uiapplication]: xref:UIKit.UIApplication
+[applicationiconbadgenumber]: xref:UIKit.UIApplication.ApplicationIconBadgeNumber
+[supportsalternateicons]: xref:UIKit.UIApplication.SupportsAlternateIcons
+[alternateiconname]: xref:UIKit.UIApplication.AlternateIconName
+[setalternateiconname]: xref:UIKit.UIApplication.SetAlternateIconName%2A
 [uibutton]: xref:UIKit.UIButton
 [uiimageview]: xref:UIKIt.UIImageView
 [uiimage]: xref:UIKit.UIImage
