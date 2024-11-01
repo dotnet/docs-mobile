@@ -15,15 +15,21 @@ metadata:
   ms.author: rokvin
   ms.date: 11/01/2024
 
-landingContent:
-  - title: Application fundamentals
-    linkLists:
-      - linkListType: concept
-        links:
-          - text: Alternate app icons
-            url: ~/ios/app-fundamentals/images-icons/alternate-app-icons.md
-          - text: See more >
-            url: ~/ios/app-fundamentals/index.md
+conceptualContent:
+# itemType: reference
+  # Supports up to 3 subsections
+  sections:
+    - title: .NET for iOS, tvOS, macOS and Mac Catalyst Guides
+      items:
+        # Card
+        - title: Application fundamentals
+          links:
+            - url: ~/ios/app-fundamentals/images-icons/alternate-app-icons.md
+              itemType: reference
+              text: Alternate app icons
+            - url: ~/ios/app-fundamentals/index.md
+              itemType: reference
+              text: See more >
 
 # additionalContent section (Optional; Remove if not applicable.)
 # Card with links style
