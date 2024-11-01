@@ -61,11 +61,11 @@
     "fileMetadata": {
       "author": {
         "android/**/*.md": "jonpryor",
-        "ios/**/*.md": "mandel-macaque"
+        "ios/**/*.md": "rolfbjarne"
       },
       "ms.author": {
         "android/**/*.md": "jopryo",
-        "ios/**/*.md": "mandel"
+        "ios/**/*.md": "rokvin"
       },
       "ms.subservice": {
         "android/**/*.md": "dotnet-android",
