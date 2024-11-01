@@ -25,5 +25,18 @@ landingContent:
           - text: See more >
             url: ~/ios/app-fundamentals/index.md
 
+# additionalContent section (Optional; Remove if not applicable.)
+# Card with links style
+additionalContent:
+  # Supports up to 4 subsections
+  sections:
+
+    - title: References # < 60 chars (optional)
+      items:
+        # Card
+        - title: ".NET API reference"
+          summary: API reference documentation for .NET
+          url: /dotnet/api/?view=net-9.0
+
   # footer (Optional; Remove if not applicable.)
   footer: "Are you interested in contributing to the .NET docs? For more information, see our [contributor guide](/contribute/dotnet/dotnet-contribute)."
