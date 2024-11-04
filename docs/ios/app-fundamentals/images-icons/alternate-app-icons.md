@@ -117,11 +117,6 @@ If the user switches back to the primary icon, an alert like the following will 
 
 ![A sample alert when an app changes to the primary icon](alternate-app-icons-images/ScreenshotBlue.png)
 
-## See also
-
-- [iOS sample](https://github.com/dotnet/macios-samples/pull/2)
-- [tvOS sample](https://github.com/dotnet/macios-samples/pull/2)
-
 [uiapplication]: xref:UIKit.UIApplication
 [applicationiconbadgenumber]: xref:UIKit.UIApplication.ApplicationIconBadgeNumber
 [supportsalternateicons]: xref:UIKit.UIApplication.SupportsAlternateIcons
