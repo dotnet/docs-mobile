@@ -15,7 +15,7 @@ Apple has several [UIApplication][uiapplication] APIs that allow an app to manag
 
 ![A sample alert when an app changes its icon](alternate-app-icons-images/ScreenshotGreen.png)
 
-## Adding Alternate Icons to a .NET Project
+## Adding alternate icons to a .NET project
 
 To allow an app to switch to an alternate icon, a new `.appiconset` folder with a collection of icon images will need to be included in the project's asset catalog:
 

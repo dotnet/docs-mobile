@@ -3,7 +3,7 @@ title: "Images and Icons in .NET for iOS, tvOS, macOS and Mac Catalyst"
 description: "This section includes a variety of articles that cover working with images in a Xamarin.iOS app, such as using them as icons, launch screens or including them in controls and providing icons for custom document types."
 ms.date: 11/01/2024
 ---
-# Images and Icons in .NET for iOS, tvOS, macOS and Mac Catalyst
+# Images and icons in .NET for iOS, tvOS, macOS and Mac Catalyst
 
 There are several ways that image assets are used inside an app. From simply
 displaying an image as part of an app's UI to, assigning it to a UI control
@@ -29,7 +29,7 @@ the types of images assets that will be required, how those assets are
 included in the application's bundle and how the image assets are consumed to
 provide the required functionality:
 
-## [Alternate App Icons](~/ios/app-fundamentals/images-icons/alternate-app-icons.md)
+## [Alternate app icons](~/ios/app-fundamentals/images-icons/alternate-app-icons.md)
 
 Apple has several [UIApplication][uiapplication] APIs that allow an app to manage its icon:
 
