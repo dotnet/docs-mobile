@@ -54,7 +54,7 @@ To allow an app to switch to an alternate icon, a new `.appiconset` folder with 
     </ItemGroup>
     ```
 
-## Managing the App's Icon 
+## Managing the app's icon 
 
 With the icon images included in the .NET project, the developer can the following ways to control the app's icon.
 
