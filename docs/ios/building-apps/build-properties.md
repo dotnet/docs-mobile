@@ -300,7 +300,7 @@ Example:
 
 See also:
 
-* The [AlternateAppIcon](build-items.md#AlternateAppIcon) item group.
+* The [AlternateAppIcon](build-items.md#alternateappicon) item group.
 * The [AppIcon](#appicon) property.
 
 ## iOSMinimumVersion

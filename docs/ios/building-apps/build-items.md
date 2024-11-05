@@ -128,8 +128,8 @@ An item group that contains custom entitlements to add to the app.
 
 These entitlements are processed last, and will override any other
 entitlements, either from the file specified with the
-[Entitlements](build-properties.md#entitlements) property, or from the
-provisioning profile in use (if any).
+[CodesignEntitlements](build-properties.md#codesignentitlements) property, or
+from the provisioning profile in use (if any).
 
 This is the format:
 
