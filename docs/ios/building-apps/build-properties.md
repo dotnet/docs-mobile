@@ -1,10 +1,10 @@
 ---
-title: .NET for iOS, Mac Catalyst, macOS, and tvOS Build Properties
-description: .NET for iOS, Mac Catalyst, macOS, and tvOS Build Properties
+title: .NET for iOS, Mac Catalyst, macOS, and tvOS build properties
+description: .NET for iOS, Mac Catalyst, macOS, and tvOS build properties
 ms.date: 09/19/2024
 ---
 
-# Build Properties
+# Build properties
 
 MSBuild properties control the behavior of the
 [targets](build-targets.md).
