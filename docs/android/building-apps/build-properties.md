@@ -1,13 +1,14 @@
 ---
 title: .NET for Android Build Properties
 description: .NET for Android Build Properties
-ms.date: 04/11/2024
+ms.date: 09/09/2024
 ---
 
-# Build Properties
+# Build properties
 
 MSBuild properties control the behavior of the
 [targets](build-targets.md).
+
 They're specified within the project file, for example **MyApp.csproj**, within
 an [MSBuild PropertyGroup](/visualstudio/msbuild/propertygroup-element-msbuild).
 
@@ -193,6 +194,32 @@ implements a .NET type or interface in terms of Java types, for example
 
   `System` is the default value.
 
+## AndroidBoundInterfacesContainConstants
+
+A boolean property that
+determines whether binding constants on interfaces will be supported,
+or the workaround of creating an `IMyInterfaceConsts` class
+will be used.
+
+The default value is `True`.
+
+## AndroidBoundInterfacesContainStaticAndDefaultInterfaceMethods
+
+A boolean property that
+whether default and static members on interfaces will be supported,
+or  old workaround of creating a sibling class containing static
+members like `abstract class MyInterface`.
+
+The default value is `True` in .NET 6 and `False` for legacy.
+
+## AndroidBoundInterfacesContainTypes
+
+A boolean property that
+whether types nested in interfaces will be supported, or the workaround
+of creating a non-nested type like `IMyInterfaceMyNestedClass`.
+
+The default value is `True` in .NET 6 and `False` for legacy.
+
 ## AndroidBuildApplicationPackage
 
 A boolean value that
@@ -223,6 +250,30 @@ This property is only relevant if
 Specifies
 command-line options to pass to the **bundletool** command when
 build app bundles.
+
+## AndroidClassParser
+
+A string property that controls how
+`.jar` files are parsed. Possible values include:
+
+- **class-parse**: Uses `class-parse.exe` to parse Java bytecode
+  directly, without assistance of a JVM.
+
+- **jar2xml**: this value is obsolete and is no longer supported.
+
+## AndroidCodegenTarget
+
+A string property that controls the code generation target ABI.
+Possible values include:
+
+- **XamarinAndroid**: this value is obsolete and is no longer supported.
+
+- **XAJavaInterop1**: Use Java.Interop for JNI invocations. Binding
+  assemblies using `XAJavaInterop1` can only build and execute with
+  Xamarin.Android 6.1 or later. Xamarin.Android 6.1 and later bind
+  `Mono.Android.dll` with this value.
+
+The default value is `XAJavaInterop1`.
 
 ## AndroidCreatePackagePerAbi
 
@@ -296,15 +347,17 @@ they're `0` and `10`.
 
 ## AndroidDexTool
 
-An enum-style property with valid
-values of `dx` or `d8`. Indicates which Android [dex][dex]
+An enum-style property with a valid
+value of `d8`. _Previously, a value of `dx` was supported in
+Xamarin.Android._
+
+Indicates which Android [dex][dex]
 compiler is used during the .NET for Android build process.
-The default value is `dx`. See our
+The default value is `d8`. See our
 documentation on [D8 and R8][d8-r8].
 
 [dex]: https://source.android.com/devices/tech/dalvik/dalvik-bytecode
 [d8-r8]: https://github.com/xamarin/xamarin-android/blob/main/Documentation/guides/D8andR8.md
-
 
 ## AndroidEnableDesugar
 
@@ -386,6 +439,38 @@ item group. This ItemGroup contains default profile(s). It can be overridden by
 removing the existing one(s) and adding your own AOT profiles.
 
 This property is `False` by default.
+
+
+## AndroidEnableRestrictToAttributes
+
+An enum-style property with valid values of `obsolete` and `disable`.
+
+When set to `obsolete`, types and members that are marked with the Java annotation 
+`androidx.annotation.RestrictTo` *or* are in non-exported Java packages will 
+be marked with an `[Obsolete]` attribute in the C# binding.
+
+This `[Obsolete]` attribute has a descriptive message explaining that the
+Java package owner considers the API to be "internal" and warns against its use.
+
+This attribute also has a custom warning code `XAOBS001` so that it can be suppressed
+independently of "normal" obsolete API.
+
+When set to `disable`, API will be generated as normal with no additional
+attributes. (This is the same behavior as before .NET 8.)
+
+Adding `[Obsolete]` attributes instead of automatically removing the API was done to 
+preserve API compatibility with existing packages. If you would instead prefer to 
+*remove* members that have the `@RestrictTo` annotation *or* are in non-exported 
+Java packages, you can use [Transform files](/xamarin/android/platform/binding-java-library/customizing-bindings/java-bindings-metadata#metadataxml-transform-file) in addition to
+this property to prevent these types from being bound:
+
+```xml
+<remove-node path="//*[@annotated-visibility]" />
+```
+
+Support for this property was added in .NET 8.
+
+This property is set to `obsolete` by default.
 
 ## AndroidEnableSGenConcurrent
 
@@ -469,6 +554,8 @@ The default value is `Assemblies`.
 Support for Fast Deploying resources and assets via that system was
 removed in commit [f0d565fe](https://github.com/xamarin/xamarin-android/commit/f0d565fe4833f16df31378c77bbb492ffd2904b9). This was becuase it required the use of
 deprecated API's to work.
+
+**Support for this feature was removed in .NET 9
 
 **Experimental**.
 
@@ -650,6 +737,31 @@ The default value is `true` for command line builds. When set to `true`, enables
 installation of the Java SDK when running the `<InstallAndroidDependencies/>` target.
 
 Support for this property was added in .NET 9.
+
+## AndroidJavadocVerbosity
+
+Specifies how "verbose"
+[C# XML Documentation Comments](/dotnet/csharp/codedoc)
+should be when importing Javadoc documentation within binding projects.
+
+Requires use of the
+[`@(JavaSourceJar)`](build-items.md#javasourcejar)
+build action.
+
+The `$(AndroidJavadocVerbosity)` property is enum-like, with possible values of `full` or
+`intellisense`:
+
+  * `intellisense`: Only emit the XML comments:
+    [`<exception/>`](/dotnet/csharp/codedoc#exception),
+    [`<param/>`](/dotnet/csharp/codedoc#param),
+    [`<returns/>`](/dotnet/csharp/codedoc#returns),
+    [`<summary/>`](/dotnet/csharp/codedoc#summary).
+  * `full`: Emit `intellisense` elements, as well as
+    [`<remarks/>`](/dotnet/csharp/codedoc#remarks),
+    [`<seealso/>`](/dotnet/csharp/codedoc#seealso),
+    and anything else that's supportable.
+
+The default value is `intellisense`.
 
 ## AndroidKeyStore
 
@@ -913,6 +1025,25 @@ specifying the Java package names of generated Java source code.
 The only supported value is
 `LowercaseCrc64`.
 
+## AndroidPrepareForBuildDependsOn
+
+A semi-colon delimited property that can be used to extend the
+Android build process. MSBuild targets added to this property
+will execute early in the build for both Application and Library
+project types. This property is empty by default.
+
+Example:
+
+```xml
+<PropertyGroup>
+  <AndroidPrepareForBuildDependsOn>MyCustomTarget</AndroidPrepareForBuildDependsOn>
+</PropertyGroup>
+
+<Target Name="MyCustomTarget" >
+  <Message Text="Running target: 'MyCustomTarget'" Importance="high"  />
+</Target>
+```
+
 ## AndroidProguardMappingFile
 
 Specifies the `-printmapping` proguard rule for `r8`. This will
@@ -972,6 +1103,15 @@ processing Android assets and resources.
 Specifies the name of the Resource
 file to generate. The default template sets this to
 `Resource.designer.cs`.
+
+## AndroidResourceDesignerClassModifier
+
+Specifies the class modifier for the intermediate `Resource` class which is
+generated. Valid values are `public` and `internal`.
+
+By default this will be `public`.
+
+Added in .NET 9.
 
 ## AndroidSdkBuildToolsVersion
 
@@ -1503,84 +1643,7 @@ The default value is False.
 
 ## MandroidI18n
 
-Specifies the internationalization support
-included with the Application, such as collation and sorting
-tables. The value is a comma- or semicolon-separated list of one or
-more of the following case-insensitive values:
-
-- **None**: Include no additional encodings.
-
-- **All**: Include all available encodings.
-
-- **CJK**: Include Chinese, Japanese, and Korean encodings such as
-  *Japanese (EUC)* \[enc-jp, CP51932\], *Japanese (Shift-JIS)*
-  \[iso-2022-jp, shift\_jis, CP932\], *Japanese (JIS)* \[CP50220\],
-  *Chinese Simplified (GB2312)* \[gb2312, CP936\], *Korean (UHC)*
-  \[ks\_c\_5601-1987, CP949\], *Korean (EUC)* \[euc-kr, CP51949\],
-  *Chinese Traditional (Big5)* \[big5, CP950\], and *Chinese
-  Simplified (GB18030)* \[GB18030, CP54936\].
-
-- **MidEast**: Include Middle-Eastern encodings such as *Turkish
-  (Windows)* \[iso-8859-9, CP1254\], *Hebrew (Windows)*
-  \[windows-1255, CP1255\], *Arabic (Windows)* \[windows-1256,
-  CP1256\], *Arabic (ISO)* \[iso-8859-6, CP28596\], *Hebrew (ISO)*
-  \[iso-8859-8, CP28598\], *Latin 5 (ISO)* \[iso-8859-9, CP28599\],
-  and *Hebrew (Iso Alternative)* \[iso-8859-8, CP38598\].
-
-- **Other**: Include Other encodings such as *Cyrillic (Windows)*
-  \[CP1251\], *Baltic (Windows)* \[iso-8859-4, CP1257\], *Vietnamese
-  (Windows)* \[CP1258\], *Cyrillic (KOI8-R)* \[koi8-r, CP1251\],
-  *Ukrainian (KOI8-U)* \[koi8-u, CP1251\], *Baltic (ISO)*
-  \[iso-8859-4, CP1257\], *Cyrillic (ISO)* \[iso-8859-5, CP1251\],
-  *ISCII Davenagari* \[x-iscii-de, CP57002\], *ISCII Bengali*
-  \[x-iscii-be, CP57003\], *ISCII Tamil* \[x-iscii-ta, CP57004\],
-  *ISCII Telugu* \[x-iscii-te, CP57005\], *ISCII Assamese*
-  \[x-iscii-as, CP57006\], *ISCII Oriya* \[x-iscii-or, CP57007\],
-  *ISCII Kannada* \[x-iscii-ka, CP57008\], *ISCII Malayalam*
-  \[x-iscii-ma, CP57009\], *ISCII Gujarati* \[x-iscii-gu, CP57010\],
-  *ISCII Punjabi* \[x-iscii-pa, CP57011\], and *Thai (Windows)*
-  \[CP874\].
-
-- **Rare**: Include Rare encodings such as *IBM EBCDIC (Turkish)*
-  \[CP1026\], *IBM EBCDIC (Open Systems Latin 1)* \[CP1047\], *IBM
-  EBCDIC (US-Canada with Euro)* \[CP1140\], *IBM EBCDIC (Germany with
-  Euro)* \[CP1141\], *IBM EBCDIC (Denmark/Norway with Euro)*
-  \[CP1142\], *IBM EBCDIC (Finland/Sweden with Euro)* \[CP1143\],
-  *IBM EBCDIC (Italy with Euro)* \[CP1144\], *IBM EBCDIC (Latin
-  America/Spain with Euro)* \[CP1145\], *IBM EBCDIC (United Kingdom
-  with Euro)* \[CP1146\], *IBM EBCDIC (France with Euro)* \[CP1147\],
-  *IBM EBCDIC (International with Euro)* \[CP1148\], *IBM EBCDIC
-  (Icelandic with Euro)* \[CP1149\], *IBM EBCDIC (Germany)*
-  \[CP20273\], *IBM EBCDIC (Denmark/Norway)* \[CP20277\], *IBM EBCDIC
-  (Finland/Sweden)* \[CP20278\], *IBM EBCDIC (Italy)* \[CP20280\],
-  *IBM EBCDIC (Latin America/Spain)* \[CP20284\], *IBM EBCDIC (United
-  Kingdom)* \[CP20285\], *IBM EBCDIC (Japanese Katakana Extended)*
-  \[CP20290\], *IBM EBCDIC (France)* \[CP20297\], *IBM EBCDIC
-  (Arabic)* \[CP20420\], *IBM EBCDIC (Hebrew)* \[CP20424\], *IBM
-  EBCDIC (Icelandic)* \[CP20871\], *IBM EBCDIC (Cyrillic - Serbian,
-  Bulgarian)* \[CP21025\], *IBM EBCDIC (US-Canada)* \[CP37\], *IBM
-  EBCDIC (International)* \[CP500\], *Arabic (ASMO 708)* \[CP708\],
-  *Central European (DOS)* \[CP852\]*, Cyrillic (DOS)* \[CP855\],
-  *Turkish (DOS)* \[CP857\], *Western European (DOS with Euro)*
-  \[CP858\], *Hebrew (DOS)* \[CP862\], *Arabic (DOS)* \[CP864\],
-  *Russian (DOS)* \[CP866\], *Greek (DOS)* \[CP869\], *IBM EBCDIC
-  (Latin 2)* \[CP870\], and *IBM EBCDIC (Greek)* \[CP875\].
-
-- **West**: Include Western encodings such as *Western European
-  (Mac)* \[macintosh, CP10000\], *Icelandic (Mac)* \[x-mac-icelandic,
-  CP10079\], *Central European (Windows)* \[iso-8859-2, CP1250\],
-  *Western European (Windows)* \[iso-8859-1, CP1252\], *Greek
-  (Windows)* \[iso-8859-7, CP1253\], *Central European (ISO)*
-  \[iso-8859-2, CP28592\], *Latin 3 (ISO)* \[iso-8859-3, CP28593\],
-  *Greek (ISO)* \[iso-8859-7, CP28597\], *Latin 9 (ISO)*
-  \[iso-8859-15, CP28605\], *OEM United States* \[CP437\], *Western
-  European (DOS)* \[CP850\], *Portuguese (DOS)* \[CP860\], *Icelandic
-  (DOS)* \[CP861\], *French Canadian (DOS)* \[CP863\], and *Nordic
-  (DOS)* \[CP865\].
-
-```xml
-<MandroidI18n>West</MandroidI18n>
-```
+This MSBuild property is obsolete and is no longer supported.
 
 ## MonoAndroidResourcePrefix
 
