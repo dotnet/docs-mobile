@@ -22,6 +22,18 @@ conceptualContent:
     - title: .NET for iOS, tvOS, macOS and Mac Catalyst Guides
       items:
         # Card
+        - title: Build apps
+          links:
+            - url: ./building-apps/build-targets.md
+              itemType: reference
+              text: Build targets
+            - url: ./building-apps/build-properties.md
+              itemType: reference
+              text: Build properties
+            - url: ./building-apps/build-items.md
+              itemType: reference
+              text: Build items
+        # Card
         - title: Application fundamentals
           links:
             - url: ~/ios/app-fundamentals/images-icons/alternate-app-icons.md
