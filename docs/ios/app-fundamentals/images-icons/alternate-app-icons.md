@@ -119,8 +119,8 @@ If the user switches back to the primary icon, an alert like the following will 
 
 ## See also
 
-- [iOS sample](https://github.com/dotnet/macios-samples/pull/2)
-- [tvOS sample](https://github.com/dotnet/macios-samples/pull/2)
+- [iOS sample](https://github.com/dotnet/macios-samples/tree/main/AlternateAppIcons/iOS)
+- [tvOS sample](https://github.com/dotnet/macios-samples/tree/main/AlternateAppIcons/tvOS)
 
 [uiapplication]: xref:UIKit.UIApplication
 [applicationiconbadgenumber]: xref:UIKit.UIApplication.ApplicationIconBadgeNumber
