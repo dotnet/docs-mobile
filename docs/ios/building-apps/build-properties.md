@@ -1,7 +1,7 @@
 ---
 title: .NET for iOS, Mac Catalyst, macOS, and tvOS build properties
 description: .NET for iOS, Mac Catalyst, macOS, and tvOS build properties
-ms.date: 09/19/2024
+ms.date: 12/05/2024
 ---
 
 # Build properties for iOS, Mac Catalyst, macOS and tvOS
