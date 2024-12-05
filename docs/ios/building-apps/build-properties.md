@@ -8,7 +8,7 @@ ms.date: 12/05/2024
 
 MSBuild properties control the behavior of the
 [targets](build-targets.md).
-They're specified within the project file, for example **MyApp.csproj**, within
+They're specified within the project file, for example *MyApp.csproj*, within
 an MSBuild PropertyGroup.
 
 ## AltoolPath
