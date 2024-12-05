@@ -1,0 +1,9 @@
+- name: .NET for iOS, tvOS, macOS and Mac Catalyst
+  items:
+    - name: Application fundamentals
+      items:
+        - name: Images & icons
+          href: app-fundamentals/images-icons/index.md
+          items:
+            - name: Alternate app icons
+              href: app-fundamentals/images-icons/alternate-app-icons.md
