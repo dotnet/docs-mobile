@@ -1,6 +1,6 @@
 ---
 title: .NET for iOS, Mac Catalyst, macOS, and tvOS build items
-description: .NET for iOS, Mac Catalyst, macOS, and tvOS build items
+description: This document lists all the MSBuild items specific to .NET for iOS, Mac Catalyst, macOS, and tvOS
 ms.date: 12/05/2024
 ---
 
