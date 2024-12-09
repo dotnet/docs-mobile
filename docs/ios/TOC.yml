@@ -1,5 +1,13 @@
 - name: .NET for iOS, tvOS, macOS and Mac Catalyst
   items:
+    - name: Build apps
+      items:
+        - name: Build targets
+          href: building-apps/build-targets.md
+        - name: Build properties
+          href: building-apps/build-properties.md
+        - name: Build items
+          href: building-apps/build-items.md
     - name: Application fundamentals
       items:
         - name: Images & icons
