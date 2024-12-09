@@ -25,7 +25,7 @@ conceptualContent:
         - title: Application fundamentals
           links:
             - url: ~/ios/app-fundamentals/images-icons/alternate-app-icons.md
-              itemType: reference
+              itemType: how-to-guide
               text: Alternate app icons
 
 # additionalContent section (Optional; Remove if not applicable.)
