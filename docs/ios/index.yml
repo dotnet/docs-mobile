@@ -24,19 +24,19 @@ conceptualContent:
         # Card
         - title: Build apps
           links:
-            - url: ./building-apps/build-targets.md
+            - url: building-apps/build-targets.md
               itemType: reference
               text: Build targets
-            - url: ./building-apps/build-properties.md
+            - url: building-apps/build-properties.md
               itemType: reference
               text: Build properties
-            - url: ./building-apps/build-items.md
+            - url: building-apps/build-items.md
               itemType: reference
               text: Build items
         # Card
         - title: Application fundamentals
           links:
-            - url: ~/ios/app-fundamentals/images-icons/alternate-app-icons.md
+            - url: app-fundamentals/images-icons/alternate-app-icons.md
               itemType: how-to-guide
               text: Alternate app icons
 
