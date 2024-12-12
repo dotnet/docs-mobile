@@ -1,7 +1,7 @@
 ---
 title: "User notifications"
 description: "This article describes the User Notifications framework. It discusses local notifications, remote notifications, notification management, notification actions, and more."
-ms.date: 25/10/2024
+ms.date: 12/12/2024
 ---
 
 # User notifications
@@ -181,7 +181,8 @@ To provide the required entitlement, do the following:
 
     Note: if you use a different configuration than `Release` for to publish to the App Store, update the conditions accordingly.
 
-> [!INFO] The `aps-environment` can also be set in the `Entitlements.plist` file, which is historically how it been done. The advantage of using the project file is that it's easier to automatically use the correct value for the entitlement, `development` or `production`, depending on the build configuration.
+> [!INFO]
+> The `aps-environment` can also be set in the `Entitlements.plist` file, which is historically how it been done. The advantage of using the project file is that it's easier to automatically use the correct value for the entitlement, `development` or `production`, depending on the build configuration.
 
 -----
 
@@ -250,7 +251,7 @@ With the content of the notification created, the app needs to schedule when the
 - Calendar date - Allows local notifications to be scheduled for a specific date and time.
 - Location based - Allows local notifications to be scheduled when the device is entering or leaving a specific geographic location or is in a given proximity to any Bluetooth beacons.
 
-When a local notification is ready, the app needs to call [UNUserNotificationCenter.AddNotificationRequest][addnotificationrequest] schedule its display to the user. For remote notifications, the server-side app sends a notification payload to the APNs, which then sends the packet on to the user's device.
+When a local notification is ready, the app needs to call [UNUserNotificationCenter.AddNotificationRequest][unusernotificationcenter_addnotificationrequest] schedule its display to the user. For remote notifications, the server-side app sends a notification payload to the APNs, which then sends the packet on to the user's device.
 
 Bringing all of the pieces together, a sample local notification might look like:
 
@@ -290,7 +291,7 @@ Once the app is released, remote notifications are typically triggered from serv
 
 ## Handling foreground app notifications
 
-An app can handle notifications differently when it is in the foreground and a notification is triggered. By providing a [UNUserNotificationCenterDelegate][unusernotificationcenterdelegate] and implementing the [WillPresentNotification][willpresentnotification] method, the app can take over responsibility for displaying the notification. For example:
+An app can handle notifications differently when it is in the foreground and a notification is triggered. By providing a [UNUserNotificationCenterDelegate][unusernotificationcenterdelegate] and implementing the [WillPresentNotification][unusernotificationcenterdelegate_willpresentnotification] method, the app can take over responsibility for displaying the notification. For example:
 
 ```csharp
 using System;
@@ -343,7 +344,7 @@ public override bool FinishedLaunching (UIApplication application, NSDictionary 
 }
 ```
 
-This code is attaching the custom [UNUserNotificationCenterDelegate](unusernotificationcenterdelegate) from above to the current [UNUserNotificationCenter][unusernotificationcenter] so the app can handle notification while it is active and in the foreground.
+This code is attaching the custom [UNUserNotificationCenterDelegate][unusernotificationcenterdelegate] from above to the current [UNUserNotificationCenter][unusernotificationcenter] so the app can handle notification while it is active and in the foreground.
 
 ## Notification management
 
@@ -436,7 +437,7 @@ When creating a new [UNNotificationAction][unnotificationaction], it is assigned
 
 Each of the actions created need to be associated with a category. When creating a new [UNNotificationCategory][unnotificationcategory], it is assigned a unique identifier, a list of actions it can perform, a list of intent identifiers to provide more information about the intent of the actions in the category and some options to control the behavior of the category.
 
-Finally, all of the categories are registered with the system using the [SetNotificationCategories][setnotificationcategories] method.
+Finally, all of the categories are registered with the system using the [SetNotificationCategories][unusernotificationcenter_setnotificationcategories] method.
 
 ### Presenting custom actions
 
@@ -480,7 +481,7 @@ var category = UNNotificationCategory.FromIdentifier (categoryId, actions, inten
 
 ### Handling action responses
 
-When the user interacts with the custom actions and categories that were created above, the app needs to fulfill the requested task. This is done by providing a [UNUserNotificationCenterDelegate][unnsernotificationcenterdelegate] and implementing the [DidReceiveNotificationResponse][didreceivenotificationresponse] method. For example:
+When the user interacts with the custom actions and categories that were created above, the app needs to fulfill the requested task. This is done by providing a [UNUserNotificationCenterDelegate][unnsernotificationcenterdelegate] and implementing the [DidReceiveNotificationResponse][unusernotificationcenterdelegate_didreceivenotificationresponse] method. For example:
 
 ```csharp
 using System;
@@ -568,12 +569,12 @@ To implement a Notification Service Extension in an app, do the following:
     IMAGE GOES HERE
 4. Enter a **Name** for the extension and click the **OK** button.
 
+-----
+
 > [!IMPORTANT]
 > Due to changes in how the interaction between a Mac and any connected devices is handled by the Mac, it's currently not possible to debug an app extension with a debugger. See also https://github.com/xamarin/xamarin-macios/issues/19484 for more up-to-date information.
 > 
 > This means that the most reliable way to debug an app extension is unfortunately to add Console.WriteLine statements to the code, and then look for those statements in the [device log](https://support.apple.com/en-in/guide/console/cnsl1012/mac).
-
------
 
 > [!IMPORTANT]
 > The bundle identifier (ApplicationId) for the service extension must be prefixed with the bundle identifier of the main app. For example, if the main app had a Bundle Identifier of  `com.xamarin.monkeynotify`, the service extension should have a Bundle Identifier of `com.xamarin.monkeynotify.monkeynotifyserviceextension`.
@@ -621,7 +622,7 @@ namespace MonkeyChatServiceExtension
 }
 ```
 
-The first method, [DidReceiveNotificationRequest][unnotificationserviceextension_didreceivenotificationrequest], will be passed the notification identifier as well as the notification content via the `request` object. The passed in `contentHandler` will need to be called to present the notification to the user.
+The first method, [DidReceiveNotificationRequest][unusernotificationcenterdelegate_didreceivenotificationrequest], will be passed the notification identifier as well as the notification content via the `request` object. The passed in `contentHandler` will need to be called to present the notification to the user.
 
 The second method, [TimeWillExpire][unnotificationserviceextension_timewillexpire], will be called just before time is about to run out for the Notification Service Extension to process the request. If the Notification Service Extension fails to call the `contentHandler` in the allotted amount of time, the original content will be displayed to the user.
 
@@ -677,21 +678,19 @@ This code decrypts the encrypted content from the `encrypted-content` key, creat
 - [UserNotificationsUI](https://developer.apple.com/reference/usernotificationsui)
 - [Local and Remote Notification Programming Guide](https://developer.apple.com/documentation/usernotifications)
 
-[enablecodesigning]: /ios/building-apps/build-properties.md#enablecodesigning
+[enablecodesigning]: ../../building-apps/build-properties.md#enablecodesigning
 [uiapplication]: xref:UIKit.UIApplication
 [unnotification]: xref:UserNotifications.UNNotification
-[addnotificationrequest]: xref:UserNotifications.UNUserNotificationCenter.AddNotificationRequest
-[setnotificationcategories]: xref:UserNotifications.UNUserNotificationCenter.SetNotificationCategories
+[unusernotificationcenter_addnotificationrequest]: xref:UserNotifications.UNUserNotificationCenter.AddNotificationRequest*
+[unusernotificationcenter_setnotificationcategories]: xref:UserNotifications.UNUserNotificationCenter.SetNotificationCategories*
 [unusernotificationcenterdelegate]: xref:UserNotifications.UNUserNotificationCenterDelegate
-[willpresentnotification]: xref:UserNotifications.UNUserNotificationCenterDelegate.WillPresentNotification
-[didreceivenotificationrequest]: xref:UserNotifications.UNUserNotificationCenterDelegate.DidReceiveNotificationRequest
-[didreceivenotificationresponse]: xref:UserNotifications.UNUserNotificationCenterDelegate.DidReceiveNotificationResponse
+[unusernotificationcenterdelegate_willpresentnotification]: xref:UserNotifications.UNUserNotificationCenterDelegate.WillPresentNotification*
+[unusernotificationcenterdelegate_didreceivenotificationrequest]: xref:UserNotifications.UNUserNotificationCenterDelegate.DidReceiveNotificationRequest*
+[unusernotificationcenterdelegate_didreceivenotificationresponse]: xref:UserNotifications.UNUserNotificationCenterDelegate.DidReceiveNotificationResponse*
 [unnotificationpresentationoptions_none]: xref:UserNotifications.UNNotificationPresentationOptions.None
 [unnotificationaction]: xref:UserNotifications.UNNotificationAction
 [unnotificationcategory]: xref:UserNotifications.UNNotificationCategory
 [unmutablenotificationcontent]: xref:UserNotifications.UNMutableNotificationContent
 [unmutablenotificationcontent_body]: xref:UserNotifications.UNMutableNotificationContent.Body
-[unnotificationserviceextension_timewillexpire]: xref:UserNotifications.UNNotificationServiceExtension.TimeWillExpire
-[unnotificationserviceextension_didreceivenotificationrequest]: xref:UserNotifications.UNNotificationServiceExtension.DidReceiveNotificationRequest
-
-
+[unnotificationserviceextension_timewillexpire]: xref:UserNotifications.UNNotificationServiceExtension.TimeWillExpire*
+[unnotificationserviceextension_didreceivenotificationrequest]: xref:UserNotifications.UNNotificationServiceExtension.DidReceiveNotificationRequest*
