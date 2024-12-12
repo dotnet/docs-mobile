@@ -74,13 +74,13 @@ For more information, please see Apple's [User Notifications](https://developer.
 
 ### UIApplication API
 
-It's also possible to use [UIApplication][uiapplication] to register a notification with the system and to schedule how that notification should be triggered - either by time or location (this was the original API provided for user notifications by Apple).
+It's possible to use [UIApplication][uiapplication] to register a notification with the system and to schedule how that notification should be triggered - either by time or location (this was the original API provided for user notifications by Apple).
 
 However, there are several issue that a developer might encounter when working with the existing notification as provided by [UIApplication][uiapplication]:
 
-- There were different callbacks required for local or remote notifications which could lead to duplication of code.
-- The app had limited control of the notification after it had been scheduled with the system.
-- There were differing levels of support across all of Apple's existing platforms.
+- There are different callbacks required for local or remote notifications which could lead to duplication of code.
+- The app has limited control of the notification after it had been scheduled with the system.
+- There are differing levels of support across all of Apple's existing platforms.
 
 ### About the User Notifications framework
 
@@ -149,7 +149,7 @@ public override void DidFinishLaunching (NSNotification notification)
 ```
 
 > [!NOTE]
-> macOS and Mac Catalyst apps must be signed for thethe permission dialog to appear, even when building locally in Debug mode.
+> macOS and Mac Catalyst apps must be signed for the permission dialog to appear, even when building locally in Debug mode.
 > Set the [EnableCodeSigning][enablecodesigning] property in the project file to `true` to force the app to be signed.
 
 Additionally, a user can always change the notification privileges for an app at any time using the **Settings** app on the device. The app should check for the user's requested notification privileges before presenting a notification using the following code:
@@ -181,7 +181,7 @@ To provide the required entitlement, do the following:
 
     Note: if you use a different configuration than `Release` for to publish to the App Store, update the conditions accordingly.
 
-> [!INFO]
+> [!NOTE]
 > The `aps-environment` can also be set in the `Entitlements.plist` file, which is historically how it been done. The advantage of using the project file is that it's easier to automatically use the correct value for the entitlement, `development` or `production`, depending on the build configuration.
 
 -----
