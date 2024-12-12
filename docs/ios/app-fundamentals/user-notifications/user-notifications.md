@@ -622,7 +622,7 @@ namespace MonkeyChatServiceExtension
 }
 ```
 
-The first method, [DidReceiveNotificationRequest][unusernotificationcenterdelegate_didreceivenotificationrequest], will be passed the notification identifier as well as the notification content via the `request` object. The passed in `contentHandler` will need to be called to present the notification to the user.
+The first method, [DidReceiveNotificationRequest][unnotificationserviceextension_didreceivenotificationrequest], will be passed the notification identifier as well as the notification content via the `request` object. The passed in `contentHandler` will need to be called to present the notification to the user.
 
 The second method, [TimeWillExpire][unnotificationserviceextension_timewillexpire], will be called just before time is about to run out for the Notification Service Extension to process the request. If the Notification Service Extension fails to call the `contentHandler` in the allotted amount of time, the original content will be displayed to the user.
 
@@ -685,7 +685,6 @@ This code decrypts the encrypted content from the `encrypted-content` key, creat
 [unusernotificationcenter_setnotificationcategories]: xref:UserNotifications.UNUserNotificationCenter.SetNotificationCategories*
 [unusernotificationcenterdelegate]: xref:UserNotifications.UNUserNotificationCenterDelegate
 [unusernotificationcenterdelegate_willpresentnotification]: xref:UserNotifications.UNUserNotificationCenterDelegate.WillPresentNotification*
-[unusernotificationcenterdelegate_didreceivenotificationrequest]: xref:UserNotifications.UNUserNotificationCenterDelegate.DidReceiveNotificationRequest*
 [unusernotificationcenterdelegate_didreceivenotificationresponse]: xref:UserNotifications.UNUserNotificationCenterDelegate.DidReceiveNotificationResponse*
 [unnotificationpresentationoptions_none]: xref:UserNotifications.UNNotificationPresentationOptions.None
 [unnotificationaction]: xref:UserNotifications.UNNotificationAction
