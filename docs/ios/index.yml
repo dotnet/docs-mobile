@@ -40,7 +40,7 @@ conceptualContent:
               itemType: how-to-guide
               text: Alternate app icons
             - url: app-fundamentals/user-notifications/user-notifications.md
-              itemtype: how-to-guide
+              itemType: how-to-guide
               text: User notifications
 
 # additionalContent section (Optional; Remove if not applicable.)
