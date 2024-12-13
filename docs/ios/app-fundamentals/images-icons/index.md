@@ -1,6 +1,6 @@
 ---
 title: "Images and Icons in .NET for iOS, tvOS, macOS and Mac Catalyst"
-description: "This section includes a variety of articles that cover working with images in a Xamarin.iOS app, such as using them as icons, launch screens or including them in controls and providing icons for custom document types."
+description: "This section includes a variety of articles that cover working with images, such as using them as icons, launch screens or including them in controls and providing icons for custom document types."
 ms.date: 11/01/2024
 ---
 # Images and icons in .NET for iOS, tvOS, macOS and Mac Catalyst
