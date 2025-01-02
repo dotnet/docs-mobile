@@ -10,6 +10,8 @@
           href: building-apps/build-items.md
     - name: Application fundamentals
       items:
+        - name: Exception Marshaling
+          href: platform/exception-marshaling.md
         - name: Images & icons
           items:
             - name: Overview
