@@ -359,8 +359,8 @@ public void SendLocalNotification ()
 
 There are a multiple ways to trigger a remote notification during development for testing:
 
-* [Apple's Push Notification Console](https://developer.apple.com/documentation/usernotifications/testing-notifications-using-the-push-notification-console?language=objc)
-* [Command line tools](https://developer.apple.com/documentation/usernotifications/sending-push-notifications-using-command-line-tools?language=objc)
+* [Apple's Push Notification Console](https://developer.apple.com/documentation/usernotifications/testing-notifications-using-the-push-notification-console)
+* [Command line tools](https://developer.apple.com/documentation/usernotifications/sending-push-notifications-using-command-line-tools)
 * Other third-party solutions.
 
 Once the app is released, remote notifications are typically triggered from server-side apps.
@@ -739,6 +739,7 @@ This code decrypts the encrypted content from the `encrypted-content` key, creat
 - [UserNotifications Framework Reference](https://developer.apple.com/reference/usernotifications)
 - [UserNotificationsUI](https://developer.apple.com/reference/usernotificationsui)
 - [Local and Remote Notification Programming Guide](https://developer.apple.com/documentation/usernotifications)
+- [Customizing the Appearance of Notifications](https://developer.apple.com/documentation/usernotificationsui/customizing-the-appearance-of-notifications)
 
 [enablecodesigning]: ../../building-apps/build-properties.md#enablecodesigning
 [uiapplication]: xref:UIKit.UIApplication
