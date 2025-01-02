@@ -12,7 +12,7 @@ Additionally, the app or extension can receive (and potentially modify) both loc
 
 The User Notification UI framework allows the app or app extension to customize the appearance of both local and remote notifications when they are presented to the user.
 
-## Related Links
+## See also
 
 - [User Notifications framework reference](https://developer.apple.com/reference/usernotifications)
 - [User Notifications UI framework reference](https://developer.apple.com/reference/usernotificationsui)

@@ -8,10 +8,6 @@ ms.date: 12/12/2024
 
 The User Notifications framework allows for the delivery and handling of local and remote notifications. Using this framework, an app or app extension can schedule the delivery of local notifications by specifying a set of conditions such as location or time of day.
 
-## About user notifications
-
-As stated above, the User Notifications framework allows for the delivery and handling of local and remote notifications. Using this framework, an app or app extension can schedule the delivery of local notifications by specifying a set of conditions such as location or time of day.
-
 Additionally, the app or extension can receive (and potentially modify) both local and remote notifications as they are delivered to the user's device.
 
 The User Notification UI framework allows an app or app extension to customize the appearance of both local and remote notifications when they are presented to the user.
@@ -161,6 +157,19 @@ UNUserNotificationCenter.Current.GetNotificationSettings ((settings) => {
 });
 ```
 
+### Enabling background notifications
+
+In order for the app to receive background notifications, it must enable the remote notifications background mode to the app.
+
+This is done by adding a `remote-notifications` entry to the `UIBackgroundModes` array in the project's `Info.plist` file, like this:
+
+```xml
+<key>UIBackgroundModes</key>
+<array>
+    <string>remote-notification</string>
+</array>
+```
+
 ### Configuring the remote notifications environment
 
 The developer must inform the OS what environment push notification are running in as either `development` or `production`. Failure to provide this information can result in the app being rejected when submitted to the App Store with a notification similar to the following:
@@ -283,8 +292,8 @@ public void SendLocalNotification ()
 
 There are a multiple ways to trigger a remote notification during development for testing:
 
-* Apple's Push Notification Console: https://developer.apple.com/documentation/usernotifications/testing-notifications-using-the-push-notification-console?language=objc
-* Command line tools: https://developer.apple.com/documentation/usernotifications/sending-push-notifications-using-command-line-tools?language=objc
+* [Apple's Push Notification Console](https://developer.apple.com/documentation/usernotifications/testing-notifications-using-the-push-notification-console?language=objc)
+* [Command line tools](https://developer.apple.com/documentation/usernotifications/sending-push-notifications-using-command-line-tools?language=objc)
 * Other third-party solutions.
 
 Once the app is released, remote notifications are typically triggered from server-side apps.
@@ -350,20 +359,20 @@ This code is attaching the custom [UNUserNotificationCenterDelegate][unusernotif
 
 Notification management provides access to both pending and delivered notifications and adds the ability to remove, update or promote these notifications.
 
-An important part of notification management is the _request identifier_ that was assigned to the notification when it was created and scheduled with the system. For remote notifications, this is assigned via the new `apps-collapse-id` field in the HTTP request header.
+An important part of notification management is the _request identifier_ that was assigned to the notification when it was created and scheduled with the system. For remote notifications, this is assigned via the `apps-collapse-id` field in the HTTP request header.
 
 The request identifier is used to select the notification that the app wishes to perform notification management on.
 
 ### Removing notifications
 
-To remove a pending Notification from the system, use the following code:
+To remove a pending notification from the system, use the following code:
 
 ```csharp
 var requests = new string [] { "sampleRequest" };
 UNUserNotificationCenter.Current.RemovePendingNotificationRequests (requests);
 ```
 
-To remove an already delivered Notification, use the following code:
+To remove an already delivered notification, use the following code:
 
 ```csharp
 var requests = new string [] { "sampleRequest" };
@@ -387,7 +396,7 @@ content.Badge = 1;
 // New trigger time
 var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger (10, false);
 
-// Id of Notification to be updated
+// Id of notification to be updated
 var requestId = "sampleRequest";
 var request = UNNotificationRequest.FromIdentifier (requestId, content, trigger);
 
@@ -493,7 +502,7 @@ namespace MonkeyNotification
     {
         ...
 
-        #region Override Methods
+        #region Override methods
         public override void DidReceiveNotificationResponse (UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
         {
             // Take action based on Action ID
@@ -523,24 +532,22 @@ The passed in `UNNotificationResponse` class has an `ActionIdentifier` property 
 
 The `UserText` property holds the value of any user text input. The `Notification` property holds the originating notification that includes the request with the trigger and notification content. The app can decide if it was a local or remote notification based on the type of trigger.
 
-## Working with Notification Service Extensions
+## Working with Notification Service extensions
 
-When working with remote notifications, a _Notification Service Extension_ provide a way to enable end-to-end encryption inside of the notification payload. A Notification Service Extension is a non-User Interface extension that runs in the background with the main purpose of augmenting or replacing the visible content of a notification before it is presented to the user. 
+When working with remote notifications, a _Notification Service Extension_ provide a way to enable end-to-end encryption inside of the notification payload. A Notification Service extension is a non-User Interface extension that runs in the background with the main purpose of augmenting or replacing the visible content of a notification before it is presented to the user. 
 
-[![Notification Service Extension overview](user-notifications-images/extension01.png)](user-notifications-images/extension01.png#lightbox)
+[![Notification Service extension overview](user-notifications-images/extension01.png)](user-notifications-images/extension01.png#lightbox)
 
-Notification Service Extensions are meant to run quickly and are only given a short amount of time to execute by the system. In the event that the Notification Service Extension fails to complete its task in the allotted amount of time, a fallback method will be called. If the fallback fails, the original notification content will be displayed to the user.
+Notification Service extensions are meant to run quickly and are only given a short amount of time to execute by the system. In the event that the Notification Service extension fails to complete its task in the allotted amount of time, a fallback method will be called. If the fallback fails, the original notification content will be displayed to the user.
 
-Some potential uses of Notification Service Extensions include:
+Some potential uses of Notification Service extensions include:
 
 - Providing end-to-end encryption of the remote notification content.
 - Adding attachments to remote notifications to enrich them.
 
-### Implementing a Notification Service Extension
+### Implementing a Notification Service extension
 
-To implement a Notification Service Extension in an app, do the following:
-
-# [VSCode](#tab/macos)
+To implement a Notification Service extension in an app, do the following:
 
 1. Create a new folder for the extension project, next to the main project's folder. The following instructions assume the new folder is named `MyNotificationServiceExtension`.
 2. Open a terminal, and execute:
@@ -552,24 +559,12 @@ To implement a Notification Service Extension in an app, do the following:
 
     ```xml
     <ItemGroup>
-        <ProjectReference Include="../MyNotificationServiceExtension/MyNotificationServiceExtension.csproj">
+        <ProjectReference Include="..\MyNotificationServiceExtension\MyNotificationServiceExtension.csproj">
             <IsAppExtension>true</IsAppExtension>
         </ProjectReference>
     </ItemGroup>
     ```
 4. Now build the main project, and the extension project will also be built and included in the final app bundle.
-
-# [Visual Studio](#tab/windows)
-
-1. FIXME
-
-1. Open the app's solution in Visual Studio.
-2. Right-click on the Solution Name in the **Solution Explorer** and select **Add > New Project...**.
-3. Select **Visual C# > iOS Extensions > Notification Service Extension**:
-    IMAGE GOES HERE
-4. Enter a **Name** for the extension and click the **OK** button.
-
------
 
 > [!IMPORTANT]
 > Due to changes in how the interaction between a Mac and any connected devices is handled by the Mac, it's currently not possible to debug an app extension with a debugger. See also https://github.com/xamarin/xamarin-macios/issues/19484 for more up-to-date information.
@@ -579,7 +574,7 @@ To implement a Notification Service Extension in an app, do the following:
 > [!IMPORTANT]
 > The bundle identifier (ApplicationId) for the service extension must be prefixed with the bundle identifier of the main app. For example, if the main app had a Bundle Identifier of  `com.xamarin.monkeynotify`, the service extension should have a Bundle Identifier of `com.xamarin.monkeynotify.monkeynotifyserviceextension`.
 
-There is one main class in the Notification Service Extension that will need to be modified to provide the required functionality. For example:
+There is one main class in the Notification Service extension that will need to be modified to provide the required functionality. For example:
 
 ```csharp
 using System;
@@ -624,11 +619,11 @@ namespace MonkeyChatServiceExtension
 
 The first method, [DidReceiveNotificationRequest][unnotificationserviceextension_didreceivenotificationrequest], will be passed the notification identifier as well as the notification content via the `request` object. The passed in `contentHandler` will need to be called to present the notification to the user.
 
-The second method, [TimeWillExpire][unnotificationserviceextension_timewillexpire], will be called just before time is about to run out for the Notification Service Extension to process the request. If the Notification Service Extension fails to call the `contentHandler` in the allotted amount of time, the original content will be displayed to the user.
+The second method, [TimeWillExpire][unnotificationserviceextension_timewillexpire], will be called just before time is about to run out for the Notification Service extension to process the request. If the Notification Service extension fails to call the `contentHandler` in the allotted amount of time, the original content will be displayed to the user.
 
-### Triggering a Notification Service Extension
+### Triggering a Notification Service extension
 
-With a Notification Service Extension created and delivered with the app, it can be triggered by modifying the remote notification payload sent to the device. For example:
+With a Notification Service extension created and delivered with the app, it can be triggered by modifying the remote notification payload sent to the device. For example:
 
 ```json
 {
@@ -640,9 +635,9 @@ With a Notification Service Extension created and delivered with the app, it can
 }
 ```
 
-The new `mutable-content` key specifies that the Notification Service Extension will need to be launched to update the remote notification content. The `encrypted-content` key holds the encrypted data that the Notification Service Extension can decrypt before presenting to the user.
+The new `mutable-content` key specifies that the Notification Service extension will need to be launched to update the remote notification content. The `encrypted-content` key holds the encrypted data that the Notification Service extension can decrypt before presenting to the user.
 
-Take a look at the following example Notification Service Extension:
+Take a look at the following example Notification Service extension:
 
 ```csharp
 using UserNotification;
@@ -654,7 +649,7 @@ namespace myApp {
             // Decrypt payload
             var decryptedBody = Decrypt(Request.Content.UserInfo["encrypted-content"]);
             
-            // Modify Notification body
+            // Modify notification body
             var newContent = new UNMutableNotificationContent();
             newContent.Body = decryptedBody;
             
@@ -681,6 +676,7 @@ This code decrypts the encrypted content from the `encrypted-content` key, creat
 [enablecodesigning]: ../../building-apps/build-properties.md#enablecodesigning
 [uiapplication]: xref:UIKit.UIApplication
 [unnotification]: xref:UserNotifications.UNNotification
+[unusernotificationcenter]: xref:UserNotifications.UNUserNotificationCenter
 [unusernotificationcenter_addnotificationrequest]: xref:UserNotifications.UNUserNotificationCenter.AddNotificationRequest*
 [unusernotificationcenter_setnotificationcategories]: xref:UserNotifications.UNUserNotificationCenter.SetNotificationCategories*
 [unusernotificationcenterdelegate]: xref:UserNotifications.UNUserNotificationCenterDelegate
