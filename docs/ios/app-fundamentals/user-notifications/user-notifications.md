@@ -736,6 +736,7 @@ This code decrypts the encrypted content from the `encrypted-content` key, creat
 
 ## See also
 
+- [iOS sample](https://github.com/dotnet/macios-samples/tree/main/UserNotifications/iOS)
 - [UserNotifications Framework Reference](https://developer.apple.com/reference/usernotifications)
 - [UserNotificationsUI](https://developer.apple.com/reference/usernotificationsui)
 - [Local and Remote Notification Programming Guide](https://developer.apple.com/documentation/usernotifications)
