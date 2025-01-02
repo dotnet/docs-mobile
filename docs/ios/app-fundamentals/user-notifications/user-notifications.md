@@ -191,9 +191,76 @@ To provide the required entitlement, do the following:
     Note: if you use a different configuration than `Release` for to publish to the App Store, update the conditions accordingly.
 
 > [!NOTE]
-> The `aps-environment` can also be set in the `Entitlements.plist` file, which is historically how it been done. The advantage of using the project file is that it's easier to automatically use the correct value for the entitlement, `development` or `production`, depending on the build configuration.
+> The `aps-environment` can also be set in the `Entitlements.plist` file, which is historically how it's been done. The advantage of using the project file is that it's easier to automatically use the correct value for the entitlement, `development` or `production`, depending on the build configuration.
 
------
+### Provisioning
+
+The `aps-environment` entitlement from the previous section requires using a provisioning profile with the `Push Notifications` capability:
+
+1. Go to the [Identifiers](https://developer.apple.com/account/resources/identifiers/list) section of the [Apple Developer](https://developer.apple.com/) site:
+
+[![The Identifiers section](user-notifications-images/CreateAppIdentifier1.png)](user-notifications-images/CreateAppIdentifier1.png#lightbox)
+
+2. Add a new identifier (Register a new identifier):
+
+[![Register a new identifier](user-notifications-images/CreateAppIdentifier2.png)](user-notifications-images/CreateAppIdentifier2.png#lightbox)
+
+3. Select the 'App' type:
+
+[![Select the 'App' type](user-notifications-images/CreateAppIdentifier3.png)](user-notifications-images/CreateAppIdentifier3.png#lightbox)
+
+4. Enter the bundle identifier and description for the new app identifier:
+
+[![Register an App ID](user-notifications-images/CreateAppIdentifier4.png)](user-notifications-images/CreateAppIdentifier4.png#lightbox)
+
+5. Enable the `Push Notifications` capability:
+
+[![The enabled Push Notifications capability`](user-notifications-images/CreateAppIdentifier5.png)](user-notifications-images/CreateAppIdentifier5.png#lightbox)
+
+6. Click the `Register` to save the new app identifier.
+
+The next step is to create a provisioning profile for the new app identifier:
+
+1. Go to the [Profiles](https://developer.apple.com/account/resources/profiles/list) section of the [Apple Developer](https://developer.apple.com/) site:
+
+[![The Profiles section](user-notifications-images/CreateProvisioningProfile1.png)](user-notifications-images/CreateProvisioningProfile1.png#lightbox)
+
+2. Add a new profile for iOS App Development:
+
+[![Register a new provisioning profile](user-notifications-images/CreateProvisioningProfile2.png)](user-notifications-images/CreateProvisioningProfile2.png#lightbox)
+
+3. Select the App ID we just created:
+
+[![Select App ID](user-notifications-images/CreateProvisioningProfile3.png)](user-notifications-images/CreateProvisioningProfile3.png#lightbox)
+
+4. Select all the certificates that are included in this provisioning profile (a new certificate must be craeted if none has been created yet):
+
+[![Select certificates](user-notifications-images/CreateProvisioningProfile4.png)](user-notifications-images/CreateProvisioningProfile4.png#lightbox)
+
+5. Select all the devices that are included in this provisioning profile (the app can only be installed on these devices).
+
+[![Select devices](user-notifications-images/CreateProvisioningProfile5.png)](user-notifications-images/CreateProvisioningProfile5.png#lightbox)
+
+6. Choose a name for the provisioning profile and review it:
+
+[![Review and name](user-notifications-images/CreateProvisioningProfile6.png)](user-notifications-images/CreateProvisioningProfile6.png#lightbox)
+
+7. Generate and download the new provisioning profile.
+
+[![Generate](user-notifications-images/CreateProvisioningProfile7.png)](user-notifications-images/CreateProvisioningProfile7.png#lightbox)
+
+8. Open the downloaded provisioning profile file in Xcode (by double-clicking on it in Finder) to install it into the system.
+
+9. Configure the project to use the newly created provisioning profile by setting the `CodesignProvision` property to the name of the provisioning profile from step 6:
+
+```xml
+<PropertyGroup>
+    <CodesignProvision>User Notifications Profile</CodesignProvision>
+</PropertyGroup>
+```
+
+> [!NOTE]
+> If the app has any app extensions that deal with notifications, this process must be repeated for each corresponding app extension project - they must each have their own app identifier and provisioning profile.
 
 ### Registering for remote notifications
 
