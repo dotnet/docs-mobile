@@ -1,5 +1,5 @@
 ---
-title: "User notifications"
+title: "User notifications on iOS, tvOS, macOS and Mac Catalyst"
 description: "This article describes the User Notifications framework. It discusses local notifications, remote notifications, notification management, notification actions, and more."
 ms.date: 12/12/2024
 ---
@@ -40,9 +40,9 @@ The local notifications that an app can send have the following features and att
 
 Some examples of local notifications include:
 
-- Calendar alerts
-- Reminder alerts
-- Location aware triggers
+- Calendar alerts.
+- Reminder alerts.
+- Location aware triggers.
 
 For more information, please see Apple's [User Notifications](https://developer.apple.com/documentation/usernotifications) documentation.
 
@@ -57,9 +57,9 @@ The remote notifications that an app can send have the following features and at
 
 Some examples of Remote Notifications include:
 
-- News alerts
-- Sports updates
-- Instant messaging messages
+- News alerts.
+- Sports updates.
+- Instant messaging messages.
 
 There are two types of remote notifications available to an app:
 
@@ -161,7 +161,7 @@ UNUserNotificationCenter.Current.GetNotificationSettings ((settings) => {
 
 In order for the app to receive background notifications, it must enable the remote notifications background mode to the app.
 
-This is done by adding a `remote-notifications` entry to the `UIBackgroundModes` array in the project's `Info.plist` file, like this:
+This is done by adding a `remote-notifications` entry to the `UIBackgroundModes` array in the project's _Info.plist_ file, like this:
 
 ```xml
 <key>UIBackgroundModes</key>
@@ -191,7 +191,7 @@ To provide the required entitlement, do the following:
     Note: if you use a different configuration than `Release` for to publish to the App Store, update the conditions accordingly.
 
 > [!NOTE]
-> The `aps-environment` can also be set in the `Entitlements.plist` file, which is historically how it's been done. The advantage of using the project file is that it's easier to automatically use the correct value for the entitlement, `development` or `production`, depending on the build configuration.
+> The `aps-environment` can also be set in the _Entitlements.plist_ file, which is historically how it's been done. The advantage of using the project file is that it's easier to automatically use the correct value for the entitlement, `development` or `production`, depending on the build configuration.
 
 ### Provisioning
 
@@ -199,23 +199,23 @@ The `aps-environment` entitlement from the previous section requires using a pro
 
 1. Go to the [Identifiers](https://developer.apple.com/account/resources/identifiers/list) section of the [Apple Developer](https://developer.apple.com/) site:
 
-[![The Identifiers section](user-notifications-images/CreateAppIdentifier1.png)](user-notifications-images/CreateAppIdentifier1.png#lightbox)
+    [![The Identifiers section](user-notifications-images/CreateAppIdentifier1.png)](user-notifications-images/CreateAppIdentifier1.png#lightbox)
 
 2. Add a new identifier (Register a new identifier):
 
-[![Register a new identifier](user-notifications-images/CreateAppIdentifier2.png)](user-notifications-images/CreateAppIdentifier2.png#lightbox)
+    [![Register a new identifier](user-notifications-images/CreateAppIdentifier2.png)](user-notifications-images/CreateAppIdentifier2.png#lightbox)
 
 3. Select the 'App' type:
 
-[![Select the 'App' type](user-notifications-images/CreateAppIdentifier3.png)](user-notifications-images/CreateAppIdentifier3.png#lightbox)
+    [![Select the 'App' type](user-notifications-images/CreateAppIdentifier3.png)](user-notifications-images/CreateAppIdentifier3.png#lightbox)
 
 4. Enter the bundle identifier and description for the new app identifier:
 
-[![Register an App ID](user-notifications-images/CreateAppIdentifier4.png)](user-notifications-images/CreateAppIdentifier4.png#lightbox)
+    [![Register an App ID](user-notifications-images/CreateAppIdentifier4.png)](user-notifications-images/CreateAppIdentifier4.png#lightbox)
 
 5. Enable the `Push Notifications` capability:
 
-[![The enabled Push Notifications capability`](user-notifications-images/CreateAppIdentifier5.png)](user-notifications-images/CreateAppIdentifier5.png#lightbox)
+    [![The enabled Push Notifications capability`](user-notifications-images/CreateAppIdentifier5.png)](user-notifications-images/CreateAppIdentifier5.png#lightbox)
 
 6. Click the `Register` to save the new app identifier.
 
@@ -223,41 +223,41 @@ The next step is to create a provisioning profile for the new app identifier:
 
 1. Go to the [Profiles](https://developer.apple.com/account/resources/profiles/list) section of the [Apple Developer](https://developer.apple.com/) site:
 
-[![The Profiles section](user-notifications-images/CreateProvisioningProfile1.png)](user-notifications-images/CreateProvisioningProfile1.png#lightbox)
+    [![The Profiles section](user-notifications-images/CreateProvisioningProfile1.png)](user-notifications-images/CreateProvisioningProfile1.png#lightbox)
 
 2. Add a new profile for iOS App Development:
 
-[![Register a new provisioning profile](user-notifications-images/CreateProvisioningProfile2.png)](user-notifications-images/CreateProvisioningProfile2.png#lightbox)
+    [![Register a new provisioning profile](user-notifications-images/CreateProvisioningProfile2.png)](user-notifications-images/CreateProvisioningProfile2.png#lightbox)
 
 3. Select the App ID we just created:
 
-[![Select App ID](user-notifications-images/CreateProvisioningProfile3.png)](user-notifications-images/CreateProvisioningProfile3.png#lightbox)
+    [![Select App ID](user-notifications-images/CreateProvisioningProfile3.png)](user-notifications-images/CreateProvisioningProfile3.png#lightbox)
 
 4. Select all the certificates that are included in this provisioning profile (a new certificate must be craeted if none has been created yet):
 
-[![Select certificates](user-notifications-images/CreateProvisioningProfile4.png)](user-notifications-images/CreateProvisioningProfile4.png#lightbox)
+    [![Select certificates](user-notifications-images/CreateProvisioningProfile4.png)](user-notifications-images/CreateProvisioningProfile4.png#lightbox)
 
 5. Select all the devices that are included in this provisioning profile (the app can only be installed on these devices).
 
-[![Select devices](user-notifications-images/CreateProvisioningProfile5.png)](user-notifications-images/CreateProvisioningProfile5.png#lightbox)
+    [![Select devices](user-notifications-images/CreateProvisioningProfile5.png)](user-notifications-images/CreateProvisioningProfile5.png#lightbox)
 
 6. Choose a name for the provisioning profile and review it:
 
-[![Review and name](user-notifications-images/CreateProvisioningProfile6.png)](user-notifications-images/CreateProvisioningProfile6.png#lightbox)
+    [![Review and name](user-notifications-images/CreateProvisioningProfile6.png)](user-notifications-images/CreateProvisioningProfile6.png#lightbox)
 
 7. Generate and download the new provisioning profile.
 
-[![Generate](user-notifications-images/CreateProvisioningProfile7.png)](user-notifications-images/CreateProvisioningProfile7.png#lightbox)
+    [![Generate](user-notifications-images/CreateProvisioningProfile7.png)](user-notifications-images/CreateProvisioningProfile7.png#lightbox)
 
 8. Open the downloaded provisioning profile file in Xcode (by double-clicking on it in Finder) to install it into the system.
 
 9. Configure the project to use the newly created provisioning profile by setting the `CodesignProvision` property to the name of the provisioning profile from step 6:
 
-```xml
-<PropertyGroup>
-    <CodesignProvision>User Notifications Profile</CodesignProvision>
-</PropertyGroup>
-```
+    ```xml
+    <PropertyGroup>
+        <CodesignProvision>User Notifications Profile</CodesignProvision>
+    </PropertyGroup>
+    ```
 
 > [!NOTE]
 > If the app has any app extensions that deal with notifications, this process must be repeated for each corresponding app extension project - they must each have their own app identifier and provisioning profile.
