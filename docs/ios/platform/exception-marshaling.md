@@ -323,7 +323,7 @@ exceptions to Objective-C exceptions).
 In .NET, marshaling managed exceptions to Objective-C exceptions is always
 enabled by default.
 
-The [Build-time flags](#build_time_flags) section explains how to disable
+The [Build-time flags](#build-time-flags) section explains how to disable
 interception when it is the default.
 
 ## Events
