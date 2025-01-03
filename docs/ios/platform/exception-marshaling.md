@@ -278,7 +278,7 @@ such as crashes, memory leaks, and other types of unpredictable (mis)behaviors.
 > 
 > ```cs
 > var defs = new NSDictionary ((NSString) "NSApplicationCrashOnExceptions", NSValue.FromBoolean (true));
-NSUserDefaults.StandardUserDefaults.RegisterDefaults (defs);
+> NSUserDefaults.StandardUserDefaults.RegisterDefaults (defs);
 > ```
 >
 > However, note that this property is not documented by Apple, so behavior may change in the future.
@@ -405,7 +405,7 @@ class MyApp {
 > [Runtime.MarshalObjectiveCException][runtime_marshalobjectivecexception]
 > event that would log all marshaled Objective-C exceptions using telemetry
 > (for debug/local builds maybe also set the exception mode to "Abort" as
-> well).
+> well) to detect all such exceptions in order to fix/avoid them.
 
 ## Build-Time Flags
 
