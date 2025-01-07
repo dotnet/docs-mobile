@@ -742,7 +742,7 @@ This code decrypts the encrypted content from the `encrypted-content` key, creat
 - [Local and Remote Notification Programming Guide](https://developer.apple.com/documentation/usernotifications)
 - [Customizing the Appearance of Notifications](https://developer.apple.com/documentation/usernotificationsui/customizing-the-appearance-of-notifications)
 
-[enablecodesigning]: ../../building-apps/build-properties.md#enablecodesigning
+[enablecodesigning]: ../building-apps/build-properties.md#enablecodesigning
 [uiapplication]: xref:UIKit.UIApplication
 [unnotification]: xref:UserNotifications.UNNotification
 [unusernotificationcenter]: xref:UserNotifications.UNUserNotificationCenter
