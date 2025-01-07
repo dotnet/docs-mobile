@@ -1,5 +1,5 @@
 ---
-title: "Exception Marshaling"
+title: "Exception Marshaling on iOS, tvOS, Mac Catalyst and macOS"
 description: "This article describes how to work with native and managed exceptions in a .NET for iOS, tvOS, Mac Catalyst or macOS app. It discusses problems that can occur and a solution for these problems."
 ms.date: 01/02/2025
 ---
@@ -413,18 +413,8 @@ It's possible to set the following MSBuild properties, which will determine if
 exception interception is enabled, and set the default action that should
 occur:
 
-* `MarshalManagedExceptionMode`
-  - `default`
-  - `unwindnativecode`
-  - `throwobjectivecexception`
-  - `abort`
-  - `disable`    
-* `MarshalObjectiveCExceptionMode`
-  - `default`
-  - `unwindmanagedcode`
-  - `throwmanagedexception`
-  - `abort`
-  - `disable`
+* MarshalManagedExceptionMode: "default", "unwindnativecode", "throwobjectivecexception", "abort", "disable".
+* MarshalObjectiveCExceptionMode: "default", "unwindmanagedcode", "throwmanagedexception", "abort", "disable".
 
 Example:
 
