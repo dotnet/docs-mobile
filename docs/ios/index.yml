@@ -39,7 +39,9 @@ conceptualContent:
             - url: app-fundamentals/images-icons/alternate-app-icons.md
               itemType: how-to-guide
               text: Alternate app icons
-            - url: platform/exception-marshaling.md
+        - title: Advanced concepts
+          links:
+            - url: advanced-concepts/exception-marshaling.md
               itemType: concept
               text: Exception marshaling
 
