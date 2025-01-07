@@ -4,7 +4,7 @@ description: "This article describes how to work with native and managed excepti
 ms.date: 01/02/2025
 ---
 
-# Exception Marshaling
+# Exception marshaling
 
 Both managed code and Objective-C have support for runtime exceptions
 (try/catch/finally clauses).
@@ -13,7 +13,7 @@ However, their implementations are different, which means that the runtime
 libraries (the MonoVM/CoreCLR runtimes and the Objective-C runtime libraries)
 have problems when they run into exceptions from other runtimes.
 
-This document explains the problems that can occur, and the possible
+This article explains the problems that can occur, and the possible
 solutions.
 
 It also includes a sample project, [Exception Marshaling][sample],
