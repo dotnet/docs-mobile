@@ -259,11 +259,10 @@ This means that on the main thread there's never really an unhandled
 Objective-C exception, and thus our callback that converts Objective-C
 exceptions to managed exceptions is never called.
 
-This is also common when debugging Xamarin.Mac apps on an earlier macOS
-version than Xamarin.Mac supports because inspecting most UI objects in the
-debugger will try to fetch properties that correspond to selectors that don't
-exist on the executing platform (because Xamarin.Mac includes support for a
-higher macOS version). Calling such selectors will throw an
+This is also common when debugging macOS apps on an earlier macOS version than
+the latest, because inspecting most UI objects in the debugger will try to
+fetch properties that correspond to selectors that don't exist on the
+executing platform. Calling such selectors will throw an
 `NSInvalidArgumentException` ("Unrecognized selector sent to ..."), which
 eventually causes the process to crash.
 
