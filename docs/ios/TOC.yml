@@ -16,6 +16,8 @@
               href: app-fundamentals/images-icons/index.md
             - name: Alternate app icons
               href: app-fundamentals/images-icons/alternate-app-icons.md
+        - name: User notifications
+          href: app-fundamentals/user-notifications.md
     - name: Advanced concepts
       items:
         - name: Exception marshaling
