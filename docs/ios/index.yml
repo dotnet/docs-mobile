@@ -39,6 +39,14 @@ conceptualContent:
             - url: app-fundamentals/images-icons/alternate-app-icons.md
               itemType: how-to-guide
               text: Alternate app icons
+            - url: app-fundamentals/user-notifications.md
+              itemType: how-to-guide
+              text: User notifications
+        - title: Advanced concepts
+          links:
+            - url: advanced-concepts/exception-marshaling.md
+              itemType: concept
+              text: Exception marshaling
 
 # additionalContent section (Optional; Remove if not applicable.)
 # Card with links style
