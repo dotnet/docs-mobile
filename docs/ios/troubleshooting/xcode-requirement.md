@@ -42,7 +42,7 @@ us releasing support for this new Xcode version. Sometimes macOS will
 auto-update the installed version of Xcode, which may cause problems during
 this time frame.
 
-The simplest solution is to [install multiple versions of Xcode](#installing-multiple-versions-of-Xcode), and selecting the version of Xcode that corresponds with the Xcode requirement for the installed workload(s).
+The simplest solution is to [install multiple versions of Xcode](#installing-multiple-versions-of-xcode), and selecting the version of Xcode that corresponds with the Xcode requirement for the installed workload(s).
 
 ## Installing multiple versions of Xcode
 
