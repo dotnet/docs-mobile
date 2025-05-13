@@ -22,3 +22,7 @@
       items:
         - name: Exception marshaling
           href: advanced-concepts/exception-marshaling.md
+    - name: Troubleshooting
+      items:
+        - name: Xcode requirement
+          href: troubleshooting/xcode-requirement.md
