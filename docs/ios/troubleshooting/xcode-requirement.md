@@ -10,7 +10,7 @@ Each version of the .NET for iOS, tvOS, Mac Catalyst or macOS workloads requires
 
 We state in our [release notes](https://github.com/dotnet/macios/releases) the exact Xcode version for each release.
 
-# Workload update
+## Workload update
 
 A new version of a workload might require a different version of Xcode. This
 typically happens whenever Apple releases a new version of Xcode: soon afterwards
@@ -26,13 +26,13 @@ Upgrading the workload, but not Xcode, will lead to a build error like this:
 
 The simplest solution is typically to upgrade to the version of Xcode the
 error message mentions, while it's also possible to install an
-[older](#Install_older_version_of_a_workload) version of the corresponding
+[older](#install-older-version-of-a-workload) version of the corresponding
 workload to avoid having to upgrade Xcode.
 
 In some cases the newer version of Xcode also requires updating to a newer
 major version of macOS (this generally occurs around April every year). If the
 new macOS version isn't supported on the developer's current hardware, the
-only option is to use an [older](#Install_older_version_of_a_workload) version
+only option is to use an [older](#install-older-version-of-a-workload) version
 of the workload (or get new hardware).
 
 ## Upgraded Xcode, but not the workload
@@ -42,7 +42,7 @@ us releasing support for this new Xcode version. Sometimes macOS will
 auto-update the installed version of Xcode, which may cause problems during
 this time frame.
 
-The simplest solution is to [install multiple versions of Xcode](#Installing_multiple_versions_of_Xcode), and selecting the version of Xcode that corresponds with the Xcode requirement for the installed workload(s).
+The simplest solution is to [install multiple versions of Xcode](#installing-multiple-versions-of-Xcode), and selecting the version of Xcode that corresponds with the Xcode requirement for the installed workload(s).
 
 ## Installing multiple versions of Xcode
 
@@ -54,7 +54,8 @@ The simplest solution is to [install multiple versions of Xcode](#Installing_mul
 * Rename the `Xcode.app` in the Downloads folder to something more descriptive (for instance `Xcode_15.app`).
 * Move the extracted `*.app` to the `/Applications/` directory.
 
-> [!NOTE] we've seen strange problems if the Xcode app is renamed after it's been opened at least once, therefore we recommend only renaming the app right after downloading and extracting it.
+> [!NOTE]
+> We've seen strange problems if the Xcode app is renamed after it's been opened at least once, therefore we recommend only renaming the app right after downloading and extracting it.
 
 Once the desired versions of Xcode are installed, developers can choose between them either from Xcode (menu Xcode -> Settings -> Locations -> Command Line Tools), or by using the `xcode-select` tool from the command line:
 
