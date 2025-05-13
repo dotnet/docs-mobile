@@ -81,7 +81,7 @@ A specific version of a workload is installed using a [workload set](/dotnet/cor
 
 The exact workload set version is not predictable ahead of time, but we state the workload set version for a specific workload version with every release: https://github.com/dotnet/macios/releases.
 
-Here's an example for our release with support for [Xcode 16.3][https://github.com/dotnet/macios/releases/tag/dotnet-9.0.1xx-xcode16.3-9288]:
+Here's an example for our release with support for [Xcode 16.3](https://github.com/dotnet/macios/releases/tag/dotnet-9.0.1xx-xcode16.3-9288):
 
 ```shell
 $ dotnet workload install ios --version 9.0.203
