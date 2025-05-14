@@ -86,3 +86,21 @@ Here's an example for our release with support for [Xcode 16.3](https://github.c
 ```shell
 $ dotnet workload install ios --version 9.0.203
 ```
+
+## FAQ
+
+### Is it safe to upgrade my Xcode?
+
+It's possible to check if we've released support for a particular version of
+Xcode by looking at our list of [releases](https://github.com/dotnet/macios/releases).
+
+If we've released support for a particular version of Xcode, it's safe to
+upgrade to that version of Xcode (this includes MAUI developers as well).
+There may be other documents elsewhere stating that some older version of
+Xcode is the supported version; those documents typically lag behind our
+releases to some degree.
+
+The opposite is also true: if we _haven't_ released support for a given
+version of Xcode, it's likely that upgrading Xcode will cause problems. For
+developers who want a newer version of Xcode, the best solution in this case
+is to [install multiple versions of Xcode](#installing-multiple-versions-of-xcode).
