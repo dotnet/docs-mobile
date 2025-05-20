@@ -42,11 +42,18 @@ conceptualContent:
             - url: app-fundamentals/user-notifications.md
               itemType: how-to-guide
               text: User notifications
+        # Card
         - title: Advanced concepts
           links:
             - url: advanced-concepts/exception-marshaling.md
               itemType: concept
               text: Exception marshaling
+        # Card
+        - title: Troubleshooting
+          links:
+            - url: troubleshooting/xcode-requirement.md
+              itemType: concept
+              text: Xcode requirement
 
 # additionalContent section (Optional; Remove if not applicable.)
 # Card with links style
