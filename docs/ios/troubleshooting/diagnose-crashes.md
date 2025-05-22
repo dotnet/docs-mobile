@@ -12,7 +12,7 @@ The first part to diagnosing crash reports is to gather as much information as p
 * [Device Logs](#device-logs)
 * [Standard output / standard error](#standard-output--standard-error)
 
-## Information gathering
+## Gather information
 
 The following sections describe how to get various types of information about native crashes.
 
@@ -24,7 +24,7 @@ Crash reports for devices (iOS and tvOS), can be downloaded from Xcode.
 
 Open the menu `Window -> Devices and Simulators`, select the device on the left, and click on `View Device Logs`:
 
-[![Crash reports in Xcode](CrashReportsXcode.png)]
+![Crash reports in Xcode](CrashReportsXcode.png)
 
 Then Xcode will download crash reports from that device (this may take a few seconds) and list them all.
 
@@ -103,7 +103,7 @@ For more information about how to run mobile apps:
 $ dotnet run -p:Help=true
 ```
 
-## Diagnosis
+## Diagnose
 
 The following sections describe how to diagnose crashes based on the information collected.
 
