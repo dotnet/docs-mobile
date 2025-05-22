@@ -138,3 +138,6 @@ Unfortunately the stack trace doesn't reveal anything about the managed exceptio
 The best way to diagnose this further is to add additional telemetry to the app, by adding an event handler to the [MarshalManagedException][xref:ObjCRuntime.Runtime.MarshalManagedException] event, logging any such marshalled exceptions. The last one will likely be the unhandled exception.
 
 See [Exception marshaling](../advanced-concepts/exception-marshaling) for more information about exception marshalling.
+
+>[!TIP]
+> It's recommended to not "leak" any managed exceptions to native code, because such managed exceptions are converted into Objective-C exceptions, and Objective-C exceptions are much more _exceptional_ (Objective-C exceptions are to be used for programmer errors, not for expected circumstances during normal code flow [Programming with Objective-C - Dealing with Errors](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/ErrorHandling/ErrorHandling.html)).
