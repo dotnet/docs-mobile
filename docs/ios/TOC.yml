@@ -26,3 +26,5 @@
       items:
         - name: Xcode requirement
           href: troubleshooting/xcode-requirement.md
+        - name: How to diagnose crashes
+          href: troubleshooting/diagnose-crashes.md

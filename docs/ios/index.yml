@@ -51,6 +51,9 @@ conceptualContent:
         # Card
         - title: Troubleshooting
           links:
+            - url: troubleshooting/diagnose-crashes.md
+              itemType: how-to-guide
+              text: How to diagnose crashes
             - url: troubleshooting/xcode-requirement.md
               itemType: concept
               text: Xcode requirement
