@@ -4,15 +4,17 @@ description: "This article describes how to diagnose native crashes in .NET for 
 ms.date: 05/22/2025
 ---
 
+# How to diagnose crashes native crashes in .NET for iOS, tvOS, Mac Catalyst or macOS apps
+
 The first part to diagnosing crash reports is to gather as much information as possible:
 
 * [Crash reports](#crash-reports) (preferrably [symbolicated](#symbolication))
 * [Device Logs](#device-logs)
-* [Standard output / standard error](#standard-output---standard-error)
+* [Standard output / standard error](#standard-output--standard-error)
 
 ## Information gathering
 
-The following paragraphs explains how to get various types of information about native crashes.
+The following sections describe how to get various types of information about native crashes.
 
 ### Crash reports
 
@@ -41,7 +43,7 @@ The debug symbols can be in two places:
 
 Symbols are automatically from the app for non-debug builds (to minimize app
 size). It's possible to disable the removal of debug symbols from the app, by
-setting the [`NoSymbolStrip`](../building-apps/build-properties#nosymbolstrip)
+setting the [`NoSymbolStrip`](../building-apps/build-properties.md#nosymbolstrip)
 property to `true`. This can make the symbolication process easier in some
 cases.
 
@@ -63,7 +65,7 @@ For debugging local builds the symbolication process will automatically find
 the .dSYM bundle, as long as the project hasn't been rebuilt.
 
 > [!TIP]
-> The creation of the .dSYM bundle is controlled by the [`NoDSymUtil`](../building-apps/build-properties#nodsymutil) property in the project file.
+> The creation of the .dSYM bundle is controlled by the [`NoDSymUtil`](../building-apps/build-properties.md#nodsymutil) property in the project file.
 
 > [!NOTE]
 > If the interpreter is used, any interpreted methods won't be symbolicated into the correct managed frame, but instead into the interpreter's methods. In some cases it might be beneficial to disable the intepreter in order to get better native stack traces in crash reports.
@@ -137,7 +139,7 @@ Unfortunately the stack trace doesn't reveal anything about the managed exceptio
 
 The best way to diagnose this further is to add additional telemetry to the app, by adding an event handler to the [MarshalManagedException][xref:ObjCRuntime.Runtime.MarshalManagedException] event, logging any such marshalled exceptions. The last one will likely be the unhandled exception.
 
-See [Exception marshaling](../advanced-concepts/exception-marshaling) for more information about exception marshalling.
+See [Exception marshaling](../advanced-concepts/exception-marshaling.md) for more information about exception marshalling.
 
 >[!TIP]
 > It's recommended to not "leak" any managed exceptions to native code, because such managed exceptions are converted into Objective-C exceptions, and Objective-C exceptions are much more _exceptional_ (Objective-C exceptions are to be used for programmer errors, not for expected circumstances during normal code flow [Programming with Objective-C - Dealing with Errors](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/ErrorHandling/ErrorHandling.html)).
