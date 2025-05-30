@@ -25,6 +25,10 @@ This often manifests with a build error like this:
 
 > This version of Microsoft.iOS requires the iOS 18.4 SDK (shipped with Xcode 16.3). The current version of Xcode is 16.2. Either install Xcode 16.3, or use a different version of Microsoft.iOS. See https://aka.ms/xcode-requirement for more information.
 
+or:
+
+> This version of .NET for iOS (18.4.9288) requires Xcode 16.3. The current version of Xcode is 16.2. Either install Xcode 16.3, or use a different version of .NET for iOS. See https://aka.ms/xcode-requirement for more information.
+
 The simplest solution is typically to upgrade to the version of Xcode the
 error message mentions. 
 
