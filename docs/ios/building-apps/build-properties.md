@@ -215,7 +215,7 @@ Specifies whether a provisioning profile is required when signing the app bundle
 By default we require a provisioning profile if:
 
 * macOS, Mac Catalyst: a provisioning profile has been specified (with the [CodesignProvision](#codesignprovision) property).
-* iOS, tvOS, watchOS: building for device or an entitlements file has been specified (with the [CodesignEntitlements](#codesignentitlements) property).
+* iOS, tvOS: building for device or an entitlements file has been specified (with the [CodesignEntitlements](#codesignentitlements) property).
 
 Setting this property to `true` or `false` will override the default logic.
 
@@ -313,6 +313,25 @@ Default: false for macOS, true for all other platforms.
 If the .pkg that was created (if `CreatePackage` was enabled) should be signed.
 
 Only applicable to macOS and Mac Catalyst.
+
+## EnableDiagnostics
+
+Enable components that are required for diagnostics (such as profiling) to work.
+
+It's enabled by default for debug builds (when [MtouchDebug](#mtouchdebug) or
+[MmpDebug](#mmpdebug) is enabled), but needs to be enabled manually before
+profiling release builds:
+
+```xml
+<PropertyGroup>
+  <EnableDiagnostics>true</EnableDiagnostics>
+</PropertyGroup>
+```
+
+This will increase the app size slightly.
+
+Only applicable when using the Mono runtime (CoreCLR always supports
+diagnostics, while NativeAOT never does).
 
 ## EnableSGenConc
 
@@ -650,6 +669,23 @@ This means the .dSYM archive will be generated in the following cases (by defaul
 * On iOS and tvOS when building for device.
 * On macOS and Mac Catalyst when creating an archive (`ArchiveOnBuild=true`).
 
+## NoSymbolStrip
+
+A boolean property that specifies whether debug symbols are removed from the app at build time.
+
+The default behavior is to keep debug symbols for:
+
+* `Debug` builds for desktop platforms.
+* Simulator builds for mobile platforms.
+
+Example to keep debug symbols:
+
+```xml
+<PropertyGroup>
+  <NoSymbolStrip>true</NoSymbolStrip>
+</PropertyGroup>
+```
+
 ## OnDemandResourcesInitialInstallTags
 
 A string property that specifies the initial install tags for on-demand resources.
@@ -948,6 +984,15 @@ Valid values for this property:
 The validation process may not validate every entitlement, nor is it guaranteed to not be overeager.
 
 If the validation fails for entitlements that actually work, please file a new issue.
+
+## ValidateXcodeVersion
+
+Choose whether the current Xcode version should be validated.
+
+The default value is to validate; set to `false` to disable.
+
+> [!NOTE]
+> Using a different than the recommended version is likely to produce problems later on in the build process.
 
 ## XamMacResourcePrefix
 
