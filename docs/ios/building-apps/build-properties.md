@@ -17,6 +17,14 @@ The full path to the `altool` tool.
 
 The default behavior is to use `xcrun altool`.
 
+## AppBundleResourcePrefix
+
+The directory where resources are stored (this prefix will be removed when copying resources to the app bundle).
+
+If not explicitly set, this property will inherit its value from the platform-specific resource prefix properties ([IPhoneResourcePrefix](#iphoneresourceprefix), [MonoMacResourcePrefix](#monomacresourceprefix), or [XamMacResourcePrefix](#xammacresourceprefix) depending on the platform).
+
+Default: "Resources"
+
 ## AppBundleDir
 
 The location of the built app bundle.
@@ -125,6 +133,29 @@ Only applicable to iOS and tvOS projects.
 
 See [CreatePackage](#createpackage) for macOS and Mac Catalyst projects.
 
+## BundleCreateDump
+
+CoreCLR has a command-line utility called [`createdump`][createdump] to create
+core dumps if the process crashes. macOS will automatically create crash
+reports for any App Store apps and make them available to the app developer,
+so the `createdump` tool is not useful for many macOS apps, and as such, it's
+not included in apps by default.
+
+This can be overriden by setting the `BundleCreateDump` property:
+
+```xml
+<PropertyGroup>
+  <BundleCreateDump>true</BundleCreateDump>
+</PropertyGroup>
+```
+
+Note: the `createdump` tool does currently not work for sandboxed apps ([#18961](https://github.com/dotnet/macios/issues/18961));
+
+Only applicable to projects that use the CoreCLR runtime (which, at the moment
+of this writing, is only macOS projects).
+
+[createdump]: https://github.com/dotnet/runtime/blob/3b63eb1346f1ddbc921374a5108d025662fb5ffd/docs/design/coreclr/botr/xplat-minidump-generation.md
+
 ## BundleOriginalResources
 
 This property determines whether resources are compiled before being embedded
@@ -155,6 +186,25 @@ The default value of this property `false` in .NET 9, and `true` in .NET 10+.
 The path to the `codesign_allocate` tool.
 
 By default this value is auto-detected.
+
+## CodesignConfigureDependsOn
+
+This is an extension point for the build: a developer can add any targets to
+this property to execute those targets before the build looks at any of the
+codesigning properties.
+
+This can for instance be used to disable code signing for simulator builds:
+
+```xml
+<PropertyGroup>
+  <CodesignConfigureDependsOn>$(CodesignConfigureDependsOn);DisableCodesignInSimulator</CodesignConfigureDependsOn>
+</PropertyGroup>
+<Target Name="DisableCodesignInSimulator" Condition="'$(SdkIsSimulator)' == 'true'">
+  <PropertyGroup>
+    <EnableCodeSigning>false</EnableCodeSigning>
+  </PropertyGroup>
+</Target>
+```
 
 ## CodesignDependsOn
 
@@ -219,6 +269,27 @@ By default we require a provisioning profile if:
 
 Setting this property to `true` or `false` will override the default logic.
 
+## CompressBindingResourcePackage
+
+The native references in a binding projects are copied to the output directory during the build process, next to the binding assembly (into something we call a "binding resource package").
+
+These native references can either be stored compressed inside a zip file (named `$(AssemblyName).resources.zip`, or as-is, inside a directory named `$(AssemblyName).resources`.
+
+The `CompressBindingResourcePackage` property specifies whether to create a zip file or a directory.
+
+The possible values are:
+
+* `auto`: create a zip file if a native reference contains symlinks (which is typical on macOS and Mac Catalyst, but rare on iOS and tvOS).
+* `true`: create a zipe file
+* `false`: create a directory
+
+The default is `auto`.
+
+This also applies to how native references are stored inside NuGets.
+
+> [!NOTE]
+> In some cases it can be beneficial to force a zip file on iOS as well, especially when there's a framework with files that have long names, because the zip file can sometimes work around MAX_PATH issues on Windows.
+
 ## CreateAppBundleDependsOn
 
 This is an extension point for the build: a developer can add any targets to
@@ -279,6 +350,80 @@ The output path to use when device-specific builds are enabled.
 
 Applicable to all platforms that support device-specific builds (currently iOS and tvOS).
 
+## DiagnosticAddress
+
+The IP address where `dotnet-dsrouter` is executing. This is typcially
+`127.0.0.1` when profiling on the simulator, and the IP address of the machine
+where `dotnet-dsrouter` when profiling on a device.
+
+This is the IP address component of [DiagnosticConfiguration](#diagnosticconfiguration)`.
+
+Implicitly sets [EnableDiagnostics](#enablediagnostics) to `true`.
+
+Defaults to `127.0.0.1`.
+
+## DiagnosticConfiguration
+
+A value provided by `dotnet-dsrouter` for `DOTNET_DiagnosticPorts` such as:
+
+* `127.0.0.1:9000,suspend,connect`
+* `127.0.0.1:9000,nosuspend,connect`
+
+Note that the `,` character will need to be escaped with `%2c` if
+passed in command-line to `dotnet build`:
+
+```dotnetcli
+dotnet build -c Release -p:DiagnosticConfiguration=127.0.0.1:9000%2csuspend%2cconnect
+```
+
+This will automatically set the `DOTNET_DiagnosticPorts` environment variable
+packaged inside the application, so that the environment variable is set when
+the app launches.
+
+Implicitly sets [EnableDiagnostics](#enablediagnostics) to `true`.
+
+The default behavior is to compute this value from the other diagnostics
+properties ([DiagnosticAddress](#diagnosticaddress),
+[DiagnosticPort](#diagnosticport),
+[DiagnosticListenMode](#diagnosticlistenmode), and
+[DiagnosticSuspend](#diagnosticsuspend)).
+
+If set, any of the other diagnostic properties will be ignored.
+
+## DiagnosticListenMode
+
+A value provided by `dotnet-dsrouter` such as `connect` or `listen`, the
+listening mode component of
+[DiagnosticConfiguration](#diagnosticconfiguration)`.
+
+Implicitly sets [EnableDiagnostics](#enablediagnostics) to `true`.
+
+Defaults to `listen`.
+
+## DiagnosticPort
+
+A value provided by `dotnet-dsrouter` such as `9000`, the port
+component of [DiagnosticConfiguration](#diagnosticconfiguration)`.
+
+Implicitly sets [EnableDiagnostics](#enablediagnostics) to `true`.
+
+Defaults to `9000`.
+
+## DiagnosticSuspend
+
+A value that specifies the startup behavior when profiling an application.
+
+Set to `true` to suspend the app at startup (waiting for the diagnostics
+server to connect to the app) or `false` to launch the app as usual (and
+connect the diagnostics server to the app later).
+
+This corresponds with the `suspend/nosuspend` value in
+[DiagnosticConfiguration](#diagnosticconfiguration)`.
+
+Implicitly sets [EnableDiagnostics](#enablediagnostics) to `true`.
+
+Defaults to `false`.
+
 ## DittoPath
 
 The full path to the `ditto` executable.
@@ -295,8 +440,7 @@ Default: true
 
 If code signing is enabled.
 
-Typically the build will automatically determine whether code signing is
-required; this automatic detection can be overridden with this property.
+Code signing is enabled by default for all platforms; this can be overridden with this property.
 
 ## EnableDefaultCodesignEntitlements
 
@@ -378,6 +522,8 @@ Applicable to iOS; setting this value will set [SupportedOSPlatformVersion](#sup
 The directory where resources are stored (this prefix will be removed when copying resources to the app bundle).
 
 Applicable to iOS, tvOS and Mac Catalyst projects.
+
+Consider using the unified [AppBundleResourcePrefix](#appbundleresourceprefix) property instead.
 
 See also [MonoMacResourcePrefix](#monomacresourceprefix) and [XamMacResourcePrefix](#xammacresourceprefix).
 
@@ -556,7 +702,31 @@ The directory where resources are stored (this prefix will be removed when copyi
 
 Only applicable to macOS projects.
 
+Consider using the unified [AppBundleResourcePrefix](#appbundleresourceprefix) property instead.
+
 See also [IPhoneResourcePrefix](#iphoneresourceprefix) and [XamMacResourcePrefix](#xammacresourceprefix).
+
+## MonoUseCompressedInterfaceBitmap
+
+This directs the Mono runtime to use a compressed version of interface bitmaps
+(interface bitmaps are used to determine whether a certain types implements a
+given interface).
+
+These bitmaps can use a significant amount of memory at runtime, in particular
+for apps that have a substantial amount of interfaces.
+
+This setting is disabled by default, but it can be enabled like this, which
+will decrease the amount of memory used at runtime:
+
+```xml
+<PropertyGroup>
+    <MonoUseCompressedInterfaceBitmap>true</MonoUseCompressedInterfaceBitmap>
+</PropertyGroup>
+```
+
+The downside is that type checks (`obj is SomeInterface`) will be slower.
+
+Only applicable when using the Mono runtime.
 
 ## MtouchDebug
 
@@ -845,6 +1015,40 @@ only scan libraries with the `[LinkWith]` attribute for Objective-C classes:
 </PropertyGroup>
 ```
 
+## SdkIsSimulator
+
+This property is a read-only property (setting it will have no effect) that
+specifies whether we're building for a simulator or not.
+
+It is only set after [imports and
+properties](https://learn.microsoft.com/visualstudio/msbuild/build-process-overview#evaluate-imports-and-properties)
+have been evaluated. This means the property is not set while evaluating the
+properties in the project file, so this will _not_ work:
+
+```xml
+<PropertyGroup>
+  <EnableCodeSigning Condition="'$(SdkIsSimulator)' == 'true'">false</EnableCodeSigning>
+</PropertyGroup>
+```
+
+However, the either of the following works:
+
+```xml
+<ItemGroup>
+  <!-- item groups (and their conditions) are evaluated after properties have been evaluated -->
+  <CustomEntitlements Condition="'$(SdkIsSimulator)' == 'true'" Include="com.apple.simulator-entitlement" Type="Boolean" Value="true" />
+  <CodesignConfigureDependsOn>$(CodesignConfigureDependsOn);ConfigureSimulatorSigning</CodesignConfigureDependsOn>
+</ItemGroup>
+<!-- targets are executed after properties have been evaluated -->
+<Target Name="ConfigureSimulatorSigning">
+  <PropertyGroup>
+    <EnableCodeSigning Condition="'$(SdkIsSimulator) == 'true'">false</EnableCodeSigning>
+  </PropertyGroup>
+</Target>
+```
+
+Note: this property will always be `false` on macOS and Mac Catalyst.
+
 ## SkipStaticLibraryValidation
 
 Hot Restart doesn't support linking with static libraries, so by default we'll
@@ -999,6 +1203,8 @@ The default value is to validate; set to `false` to disable.
 The directory where resources are stored (this prefix will be removed when copying resources to the app bundle).
 
 Applicable to macOS projects.
+
+Consider using the unified [AppBundleResourcePrefix](#appbundleresourceprefix) property instead.
 
 See also [IPhoneResourcePrefix](#iphoneresourceprefix) and [MonoMacResourcePrefix](#monomacresourceprefix).
 
