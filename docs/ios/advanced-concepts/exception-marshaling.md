@@ -276,7 +276,7 @@ such as crashes, memory leaks, and other types of unpredictable (mis)behaviors.
 > property for the app to `true`:
 > 
 > ```cs
-> var defs = new NSDictionary ((NSString) "NSApplicationCrashOnExceptions", NSValue.FromBoolean (true));
+> var defs = new NSDictionary ((NSString) "NSApplicationCrashOnExceptions", NSNumber.FromBoolean (true));
 > NSUserDefaults.StandardUserDefaults.RegisterDefaults (defs);
 > ```
 >
