@@ -72,7 +72,7 @@ You might find it necessary to install the Android SDK manually:
 
  6. Run the `sdkmanager` command to install the desired components.
  
- 7. Set the ANDROID_HOME or ANDROID_SDK_ROOT environment variable to your Android SDK path:
+ 7. Set the `$ANDROID_HOME` environment variable to your Android SDK path:
 ```console
 $env:ANDROID_HOME = "C:\android-sdk"
 ```
