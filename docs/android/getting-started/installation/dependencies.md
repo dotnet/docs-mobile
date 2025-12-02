@@ -44,7 +44,17 @@ Here are all the arguments which the target will use when installing the depende
 > [!NOTE]
 > To make development easier try to avoid using paths which contain spaces or non-ASCII characters.
 
+## Install Microsoft JDK manually
+
+In order to build .NET for Android applications or libraries you need to have a version of the Java Development Kit installed.
+We recommend you use the Microsoft Open JDK, this has been tested against our .NET for Android builds:
+
+ 1. Download [Microsoft OpenJDK 11](/java/openjdk/download#openjdk-11).
+
 ## Install the Android SDK manually
+
+> [!NOTE]
+> On Windows you will need to install JDK first.
 
 You might find it necessary to install the Android SDK manually:
 
@@ -61,6 +71,11 @@ You might find it necessary to install the Android SDK manually:
  5. Navigate to the `android-sdk\cmdline-tools\bin` directory within the directory you created.
 
  6. Run the `sdkmanager` command to install the desired components.
+ 
+ 7. Set via Environment Variable (Recommended) Set the ANDROID_HOME or ANDROID_SDK_ROOT environment variable to your Android SDK path:
+```console
+     $env:ANDROID_HOME = "C:\android-sdk"
+```
 
 For example, to install the latest platform and platform tools, use:
 
@@ -93,14 +108,8 @@ The following component types are useful to know:
 It is also good practice to set the `ANDROID_HOME` environment variable, as this
 allows you to use certain tooling from the command line.
 
-## Install Microsoft JDK manually
-
-In order to build .NET for Android applications or libraries you need to have a version of the Java Development Kit installed.
-We recommend you use the Microsoft Open JDK, this has been tested against our .NET for Android builds:
-
- 1. Download [Microsoft OpenJDK 11](/java/openjdk/download#openjdk-11).
-
  2. Depending on your platform run the appropriate installer.
 
  3. It is also good practice to set the `JAVA_HOME` environment variable.
     This will allow you to use the JDK from the Command Prompt or Terminal.
+
