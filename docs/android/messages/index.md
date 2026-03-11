@@ -30,6 +30,8 @@ ms.date: 04/11/2024
 + APT0002: Invalid file name: It must contain only \[^a-zA-Z0-9_.-\]+.
 + APT0003: Invalid file name: It must contain only \[^a-zA-Z0-9_.\]+.
 + APT0004: Invalid file name: It must start with either A-Z or a-z or an underscore.
++ APT0005: Invalid file name: filenames cannot use java reserved words.
++ [APT2000](apt2000.md): Generic `aapt2` error/warning.
 + [APT2264](apt2264.md): The system cannot find the file specified. (2).
 + [APT2265](apt2265.md): The system cannot find the file specified. (2).
 
@@ -145,12 +147,15 @@ or 'Help->Report a Problem' in Visual Studio for Mac.
 Either change the value in the AndroidManifest.xml to match the $(SupportedOSPlatformVersion) value, or remove the value in the AndroidManifest.xml (and add a $(SupportedOSPlatformVersion) value to the project file if it doesn't already exist).
 + [XA1037](xa1037.md): The '{0}' MSBuild property is deprecated and will be removed in .NET {1}. See https://aka.ms/net-android-deprecations for more details.
 + [XA1038](xa1038.md): The '{0}' MSBuild property has an invalid value. Value values are {1}.
++ [XA1039](xa1039.md): The Android Support libraries are not supported in .NET 9 and later, please migrate to AndroidX. See https://aka.ms/xamarin/androidx for more details.
++ [XA1040](xa1040.md): The NativeAOT runtime on Android is an experimental feature and not yet suitable for production use. File issues at: https://github.com/dotnet/android/issues
++ [XA1041](xa1041.md): The MSBuild property 'MonoAndroidAssetPrefix' has an invalid value of 'c:\Foo\Assets'. The value is expected to be a directory path representing the relative location of your Assets or Resources
 
 ## XA2xxx: Linker
 
 + [XA2000](xa2000.md): Use of AppDomain.CreateDomain() detected in assembly: {assembly}. .NET 6 will only support a single AppDomain, so this API will no longer be available in .NET for Android once .NET 6 is released.
 + [XA2001](xa2001.md): Source file '{filename}' could not be found.
-+ [XA2002](xa2002.md): Can not resolve reference: \`{missing}\`, referenced by {assembly}. Perhaps it doesn't exist in the Mono for Android profile?
++ [XA2002](xa2002.md): Can not resolve reference: \`{missing}\`, referenced by {assembly}. Perhaps it doesn't exist in the .NET for Android profile?
 + XA2006: Could not resolve reference to '{member}' (defined in assembly '{assembly}') with scope '{scope}'. When the scope is different from the defining assembly, it usually means that the type is forwarded.
 + XA2007: Exception while loading assemblies: {exception}
 + XA2008: In referenced assembly {assembly}, Java.Interop.DoNotPackageAttribute requires non-null file name.
@@ -159,7 +164,6 @@ Either change the value in the AndroidManifest.xml to match the $(SupportedOSPla
 
 + XA3001: Could not AOT the assembly: {assembly}
 + XA3002: Invalid AOT mode: {mode}
-+ XA3003: Could not strip IL of assembly: {assembly}
 + XA3004: Android NDK r10d is buggy and provides an incompatible x86_64 libm.so.
 + XA3005: The detected Android NDK version is incompatible with the targeted LLVM configuration.
 + XA3006: Could not compile native assembly file: {file}
@@ -262,30 +266,23 @@ and `NNN` is a 3 digit number indicating the type of the unhandled `Exception`.
 * `BBA` - `BuildBaseAppBundle`
 * `BGN` - `BindingsGenerator`
 * `BLD` - `BuildApk`
-* `CAL` - `CreateAdditionalLibraryResourceCache`
-* `CAR` - `CalculateAdditionalResourceCacheDirectories`
 * `CCR` - `CopyAndConvertResources`
 * `CCV` - `ConvertCustomView`
 * `CDF` - `ConvertDebuggingFiles`
 * `CDJ` - `CheckDuplicateJavaLibraries`
 * `CFI` - `CheckForInvalidResourceFileNames`
-* `CFR` - `CheckForRemovedItems`
 * `CGJ` - `CopyGeneratedJavaResourceClasses`
 * `CGS` - `CheckGoogleSdkRequirements`
 * `CIC` - `CopyIfChanged`
-* `CIL` - `CilStrip`
-* `CLA` - `CollectLibraryAssets`
 * `CLC` - `CalculateLayoutCodeBehind`
 * `CLP` - `ClassParse`
 * `CLR` - `CreateLibraryResourceArchive`
 * `CMD` - `CreateMultiDexMainDexClassList`
 * `CML` - `CreateManagedLibraryResourceArchive`
-* `CMM` - `CreateMsymManifest`
 * `CNA` - `CompileNativeAssembly`
 * `CNE` - `CollectNonEmptyDirectories`
 * `CNL` - `CreateNativeLibraryArchive`
 * `CPD` - `CalculateProjectDependencies`
-* `CPF` - `CollectPdbFiles`
 * `CPI` - `CheckProjectItems`
 * `CPR` - `CopyResource`
 * `CPT` - `ComputeHash`
@@ -306,7 +303,6 @@ and `NNN` is a 3 digit number indicating the type of the unhandled `Exception`.
 * `GAR` - `GetAdditionalResourcesFromAssemblies`
 * `GAS` - `GetAppSettingsDirectory`
 * `GCB` - `GenerateCodeBehindForLayout`
-* `GCJ` - `GetConvertedJavaLibraries`
 * `GEP` - `GetExtraPackages`
 * `GFT` - `GetFilesThatExist`
 * `GIL` - `GetImportedLibraries`
@@ -330,7 +326,6 @@ and `NNN` is a 3 digit number indicating the type of the unhandled `Exception`.
 * `LNS` - `LinkAssembliesNoShrink`
 * `LNT` - `Lint`
 * `LWF` - `LogWarningsForFiles`
-* `MBN` - `MakeBundleNativeCodeExternal`
 * `MDC` - `MDoc`
 * `PAI` - `PrepareAbiItems`
 * `PAW` - `ParseAndroidWearProjectAndManifest`

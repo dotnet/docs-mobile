@@ -273,6 +273,9 @@ Possible values include:
   Xamarin.Android 6.1 or later. Xamarin.Android 6.1 and later bind
   `Mono.Android.dll` with this value.
 
+- **JavaInterop1**: experimental value, currently the default for the
+  NativeAOT runtime.
+
 The default value is `XAJavaInterop1`.
 
 ## AndroidCreatePackagePerAbi
@@ -395,6 +398,17 @@ final `.apk`.
 
 This property is `False` by default.
 
+## AndroidEnableProfiler
+
+Synonym for the [`$(EnableDiagnostics)`](#enablediagnostics) property.
+
+Required for using `dotnet-trace` or `dotnet-gcdump` in Android
+applications. If set to `true`, it includes the Mono diagnostic
+component in the application. This component is the
+`libmono-component-diagnostics_tracing.so` native library.
+
+This property is `False` by default.
+
 ## AndroidEnableObsoleteOverrideInheritance
 
 A boolean property that determines if bound methods automatically inherit `[Obsolete]`
@@ -445,8 +459,8 @@ This property is `False` by default.
 
 An enum-style property with valid values of `obsolete` and `disable`.
 
-When set to `obsolete`, types and members that are marked with the Java annotation 
-`androidx.annotation.RestrictTo` *or* are in non-exported Java packages will 
+When set to `obsolete`, types and members that are marked with the Java annotation
+`androidx.annotation.RestrictTo` *or* are in non-exported Java packages will
 be marked with an `[Obsolete]` attribute in the C# binding.
 
 This `[Obsolete]` attribute has a descriptive message explaining that the
@@ -458,9 +472,9 @@ independently of "normal" obsolete API.
 When set to `disable`, API will be generated as normal with no additional
 attributes. (This is the same behavior as before .NET 8.)
 
-Adding `[Obsolete]` attributes instead of automatically removing the API was done to 
-preserve API compatibility with existing packages. If you would instead prefer to 
-*remove* members that have the `@RestrictTo` annotation *or* are in non-exported 
+Adding `[Obsolete]` attributes instead of automatically removing the API was done to
+preserve API compatibility with existing packages. If you would instead prefer to
+*remove* members that have the `@RestrictTo` annotation *or* are in non-exported
 Java packages, you can use [Transform files](/xamarin/android/platform/binding-java-library/customizing-bindings/java-bindings-metadata#metadataxml-transform-file) in addition to
 this property to prevent these types from being bound:
 
@@ -674,6 +688,20 @@ The most common values for this property are:
 > with a Build action of
 > [`@(AndroidEnvironment)`](build-items.md#androidenvironment)
 > will take precedence.
+
+## AndroidIgnoreAllJniPreload
+
+A boolean value which, if set to `true`, exempts all the native JNI libraries
+from being preloaded at application startup.  By default, all such libraries
+will be loaded by the runtime early during application startup in order to
+assure their proper initialization. However, in some cases it might not be the
+desired behavior and this property allows you to effectively disable it.
+
+Some framework libraries which must be loaded at application startup will not
+be affected by this property.
+
+See also [`@(AndroidNativeLibraryNoJniPreload)`](build-items.md#androidnativelibrarynojnipreload)
+for a more fine-grained way to exempt libraries from the preload mechanism.
 
 ## AndroidIncludeWrapSh
 
@@ -989,7 +1017,6 @@ that are intended for submission on Google Play. The default value is `apk`.
 When `$(AndroidPackageFormat)` is set to `aab`, other MSBuild
 properties are set, which are required for Android App Bundles:
 
-- [`$(AndroidUseAapt2)`](build-properties.md#androiduseaapt2) is `True`.
 - [`$(AndroidUseApkSigner)`](#androiduseapksigner) is `False`.
 - [`$(AndroidCreatePackagePerAbi)`](#androidcreatepackageperabi) is `False`.
 
@@ -1232,7 +1259,13 @@ This means that in Release configuration builds -- in which
 This can result in increased app sizes. This behavior can be overridden by explicitly setting
 `$(AndroidEnableProfiledAot)` to `true` within your project file.
 
-Support for this property was added in .NET 8.
+Experimental support for this property was added in .NET 8, removed in .NET 10.
+
+## AndroidStripNativeLibraries
+
+A bool property which tells the packaging process to strip debug symbols from the native shared libraries (`.so` files).
+
+The default value is `false` and the debug symbols, if any, will be preserved when packaging.
 
 ## AndroidSupportedAbis
 
@@ -1250,14 +1283,6 @@ Supported values include:
 ## AndroidTlsProvider
 
 This property is obsolete and should not be used.
-
-## AndroidUseAapt2
-
-A boolean property that allows the developer to
-control the use of the `aapt2` tool for packaging.
-By default this will be True.
-
-This property cannot be set to false.
 
 ## AndroidUseApkSigner
 
@@ -1524,6 +1549,83 @@ If `DebugType` is not set or is the empty string, then the
 `DebugSymbols` property controls whether or not the Application is
 debuggable.
 
+## Device
+
+Specifies which Android device or emulator to target when using
+`dotnet run --device <Device>` or MSBuild targets that interact with
+devices (such as `Run`, `Install`, or `Uninstall`).
+
+The value must be the full device serial number or identifier as
+returned by `adb devices`. For example, if the device serial is
+`emulator-5554`, you must use `-p:Device=emulator-5554`.
+
+When set, this property is used to initialize the
+[`AdbTarget`](#adbtarget) property with the value `-s "<Device>"`.
+
+For more information about device selection, see the
+[.NET SDK device selection specification](https://github.com/dotnet/sdk/blob/2b9fc02a265c735f2132e4e3626e94962e48bdf5/documentation/specs/dotnet-run-for-maui.md).
+
+## DiagnosticAddress
+
+A value provided by `dotnet-dsrouter` such as `127.0.0.1`, the IP
+address component of `$(DiagnosticConfiguration)` or `$DOTNET_DiagnosticPorts`.
+
+Implicitly enables the Mono diagnostic component, meaning that
+`$(EnableDiagnostics)`/`$(AndroidEnableProfiler)` is set to `true`.
+
+Defaults to `127.0.0.1`.
+
+## DiagnosticConfiguration
+
+A value provided by `dotnet-dsrouter` for `$DOTNET_DiagnosticPorts` such as:
+
+* `127.0.0.1:9000,suspend,connect`
+* `127.0.0.1:9000,nosuspend,connect`
+
+Note that the `,` character will need to be escaped with `%2c` if
+passed in command-line to `dotnet build`:
+
+```dotnetcli
+dotnet build -c Release -p:DiagnosticConfiguration=127.0.0.1:9000%2csuspend%2cconnect
+```
+
+This will automatically set the `$DOTNET_DiagnosticPorts` environment
+variable packaged inside the application.
+
+Implicitly enables the Mono diagnostic component, meaning that
+`$(EnableDiagnostics)`/`$(AndroidEnableProfiler)` is set to `true`.
+
+## DiagnosticListenMode
+
+A value provided by `dotnet-dsrouter` such as `connect`, the listening
+mode component of `$(DiagnosticConfiguration)` or `$DOTNET_DiagnosticPorts`.
+
+Implicitly enables the Mono diagnostic component, meaning that
+`$(EnableDiagnostics)`/`$(AndroidEnableProfiler)` is set to `true`.
+
+Defaults to `connect`.
+
+## DiagnosticPort
+
+A value provided by `dotnet-dsrouter` such as `9000`, the port
+component of `$(DiagnosticConfiguration)` or `$DOTNET_DiagnosticPorts`.
+
+Implicitly enables the Mono diagnostic component, meaning that
+`$(EnableDiagnostics)`/`$(AndroidEnableProfiler)` is set to `true`.
+
+Defaults to `9000`.
+
+## DiagnosticSuspend
+
+A boolean value provided by `dotnet-dsrouter` such as `true/suspend`
+or `false/nosuspend`, a component of `$(DiagnosticConfiguration)`
+or `$DOTNET_DiagnosticPorts`.
+
+Implicitly enables the Mono diagnostic component, meaning that
+`$(EnableDiagnostics)`/`$(AndroidEnableProfiler)` is set to `true`.
+
+Defaults to `false`.
+
 ## EmbedAssembliesIntoApk
 
 A boolean property that
@@ -1539,6 +1641,18 @@ When this property is `False`, then the
 MSBuild property also controls what
 will be embedded into the `.apk`, which can impact deployment and
 rebuild times.
+
+## EnableDiagnostics
+
+Synonym for the [`$(AndroidEnableProfiler)`](#androidenableprofiler)
+property.
+
+Required for using `dotnet-trace` or `dotnet-gcdump` in Android
+applications. If set to `true`, it includes the Mono diagnostic
+component in the application. This component is the
+`libmono-component-diagnostics_tracing.so` native library.
+
+This property is `False` by default.
 
 ## EnableLLVM
 
@@ -1566,6 +1680,18 @@ When `True`,
 [@(ProguardConfiguration)](build-items.md#proguardconfiguration)
 files will be used
 to control `proguard` execution.
+
+## EventSourceSupport
+
+When set to `false`, disables .NET's [EventSource][eventsource]
+support from trimmed Android applications. Disabling this feature
+would prevent .NET diagnostic tools like `dotnet-counters` from
+functioning, but at the benefit of reduced application size.
+
+Set to `false` by default in `Release` mode, unless
+`$(EnableDiagnostics)` or `$(AndroidEnableProfiler)` are enabled.
+
+[eventsource]: https://learn.microsoft.com/dotnet/core/diagnostics/eventsource
 
 ## GenerateApplicationManifest
 
@@ -1645,6 +1771,28 @@ The default value is False.
 
 This MSBuild property is obsolete and is no longer supported.
 
+## MetricsSupport
+
+When set to `false`, disables .NET's [Metrics][dotnetmetrics] support
+from trimmed Android applications. Disabling this feature would
+prevent APIs such as `System.Diagnostics.Metrics` from functioning,
+but at the benefit of reduced application size.
+
+Set to `false` by default in `Release` mode, unless
+`$(EnableDiagnostics)` or `$(AndroidEnableProfiler)` are enabled.
+
+[dotnetmetrics]: https://learn.microsoft.com/dotnet/core/diagnostics/metrics
+
+## MonoAndroidAssetPrefix
+
+Specifies a *path prefix*
+that is removed from the start of filenames with a Build action of
+`AndroidAsset`. This is to allow changing where resources are
+located.
+
+The default value is `Assets`. Change this to `assets` for the
+Java project structure.
+
 ## MonoAndroidResourcePrefix
 
 Specifies a *path prefix*
@@ -1656,6 +1804,9 @@ The default value is `Resources`. Change this to `res` for the
 Java project structure.
 
 ## MonoSymbolArchive
+
+> [!NOTE]
+> This was a legacy MSBuild property from Xamarin.Android. Not available in .NET 6+.
 
 A boolean property that controls
 whether `.mSYM` artifacts are created for later use with
@@ -1682,3 +1833,21 @@ This MSBuild property replaces the
 Xamarin.Android. This is the same property used for [Blazor WASM][blazor].
 
 [blazor]: /aspnet/core/blazor/host-and-deploy/webassembly/#ahead-of-time-aot-compilation
+
+## WaitForExit
+
+A boolean property that controls the behavior of `dotnet run` when launching
+Android applications.
+
+When `$(WaitForExit)` not `false` (the default), `dotnet run` will:
+
+* Launch the Android application
+* Stream `logcat` output filtered to the application's process
+* Wait for the application to exit or for the user to press Ctrl+C
+* Force-stop the application when Ctrl+C is pressed
+
+When `$(WaitForExit)` is `false`, `dotnet run` will simply launch the
+application using `adb shell am start` and return immediately without
+waiting for the application to exit or streaming any output.
+
+Introduced in .NET 11.
