@@ -1691,7 +1691,7 @@ functioning, but at the benefit of reduced application size.
 Set to `false` by default in `Release` mode, unless
 `$(EnableDiagnostics)` or `$(AndroidEnableProfiler)` are enabled.
 
-[eventsource]: https://learn.microsoft.com/dotnet/core/diagnostics/eventsource
+[eventsource]: /dotnet/core/diagnostics/eventsource
 
 ## GenerateApplicationManifest
 
@@ -1781,7 +1781,7 @@ but at the benefit of reduced application size.
 Set to `false` by default in `Release` mode, unless
 `$(EnableDiagnostics)` or `$(AndroidEnableProfiler)` are enabled.
 
-[dotnetmetrics]: https://learn.microsoft.com/dotnet/core/diagnostics/metrics
+[dotnetmetrics]: /dotnet/core/diagnostics/metrics
 
 ## MonoAndroidAssetPrefix
 
