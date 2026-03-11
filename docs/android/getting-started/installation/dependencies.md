@@ -1,7 +1,7 @@
 ---
 title: "Install .NET for Android dependencies"
 description: "Learn how to install .NET for Android dependencies so you can create native Android applications."
-ms.date: 11/01/2023
+ms.date: 03/06/2026
 ---
 # Install .NET for Android dependencies
 
@@ -49,7 +49,12 @@ Here are all the arguments which the target will use when installing the depende
 In order to build .NET for Android applications or libraries you need to have a version of the Java Development Kit installed.
 We recommend you use the Microsoft Open JDK, this has been tested against our .NET for Android builds:
 
- 1. Download [Microsoft OpenJDK 11](/java/openjdk/download#openjdk-11).
+ 1. Download [Microsoft OpenJDK 21](/java/openjdk/download#openjdk-21).
+
+ 2. Depending on your platform run the appropriate installer.
+
+ 3. It is also good practice to set the `JAVA_HOME` environment variable.
+    This will allow you to use the JDK from the Command Prompt or Terminal.
 
 ## Install the Android SDK manually
 
@@ -73,9 +78,10 @@ You might find it necessary to install the Android SDK manually:
  6. Run the `sdkmanager` command to install the desired components.
  
  7. Set the `$ANDROID_HOME` environment variable to your Android SDK path:
-```powershell
-$env:ANDROID_HOME = "C:\android-sdk"
-```
+
+    ```powershell
+    $env:ANDROID_HOME = "C:\android-sdk"
+    ```
 
 For example, to install the latest platform and platform tools, use:
 
@@ -107,9 +113,3 @@ The following component types are useful to know:
 
 It is also good practice to set the `ANDROID_HOME` environment variable, as this
 allows you to use certain tooling from the command line.
-
- 2. Depending on your platform run the appropriate installer.
-
- 3. It is also good practice to set the `JAVA_HOME` environment variable.
-    This will allow you to use the JDK from the Command Prompt or Terminal.
-
