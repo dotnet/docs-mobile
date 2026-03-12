@@ -106,6 +106,8 @@
         href: messages/apt0000.md
       - name: APT0001
         href: messages/apt0001.md
+      - name: APT2000
+        href: messages/apt2000.md
       - name: APT2264
         href: messages/apt2264.md
       - name: APT2265
@@ -274,6 +276,12 @@
         href: messages/xa1037.md
       - name: XA1038
         href: messages/xa1038.md
+      - name: XA1039
+        href: messages/xa1039.md
+      - name: XA1040
+        href: messages/xa1040.md
+      - name: XA1041
+        href: messages/xa1041.md
     - name: "XA2xxx: Linker"
       items:
       - name: "XA2xxx: Linker"

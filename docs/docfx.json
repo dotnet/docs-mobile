@@ -60,11 +60,11 @@
     },
     "fileMetadata": {
       "author": {
-        "android/**/*.md": "jonpryor",
+        "android/**/*.md": "jonathanpeppers",
         "ios/**/*.md": "rolfbjarne"
       },
       "ms.author": {
-        "android/**/*.md": "jopryo",
+        "android/**/*.md": "jopepper",
         "ios/**/*.md": "rokvin"
       },
       "ms.subservice": {
