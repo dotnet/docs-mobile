@@ -344,6 +344,20 @@ Only applicable to macOS and Mac Catalyst projects.
 
 See [BuildIpa](#buildipa) for iOS and tvOS projects.
 
+## Device
+
+Specifies which mobile device or emulator to target when using `dotnet run
+--device <Device>` or MSBuild targets that interact with devices (such as
+`Run`, `Install`, or `Uninstall`).
+
+The value can be anything the command-line tools `simctl` or `devicectl`
+accept for the device name; this is typically either the UDID or the name of
+the device. For example, for the device `My iOS Device` with UDID `0000-aaaabbbb`, use
+either `-p:Device="My iOS Device"` or `-p:Device=0000-aaaabbbb`.
+
+For more information about device selection, see the
+[.NET SDK device selection specification](https://github.com/dotnet/sdk/blob/2b9fc02a265c735f2132e4e3626e94962e48bdf5/documentation/specs/dotnet-run-for-maui.md).
+
 ## DeviceSpecificBuild
 
 If the build should be specific to the selected device.
@@ -1169,7 +1183,7 @@ This will pass `-W` to `open` if set to `true`.
 Example:
 
 ```shell
-$ dotnet run -p:OpenWaitForExit=true
+$ dotnet run -p:OpenWaitForExit=false
 ```
 
 ### OpenArguments
