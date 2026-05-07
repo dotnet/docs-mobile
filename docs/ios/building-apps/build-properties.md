@@ -17,6 +17,12 @@ The full path to the `altool` tool.
 
 The default behavior is to use `xcrun altool`.
 
+## ACToolPath
+
+The full path to the `actool` tool.
+
+The default behavior is to use `xcrun actool`.
+
 ## AppBundleResourcePrefix
 
 The directory where resources are stored (this prefix will be removed when copying resources to the app bundle).
@@ -528,6 +534,12 @@ Default: true
 ## GeneratedSourcesDir
 
 Where the generated source from the generator are saved.
+
+## IBToolPath
+
+The full path to the `ibtool` tool.
+
+The default behavior is to use `xcrun ibtool`.
 
 ## IncludeAllAppIcons
 
@@ -1091,37 +1103,7 @@ Only applicable to macOS and Mac Catalyst apps.
 
 ## ReferenceNativeSymbol
 
-The item group `ReferenceNativeSymbol` can be used to specify how we should
-handle a given native symbol: either ignore it, or ask the native linker to
-keep it (by passing the symbol as `-u ...` or in a symbol file to the native
-linker).
-
-There are two supported types of metadata:
-
-* `SymbolType`: either `ObjectiveCClass`, `Function` or `Field`. Used to
-  compute the complete native name of a symbol (for instance, the native
-  symbol for the Objective-C class `MyClass` is `_OBJC_CLASS_$_MyClass`,
-  while for a function `MyFunction` it's just `_MyFunction`.
-* `SymbolMode`: either `Ignore` or not set. `Ignore` means to not pass the given
-  symbol to the native linker, the default is to do so.
-
-`SymbolType` is required, while `SymbolMode` isn't.
-
-Example symbol to keep:
-
-```xml
-<ItemGroup>
-    <ReferenceNativeSymbol Include="MyClass" SymbolType="ObjectiveCClass" />
-</ItemGroup>
-```
-
-Example symbol to ignore:
-
-```xml
-<ItemGroup>
-    <ReferenceNativeSymbol Include="MyClass" SymbolType="ObjectiveCClass" SymbolMode="Ignore" />
-</ItemGroup>
-```
+See [ReferenceNativeSymbol](build-items.md#referencenativesymbol)
 
 ## RequireLinkWithAttributeForObjectiveCClassSearch
 
@@ -1303,6 +1285,12 @@ It's also possible to use a platform-specific property:
 * [macOSMinimumVersion](#macosminimumversion)
 * [MacCatalystMinimumVersion](#maccatalystminimumversion)
 
+## TextureAtlasPath
+
+The full path to the `TextureAtlas` tool.
+
+The default behavior is to use `xcrun TextureAtlas`.
+
 ## TrimMode
 
 Specifies the trimming granularity.
@@ -1340,7 +1328,7 @@ The default trim mode depends on numerous factors, and may also change in the fu
 
 The current (as of .NET 9) default values are:
 
-* iOS and iOS: `partial` when building for device, `copy` when building for the simulator.
+* iOS and tvOS: `partial` when building for device, `copy` when building for the simulator.
 * macOS: always `copy`.
 * Mac Catalyst: `partial` when building for the `"Release"` configuration, `copy` otherwise.
 
