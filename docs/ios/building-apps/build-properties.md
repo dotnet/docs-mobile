@@ -581,7 +581,7 @@ Example:
 </PropertyGroup>
 ```
 
-Custom behavior for specific symbols can be set using the [ReferenceNativeSymbol](build-items.md#referencenativesymbols) item group:
+Custom behavior for specific symbols can be set using the [ReferenceNativeSymbol](build-items.md#referencenativesymbol) item group:
 
 ```xml
 <ItemGroup>
