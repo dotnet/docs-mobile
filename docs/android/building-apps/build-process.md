@@ -35,9 +35,8 @@ produces the package.
 Package file names, formats, and publish paths are resolved during the
 MSBuild target execution. To discover the final package artifacts from a
 custom target or CI workflow, use the
-[`@(AndroidPackageOutput)`](build-items.md#androidpackageoutput) and
-[`@(AndroidPublishedPackageOutput)`](build-items.md#androidpublishedpackageoutput)
-item groups. For more information, see
+[`@(ApplicationArtifact)`](build-items.md#applicationartifact) item group.
+For more information, see
 [Discover Android package outputs](package-outputs.md).
 
 <a name="Fast_Deployment"></a>

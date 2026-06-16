@@ -13,32 +13,27 @@ on properties such as [`$(AndroidPackageFormats)`](build-properties.md#androidpa
 the package is signed.
 
 Starting in .NET 11, instead of recalculating those paths in a custom target or
-CI script, consume the package output item groups that are populated by the
-.NET for Android build:
+CI script, consume the [`@(ApplicationArtifact)`](build-items.md#applicationartifact)
+item group that is populated by the .NET for Android build.
 
-- [`@(AndroidPackageOutput)`](build-items.md#androidpackageoutput) contains package files
-  produced in the build output directory.
-- [`@(AndroidPublishedPackageOutput)`](build-items.md#androidpublishedpackageoutput)
-  contains package files copied to the publish directory by `dotnet publish`.
-
-These item groups include metadata such as the package format, whether the package is
-signed, and whether an APK is the universal APK generated from an Android App Bundle.
+This item group includes metadata such as the package format, whether the package is
+signed, the resolved package ID, and the ABI for per-ABI APKs.
 
 ## Capture outputs after package signing
 
-Use `@(AndroidPackageOutput)` from a target that runs after
+Use `@(ApplicationArtifact)` from a target that runs after
 [`SignAndroidPackage`](build-targets.md#signandroidpackage), or call
-[`GetAndroidPackageOutputs`](build-targets.md#getandroidpackageoutputs) from another target.
+[`GetApplicationArtifacts`](build-targets.md#getapplicationartifacts) from another target.
 
 For example, the following target writes the build output package paths and selected
 metadata to a text file:
 
 ```xml
 <Project>
-  <Target Name="WriteAndroidPackageOutputs" AfterTargets="SignAndroidPackage">
+  <Target Name="WriteApplicationArtifacts" AfterTargets="SignAndroidPackage">
     <WriteLinesToFile
-        File="$(OutputPath)android-package-outputs.txt"
-        Lines="@(AndroidPackageOutput->'%(FullPath)|%(PackageFormat)|%(Signed)|%(IsUniversal)')"
+        File="$(OutputPath)application-artifacts.txt"
+        Lines="@(ApplicationArtifact->'%(FullPath)|%(PackageFormat)|%(Signed)|%(PackageId)|%(Abi)')"
         Overwrite="true" />
   </Target>
 </Project>
@@ -46,23 +41,20 @@ metadata to a text file:
 
 ## Capture outputs after publish
 
-Use `@(AndroidPublishedPackageOutput)` from a target that runs after `Publish` when you
-need the final files in `$(PublishDir)`:
+Use `@(ApplicationArtifact)` from a target that runs after `Publish` when you need the
+final files in `$(PublishDir)`. During publish, .NET for Android updates the item
+identities to the copied publish-directory paths while preserving package metadata:
 
 ```xml
 <Project>
-  <Target Name="WriteAndroidPublishedPackageOutputs" AfterTargets="Publish">
+  <Target Name="WritePublishedApplicationArtifacts" AfterTargets="Publish">
     <WriteLinesToFile
-        File="$(PublishDir)android-published-package-outputs.txt"
-        Lines="@(AndroidPublishedPackageOutput->'%(FullPath)|%(PackageFormat)|%(Signed)|%(OriginalPath)')"
+        File="$(PublishDir)application-artifacts.txt"
+        Lines="@(ApplicationArtifact->'%(FullPath)|%(PackageFormat)|%(Signed)|%(PackageId)|%(Abi)')"
         Overwrite="true" />
   </Target>
 </Project>
 ```
-
-`@(AndroidPublishedPackageOutput)` preserves the metadata from `@(AndroidPackageOutput)`
-and adds `%(OriginalPath)`, which points to the corresponding artifact before it was
-copied to the publish directory.
 
 ## Emit GitHub Actions outputs
 
@@ -71,13 +63,13 @@ the `GITHUB_OUTPUT` environment variable:
 
 ```xml
 <Project>
-  <Target Name="SetGitHubAndroidPackageOutputs"
+  <Target Name="SetGitHubApplicationArtifacts"
       AfterTargets="Publish"
       Condition="'$(GITHUB_OUTPUT)' != ''">
     <ItemGroup>
-      <_SignedApk Include="@(AndroidPublishedPackageOutput)"
+      <_SignedApk Include="@(ApplicationArtifact)"
           Condition="'%(PackageFormat)' == 'apk' and '%(Signed)' == 'true'" />
-      <_SignedAab Include="@(AndroidPublishedPackageOutput)"
+      <_SignedAab Include="@(ApplicationArtifact)"
           Condition="'%(PackageFormat)' == 'aab' and '%(Signed)' == 'true'" />
     </ItemGroup>
 
@@ -95,7 +87,7 @@ the `GITHUB_OUTPUT` environment variable:
 
 This pattern lets later workflow steps upload or deploy the resolved packages without
 hardcoding the package naming convention. For JSON, YAML, or other structured manifests,
-pass `@(AndroidPublishedPackageOutput)` to a custom task or script and serialize the
+pass `@(ApplicationArtifact)` to a custom task or script and serialize the
 metadata needed by your pipeline.
 
 ## Package output metadata
@@ -108,12 +100,4 @@ targets and CI systems:
 | `%(PackageFormat)` | `apk` or `aab`. |
 | `%(Signed)` | `true` when the package is signed. |
 | `%(PackageId)` | The resolved Android package name. |
-| `%(RuntimeIdentifier)` | The current runtime identifier, if any. |
-| `%(TargetFramework)` | The current target framework. |
-| `%(Configuration)` | The current build configuration. |
-| `%(AndroidPackageFormat)` | The effective primary package format. |
-| `%(AndroidPackageFormats)` | The requested package formats. |
-| `%(IsUniversal)` | `true` for the signed universal APK generated from an Android App Bundle. |
-| `%(SourcePackageFormat)` | The package format that produced the item. |
-| `%(RelativePath)` | The output file name. |
-| `%(OriginalPath)` | On published items, the corresponding build output artifact before publish copy. |
+| `%(Abi)` | The Android ABI for per-ABI APK outputs. This metadata is omitted for non-per-ABI outputs. |

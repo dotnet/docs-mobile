@@ -96,10 +96,10 @@ Creates the `@(AndroidDependency)` item group, which is used by the
 [`InstallAndroidDependencies`](#installandroiddependencies) target to determine
 which Android SDK packages to install.
 
-## GetAndroidPackageOutputs
+## GetApplicationArtifacts
 
 Creates and returns the
-[`@(AndroidPackageOutput)`](build-items.md#androidpackageoutput) item group,
+[`@(ApplicationArtifact)`](build-items.md#applicationartifact) item group,
 which contains the APK and Android App Bundle files produced in the build
 output directory.
 
@@ -167,7 +167,7 @@ Creates and signs the Android package (`.apk`) file.
 Use with `/p:Configuration=Release` to generate self-contained "Release" packages.
 
 Package files created by this target are available in the
-[`@(AndroidPackageOutput)`](build-items.md#androidpackageoutput) item group.
+[`@(ApplicationArtifact)`](build-items.md#applicationartifact) item group.
 
 ## StartAndroidActivity
 
