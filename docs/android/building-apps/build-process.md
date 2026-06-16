@@ -1,7 +1,7 @@
 ---
 title: .NET for Android Build Process
 description: .NET for Android Build Process
-ms.date: 04/11/2024
+ms.date: 06/16/2026
 ---
 
 # Build process
@@ -15,12 +15,13 @@ supporting the
 and other [build actions](build-items.md),
 generating
 [Android-callable wrappers](/xamarin/android/platform/java-integration/android-callable-wrappers),
-and generating a `.apk` for execution on Android devices.
+and generating an APK or Android App Bundle (AAB) for execution on Android
+devices or distribution through an app store.
 
 ## Application packages
 
-In broad terms, there are two types of Android application packages
-(`.apk` files) which the .NET for Android build system can generate:
+In broad terms, there are two types of Android application packages which
+the .NET for Android build system can generate:
 
 - **Release** builds, which are fully self-contained and don't
   require extra packages to execute. These are the
@@ -30,6 +31,14 @@ In broad terms, there are two types of Android application packages
 
 These package types match the MSBuild `Configuration` which
 produces the package.
+
+Package file names, formats, and publish paths are resolved during the
+MSBuild target execution. To discover the final package artifacts from a
+custom target or CI workflow, use the
+[`@(AndroidPackageOutput)`](build-items.md#androidpackageoutput) and
+[`@(AndroidPublishedPackageOutput)`](build-items.md#androidpublishedpackageoutput)
+item groups. For more information, see
+[Discover Android package outputs](package-outputs.md).
 
 <a name="Fast_Deployment"></a>
 

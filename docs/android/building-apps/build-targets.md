@@ -1,7 +1,7 @@
 ---
 title: .NET for Android Build Targets
 description: "This document will list all supported targets in the .NET for Android build process."
-ms.date: 04/11/2024
+ms.date: 06/16/2026
 ---
 
 # Build targets
@@ -96,6 +96,19 @@ Creates the `@(AndroidDependency)` item group, which is used by the
 [`InstallAndroidDependencies`](#installandroiddependencies) target to determine
 which Android SDK packages to install.
 
+## GetAndroidPackageOutputs
+
+Creates and returns the
+[`@(AndroidPackageOutput)`](build-items.md#androidpackageoutput) item group,
+which contains the APK and Android App Bundle files produced in the build
+output directory.
+
+This target depends on [`SignAndroidPackage`](#signandroidpackage), so it can
+be used when a custom target needs the resolved package output paths and
+metadata without running `dotnet publish`.
+
+This target is available in .NET 11 and later.
+
 ## Install
 
 [Creates, signs](#signandroidpackage), and installs the Android package onto
@@ -152,6 +165,9 @@ Properties which affect how the target works:
 Creates and signs the Android package (`.apk`) file.
 
 Use with `/p:Configuration=Release` to generate self-contained "Release" packages.
+
+Package files created by this target are available in the
+[`@(AndroidPackageOutput)`](build-items.md#androidpackageoutput) item group.
 
 ## StartAndroidActivity
 

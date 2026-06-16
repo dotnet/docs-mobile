@@ -1,7 +1,7 @@
 ---
 title: .NET for Android Build Items
 description: .NET for Android Build Items
-ms.date: 09/09/2024
+ms.date: 06/16/2026
 ---
 
 # Build items
@@ -14,6 +14,45 @@ an [MSBuild ItemGroup](/visualstudio/msbuild/itemgroup-element-msbuild).
 
 > [!NOTE]
 > In .NET for Android there is technically no distinction between an application and a bindings project, so build items will work in both. In practice it is highly recommended to create separate application and bindings projects. Build items that are primarily used in bindings projects are documented in the [MSBuild bindings project items](../binding-libs/msbuild-reference/build-items.md) reference guide.
+
+## AndroidPackageOutput
+
+`@(AndroidPackageOutput)` contains the final Android package files produced
+in the build output directory by the package and signing targets. This item
+group can be used by custom MSBuild targets to discover APK and Android App
+Bundle outputs without recalculating the final file names.
+
+This item group is available in .NET 11 and later.
+
+Each item includes the following metadata:
+
+- `%(PackageFormat)`: `apk` or `aab`.
+- `%(Signed)`: `true` when the package is signed.
+- `%(PackageId)`: The resolved Android package name.
+- `%(RuntimeIdentifier)`: The current runtime identifier, if any.
+- `%(TargetFramework)`: The current target framework.
+- `%(Configuration)`: The current configuration.
+- `%(AndroidPackageFormat)`: The effective primary package format.
+- `%(AndroidPackageFormats)`: The requested package formats.
+- `%(IsUniversal)`: `true` for the signed universal APK generated from an Android App Bundle.
+- `%(SourcePackageFormat)`: The package format that produced the item.
+- `%(RelativePath)`: The output file name.
+
+For examples that write these items to files or CI outputs, see
+[Discover Android package outputs](package-outputs.md).
+
+## AndroidPublishedPackageOutput
+
+`@(AndroidPublishedPackageOutput)` contains the Android package files copied
+to the publish directory by `dotnet publish`. It preserves the metadata from
+`@(AndroidPackageOutput)` and adds:
+
+- `%(OriginalPath)`: The corresponding build output artifact before publish copy.
+
+This item group is available in .NET 11 and later.
+
+For examples that write these items to files or CI outputs, see
+[Discover Android package outputs](package-outputs.md).
 
 ## AndroidAdditionalJavaManifest
 
