@@ -44,7 +44,7 @@ metadata to a text file:
 Targets imported after .NET for Android can append to
 `$(GetApplicationArtifactsDependsOn)` to update or enrich `@(ApplicationArtifact)`
 before [`GetApplicationArtifacts`](build-targets.md#getapplicationartifacts)
-returns the items. For example:
+or `Publish` returns the items. For example:
 
 ```xml
 <Project>
