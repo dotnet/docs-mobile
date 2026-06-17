@@ -39,6 +39,30 @@ metadata to a text file:
 </Project>
 ```
 
+## Extend application artifact metadata
+
+Targets imported after .NET for Android can append to
+`$(GetApplicationArtifactsDependsOn)` to update or enrich `@(ApplicationArtifact)`
+before [`GetApplicationArtifacts`](build-targets.md#getapplicationartifacts)
+returns the items. For example:
+
+```xml
+<Project>
+  <PropertyGroup>
+    <GetApplicationArtifactsDependsOn>
+      $(GetApplicationArtifactsDependsOn);
+      AddCustomApplicationArtifactMetadata
+    </GetApplicationArtifactsDependsOn>
+  </PropertyGroup>
+
+  <Target Name="AddCustomApplicationArtifactMetadata">
+    <ItemGroup>
+      <ApplicationArtifact Update="@(ApplicationArtifact)" CustomMetadata="value" />
+    </ItemGroup>
+  </Target>
+</Project>
+```
+
 ## Capture outputs after publish
 
 Use `@(ApplicationArtifact)` from a target that runs after `Publish` when you need the

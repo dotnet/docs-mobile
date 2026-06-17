@@ -38,6 +38,9 @@ MSBuild also provides well-known metadata for each item. For example,
 `%(Filename)%(Extension)` is the package file name and `%(FullPath)` is the
 full package path.
 
+Use the [`GetApplicationArtifacts`](build-targets.md#getapplicationartifacts)
+target when another target needs to query the application artifacts directly.
+
 For examples that write these items to files or CI outputs, see
 [Discover Android package outputs](package-outputs.md).
 

@@ -100,12 +100,12 @@ which Android SDK packages to install.
 
 Creates and returns the
 [`@(ApplicationArtifact)`](build-items.md#applicationartifact) item group,
-which contains the APK and Android App Bundle files produced in the build
-output directory.
+which contains the APK and Android App Bundle files produced by the build.
 
-This target depends on [`SignAndroidPackage`](#signandroidpackage), so it can
-be used when a custom target needs the resolved package output paths and
-metadata without running `dotnet publish`.
+This target depends on `$(GetApplicationArtifactsDependsOn)`, which defaults to
+`Build;$(GetApplicationArtifactsDependsOn)`. Later imports can append targets to
+`$(GetApplicationArtifactsDependsOn)` to update or enrich `@(ApplicationArtifact)`
+metadata before the target returns the items.
 
 This target is available in .NET 11 and later.
 
