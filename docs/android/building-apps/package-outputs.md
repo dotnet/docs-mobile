@@ -59,9 +59,11 @@ dotnet msbuild MyApp.csproj -t:Publish -getTargetResult:Publish
 ## Extend application artifact metadata
 
 Targets imported after .NET for Android can append to
-`$(GetApplicationArtifactsDependsOn)` to update or enrich `@(ApplicationArtifact)`
-before [`GetApplicationArtifacts`](build-targets.md#getapplicationartifacts)
-or `Publish` returns the items. For example:
+`$(GetApplicationArtifactsDependsOn)`. These targets run after .NET for Android
+populates `@(ApplicationArtifact)`, so they can update the existing items with
+additional metadata before
+[`GetApplicationArtifacts`](build-targets.md#getapplicationartifacts) or
+`Publish` returns them. For example:
 
 ```xml
 <Project>
@@ -74,7 +76,8 @@ or `Publish` returns the items. For example:
 
   <Target Name="AddCustomApplicationArtifactMetadata">
     <ItemGroup>
-      <ApplicationArtifact Update="@(ApplicationArtifact)" CustomMetadata="value" />
+      <ApplicationArtifact Update="@(ApplicationArtifact)"
+          ApplicationVersion="$(ApplicationVersion)" />
     </ItemGroup>
   </Target>
 </Project>
