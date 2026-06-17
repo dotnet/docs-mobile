@@ -39,6 +39,23 @@ metadata to a text file:
 </Project>
 ```
 
+## Query outputs from the command line
+
+Use the callable
+[`GetApplicationArtifacts`](build-targets.md#getapplicationartifacts) target
+when a CI job or custom tool needs the build output artifact paths:
+
+```shell
+dotnet msbuild MyApp.csproj -t:GetApplicationArtifacts -getTargetResult:GetApplicationArtifacts
+```
+
+Use the `Publish` target result when the caller needs the copied publish
+outputs in `$(PublishDir)`:
+
+```shell
+dotnet msbuild MyApp.csproj -t:Publish -getTargetResult:Publish
+```
+
 ## Extend application artifact metadata
 
 Targets imported after .NET for Android can append to
