@@ -59,6 +59,10 @@
       "uhfHeaderId": "MSDocsHeader-DotNet"
     },
     "fileMetadata": {
+      "ms.service": {
+        "android/**/*.md": "dotnet-mobile-development",
+        "ios/**/*.md": "dotnet-mobile-development"
+      },
       "author": {
         "android/**/*.md": "jonathanpeppers",
         "ios/**/*.md": "rolfbjarne"
