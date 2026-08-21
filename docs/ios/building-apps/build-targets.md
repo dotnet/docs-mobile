@@ -44,6 +44,25 @@ $ dotnet run --device UDID
 
 Added in .NET 11.
 
+## GetApplicationArtifacts
+
+Builds the project and returns the `@(ApplicationArtifact)` item group. This
+target always runs `Build` first so platform `.app`, `.ipa`, `.pkg`, and
+`.xcarchive` artifacts are produced and collected before any custom metadata
+extension targets run. The `Publish` target returns the same item group for
+artifacts it creates.
+
+```shell
+$ dotnet build MyApp.csproj -t:GetApplicationArtifacts -getTargetResult:GetApplicationArtifacts
+$ dotnet build MyApp.csproj -t:Publish -getTargetResult:Publish
+```
+
+See [ApplicationArtifact](build-items.md#applicationartifact) for supported metadata.
+
+Targets that need to add or update `@(ApplicationArtifact)` metadata before
+`GetApplicationArtifacts` or `Publish` returns can append to
+[GetApplicationArtifactsDependsOn](build-properties.md#getapplicationartifactsdependson).
+
 ## Run
 
 Builds the source code within a project and all dependencies, and then deploys and runs it
