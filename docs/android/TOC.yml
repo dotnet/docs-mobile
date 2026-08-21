@@ -14,6 +14,8 @@
     items:
     - name: Build process
       href: building-apps/build-process.md
+    - name: Discover package outputs
+      href: building-apps/package-outputs.md
     - name: Build targets
       href: building-apps/build-targets.md
     - name: Build properties
