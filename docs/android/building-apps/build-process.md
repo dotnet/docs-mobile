@@ -52,7 +52,7 @@ Only the updated assemblies are resynchronized to the target device.
 
 Fast deployment is supported for both `.apk` and `.aab` package formats.
 It is enabled by default, and may be disabled in Debug builds
-by setting the `$(EmbedAssembliesIntoApk)` property to `True`.
+by setting the `$(AndroidEnableFastDeployment)` property to `False`.
 Note that using `.aab` with fast deployment will be slower than `.apk`
 because the `.aab` file must be processed through `bundletool` for
 packaging and installation.
@@ -98,7 +98,6 @@ The Following MSBuild properties are used to control generation of the
 - [`$(AndroidR8IgnoreWarnings)`](build-properties.md#androidr8ignorewarnings)
 - [`$(AndroidResgenExtraArgs)`](build-properties.md#androidresgenextraargs)
 - [`$(AndroidResgenFile)`](build-properties.md#androidresgenfile)
-- [`$(AndroidUseAapt2)`](build-properties.md#androiduseaapt2)
 - [`$(MonoAndroidResourcePrefix)`](build-properties.md#monoandroidresourceprefix)
 
 ## Signing properties
@@ -186,30 +185,3 @@ written correctly, build extensions can affect your build
 performance, especially if they run on every build. It is
 highly recommended that you read the MSBuild [documentation](/visualstudio/msbuild/msbuild)
 before implementing such extensions.
-
-## Target definitions
-
-The .NET for Android-specific parts of the build process are defined in
-`$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets`,
-but normal language-specific targets such as *Microsoft.CSharp.targets*
-are also required to build the assembly.
-
-The following build properties must be set before importing any language
-targets:
-
-```xml
-<PropertyGroup>
-  <TargetFrameworkIdentifier>MonoDroid</TargetFrameworkIdentifier>
-  <MonoDroidVersion>v1.0</MonoDroidVersion>
-  <TargetFrameworkVersion>v2.2</TargetFrameworkVersion>
-</PropertyGroup>
-```
-
-All of these targets and properties can be included for C# by
-importing *Xamarin.Android.CSharp.targets*:
-
-```xml
-<Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-```
-
-This file can easily be adapted for other languages.

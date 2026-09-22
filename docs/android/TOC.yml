@@ -106,8 +106,6 @@
         href: messages/apt0000.md
       - name: APT0001
         href: messages/apt0001.md
-      - name: APT2000
-        href: messages/apt2000.md
       - name: APT2264
         href: messages/apt2264.md
       - name: APT2265
@@ -252,8 +250,6 @@
         href: messages/xa1011.md
       - name: XA1023
         href: messages/xa1023.md
-      - name: XA1024
-        href: messages/xa1024.md
       - name: XA1025
         href: messages/xa1025.md
       - name: XA1027
@@ -262,12 +258,6 @@
         href: messages/xa1028.md
       - name: XA1029
         href: messages/xa1029.md
-      - name: XA1031
-        href: messages/xa1031.md
-      - name: XA1032
-        href: messages/xa1032.md
-      - name: XA1033
-        href: messages/xa1033.md
       - name: XA1035
         href: messages/xa1035.md
       - name: XA1036
@@ -276,12 +266,16 @@
         href: messages/xa1037.md
       - name: XA1038
         href: messages/xa1038.md
-      - name: XA1039
-        href: messages/xa1039.md
-      - name: XA1040
-        href: messages/xa1040.md
-      - name: XA1041
-        href: messages/xa1041.md
+      - name: XA1042
+        href: messages/xa1042.md
+      - name: XA1043
+        href: messages/xa1043.md
+      - name: XA1048
+        href: messages/xa1048.md
+      - name: XA1049
+        href: messages/xa1049.md
+      - name: XA1050
+        href: messages/xa1050.md
     - name: "XA2xxx: Linker"
       items:
       - name: "XA2xxx: Linker"
@@ -320,6 +314,8 @@
         href: messages/xa4237.md
       - name: XA4239
         href: messages/xa4239.md
+      - name: XA4240
+        href: messages/xa4240.md
       - name: XA4241
         href: messages/xa4241.md
       - name: XA4242
@@ -338,6 +334,20 @@
         href: messages/xa4248.md
       - name: XA4249
         href: messages/xa4249.md
+      - name: XA4258
+        href: messages/xa4258.md
+      - name: XA4259
+        href: messages/xa4259.md
+      - name: XA4260
+        href: messages/xa4260.md
+      - name: XA4261
+        href: messages/xa4261.md
+      - name: XA4262
+        href: messages/xa4262.md
+      - name: XA4263
+        href: messages/xa4263.md
+      - name: XA4264
+        href: messages/xa4264.md
       - name: XA4301
         href: messages/xa4301.md
       - name: XA4302
@@ -366,6 +376,10 @@
         href: messages/xa4314.md
       - name: XA4315
         href: messages/xa4315.md
+      - name: XA4323
+        href: messages/xa4323.md
+      - name: XA4324
+        href: messages/xa4324.md
     - name: "XA5xxx: GCC and toolchain"
       items:
       - name: "XA5xxx: GCC and toolchain"
@@ -395,10 +409,10 @@
     - name: .NET 8 Release Notes
       items:
       - name: .NET 8 34.0.95
-        href: https://github.com/xamarin/xamarin-android/releases/tag/34.0.95
+        href: https://github.com/dotnet/android/releases/tag/34.0.95
       - name: .NET 8 34.0.85
-        href: https://github.com/xamarin/xamarin-android/releases/tag/34.0.85
+        href: https://github.com/dotnet/android/releases/tag/34.0.85
       - name: .NET 8 34.0.79
-        href: https://github.com/xamarin/xamarin-android/releases/tag/34.0.85
+        href: https://github.com/dotnet/android/releases/tag/34.0.79
       - name: .NET 8 34.0.52
-        href: https://github.com/xamarin/xamarin-android/releases/tag/34.0.52
+        href: https://github.com/dotnet/android/releases/tag/34.0.52
