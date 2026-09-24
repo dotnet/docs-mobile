@@ -15,6 +15,67 @@ an [MSBuild ItemGroup](/visualstudio/msbuild/itemgroup-element-msbuild).
 > [!NOTE]
 > In .NET for Android there is technically no distinction between an application and a bindings project, so build items will work in both. In practice it is highly recommended to create separate application and bindings projects. Build items that are primarily used in bindings projects are documented in the [MSBuild bindings project items](../binding-libs/msbuild-reference/build-items.md) reference guide.
 
+## ApplicationArtifact
+
+`@(ApplicationArtifact)` contains the final application artifact files produced
+by package, signing, and publish targets. This item group can be used by
+custom MSBuild targets to discover APK and Android App Bundle outputs without
+recalculating the final file names. .NET for Android populates this item group
+with Android-specific artifacts, and other .NET mobile platforms can use the
+same item name for their final application artifacts.
+
+Each item includes the following metadata:
+
+- `%(ApplicationId)`: The package name from the final merged
+  **AndroidManifest.xml**.
+- `%(ApplicationTitle)`: The `android:label` value from the final merged
+  manifest.
+- `%(ApplicationName)`: The same final manifest `android:label` value as
+  `%(ApplicationTitle)`.
+- `%(ApplicationDisplayVersion)`: The `android:versionName` value from the
+  final merged manifest.
+- `%(ApplicationVersion)`: The `android:versionCode` value from the final
+  merged manifest.
+- `%(PackageFormat)`: `apk` or `aab`.
+- `%(Signed)`: `true` when the package is signed.
+- `%(PackageId)`: The resolved Android package name, also exposed as
+  `%(ApplicationId)`.
+- `%(Abi)`: The Android ABI for a per-ABI APK output. This metadata is only
+  set for per-ABI APKs.
+
+The final merged manifest is authoritative for the common application
+metadata. Its values take precedence over project properties such as
+`$(ApplicationId)`, `$(ApplicationTitle)`, `$(ApplicationDisplayVersion)`, and
+`$(ApplicationVersion)`. This also applies to custom manifests and projects
+that set `$(GenerateApplicationManifest)` to `false`.
+
+Resource-backed application labels are returned unchanged. For example, an
+`android:label` value of `@string/app_name` produces
+`ApplicationTitle="@string/app_name"` and
+`ApplicationName="@string/app_name"`; the build does not select or resolve a
+locale-specific resource value.
+
+MSBuild also provides well-known metadata for each item. For example,
+`%(Filename)%(Extension)` is the package file name and `%(FullPath)` is the
+full package path.
+
+Use the [`GetApplicationArtifacts`](build-targets.md#getapplicationartifacts)
+target when another target needs to query the application artifacts directly.
+Targets appended to `$(GetApplicationArtifactsDependsOn)` run after .NET for
+Android populates this item group, so they can update the existing items with
+additional metadata before `GetApplicationArtifacts` or `Publish` returns them.
+
+For example:
+
+```xml
+<Target Name="WriteApplicationArtifacts" AfterTargets="Publish">
+  <WriteLinesToFile
+      File="$(PublishDir)application-artifacts.txt"
+      Lines="@(ApplicationArtifact->'%(FullPath)|%(Filename)%(Extension)|%(PackageFormat)|%(Signed)|%(PackageId)|%(Abi)|%(ApplicationTitle)|%(ApplicationDisplayVersion)|%(ApplicationVersion)')"
+      Overwrite="true" />
+</Target>
+```
+
 ## AndroidAdditionalJavaManifest
 
 `<AndroidAdditionalJavaManifest>` is used in conjunction with
@@ -296,6 +357,9 @@ The following MSBuild metadata are supported:
 - `%(Version)`: Required version of the Java library referenced by `%(Include)`.
 - `%(Repository)`: Optional Maven repository to use. Supported values are `Central` (default),
    `Google`, or an `https` URL to a Maven repository.
+- `%(AllowInsecureHttp)`: Optional boolean. When `%(Repository)` is an `http://` URL, this must be
+   set to `true` to allow the insecure connection. Defaults to `false`. Using HTTPS is strongly
+   recommended for supply-chain security.
 
 The `<AndroidMavenLibrary>` item is translated to
 [`AndroidLibrary`](#androidlibrary), so any metadata supported by
@@ -358,7 +422,17 @@ excluded from the final package. The default values are as follows
 ```xml
 <ItemGroup>
 	<AndroidPackagingOptionsExclude Include="DebugProbesKt.bin" />
-	<AndroidPackagingOptionsExclude Include="$([MSBuild]::Escape('*.kotlin_*')" />
+	<AndroidPackagingOptionsExclude Include="$([MSBuild]::Escape('*.kotlin*'))" />
+	<AndroidPackagingOptionsExclude Include="$([MSBuild]::Escape('*.jar$'))" />
+	<AndroidPackagingOptionsExclude Include="$([MSBuild]::Escape('*.knm$'))" />
+	<AndroidPackagingOptionsExclude Include="$([MSBuild]::Escape('^(|root/)[^/]+Main/default/(manifest|linkdata/*)$'))" />
+	<AndroidPackagingOptionsExclude Include="$([MSBuild]::Escape('^(|root/)R.txt$'))" />
+	<AndroidPackagingOptionsExclude Include="$([MSBuild]::Escape('^(|root/)proguard.txt$'))" />
+	<AndroidPackagingOptionsExclude Include="$([MSBuild]::Escape('^(|root/)META-INF/kotlin-project-structure-metadata.json$'))" />
+	<AndroidPackagingOptionsExclude Include="$([MSBuild]::Escape('^(|root/)META-INF/proguard/*$'))" />
+	<AndroidPackagingOptionsExclude Include="$([MSBuild]::Escape('^(|root/)META-INF/com.android.tools/proguard/*$'))" />
+	<AndroidPackagingOptionsExclude Include="$([MSBuild]::Escape('^(|root/)META-INF/com.android.tools/r8*/*$'))" />
+	<AndroidPackagingOptionsExclude Include="$([MSBuild]::Escape('^(|root/)META-INF/com/android/build/gradle/aar-metadata.properties$'))" />
 </ItemGroup>
 ```
 
@@ -581,3 +655,29 @@ this build action, see
 These files are ignored unless the
 [`$(EnableProguard)`](/xamarin/android/deploy-test/building-apps/build-properties#enableproguard)
 MSBuild property is `True`.
+
+## RuntimeEnvironmentVariable
+
+`@(RuntimeEnvironmentVariable)` items allow environment variables to be
+passed to the Android application at runtime via `dotnet run -e`. For example:
+
+```sh
+dotnet run -e DOTNET_RUN_FOO=TestValue123 -e DOTNET_RUN_BAR=AnotherValue456
+```
+
+These items are automatically populated by the .NET SDK when using
+`dotnet run -e NAME=VALUE` and are included in the generated
+environment file during the build. Each item's `%(Identity)` is the
+variable name and `%(Value)` is the variable value.
+
+```xml
+<ItemGroup>
+  <RuntimeEnvironmentVariable Include="DOTNET_RUN_FOO" Value="TestValue123" />
+</ItemGroup>
+```
+
+This feature is only available for Android application projects and
+requires a .NET SDK that supports the
+`RuntimeEnvironmentVariableSupport` project capability.
+
+This build item was introduced in .NET 10.0.300 SDK and .NET 11.
