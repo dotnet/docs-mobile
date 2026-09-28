@@ -143,7 +143,7 @@ or 'Help->Report a Problem' in Visual Studio for Mac.
 + [XA1025](xa1025.md): The experimental 'Hybrid' value for the 'AndroidAotMode' MSBuild property is not currently compatible with the armeabi-v7a target ABI.
 + [XA1027](xa1027.md): The 'EnableProguard' MSBuild property is set to 'true' and the 'AndroidLinkTool' MSBuild property is empty, so 'AndroidLinkTool' will default to 'proguard'.
 + [XA1028](xa1028.md): The 'AndroidEnableProguard' MSBuild property is set to 'true' and the 'AndroidLinkTool' MSBuild property is empty, so 'AndroidLinkTool' will default to 'proguard'.
-+ [XA1029](xa1029.md): The 'AotAssemblies' MSBuild property is deprecated. Remove it. For supported .NET 10-and-earlier projects that use Mono, use the 'RunAOTCompilation' MSBuild property instead. CoreCLR and NativeAOT do not use this property.
++ [XA1029](xa1029.md): The 'AotAssemblies' MSBuild property is deprecated. Edit the project file in a text editor to remove this property, and use the 'RunAOTCompilation' MSBuild property instead.
 + [XA1035](xa1035.md): The 'BundleAssemblies' property is deprecated and no longer affects the build. Remove it. For supported .NET 10-and-earlier Mono projects, use 'AndroidUseAssemblyStore' with 'AndroidEnableAssemblyCompression' for the former behavior. .NET 11 CoreCLR controls packaged assembly-store behavior and needs no replacement setting.
 + [XA1036](xa1036.md): AndroidManifest.xml //uses-sdk/@android:minSdkVersion '29' does not match the $(SupportedOSPlatformVersion) value '24' in the project file (if there is no $(SupportedOSPlatformVersion) value in the project file, then a default value has been assumed).
 Either change the value in the AndroidManifest.xml to match the $(SupportedOSPlatformVersion) value, or remove the value in the AndroidManifest.xml (and add a $(SupportedOSPlatformVersion) value to the project file if it doesn't already exist).
@@ -154,7 +154,7 @@ Either change the value in the AndroidManifest.xml to match the $(SupportedOSPla
 + [XA1041](xa1041.md): The MSBuild property 'MonoAndroidAssetPrefix' has an invalid value of 'c:\Foo\Assets'. The value is expected to be a directory path representing the relative location of your Assets or Resources
 + [XA1042](xa1042.md): The &lt;instrumentation&gt; element in '{0}' is missing the android:name attribute.
 + [XA1043](xa1043.md): Could not determine what to launch: '{0}' does not contain a launchable &lt;activity&gt; or an &lt;instrumentation&gt; element.
-+ [XA1044](xa1044.md): The MSBuild property '{0}' is not compatible with the {1} runtime. The build cannot continue while this property is enabled.
++ [XA1044](xa1044.md): The MSBuild property '{0}' is not compatible with the {1} runtime. The build cannot continue while this property is enabled. Either remove the property or guard it with a condition: Condition="'$(UseMonoRuntime)' == 'true'"
 + [XA1045](xa1045.md): Input file `{0}` does not start with `<replacements/>`.
 + [XA1046](xa1046.md): Attribute '{0}' in element '{1}' has value '{2}' that cannot be parsed as boolean; {3} line {4}.
 + [XA1047](xa1047.md): Required attribute '{0}' missing from element '{1}'; {2} line {3}.
