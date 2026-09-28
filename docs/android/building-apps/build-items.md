@@ -79,7 +79,7 @@ For example:
 ## AndroidAdditionalJavaManifest
 
 `<AndroidAdditionalJavaManifest>` is used in conjunction with
-[Java Dependency Resolution](../features/maven/java-dependency-verification.md)
+[Java Dependency Resolution](../binding-libs/advanced-concepts/java-dependency-verification.md)
 to specify additional POM files that will be needed to verify dependencies.
 These are often parent or imported POM files referenced by a Java library's POM file.
 
@@ -95,7 +95,7 @@ The following MSBuild metadata are required:
   file in the form `{GroupId}:{ArtifactId}`.
 - `%(JavaVersion)`: The version of the Java library matching the specified POM file.
 
-See the [Java Dependency Resolution documentation](../features/maven/java-dependency-verification.md)
+See the [Java Dependency Resolution documentation](../binding-libs/advanced-concepts/java-dependency-verification.md)
 for more details.
 
 This build action was introduced in .NET 9.
@@ -150,10 +150,15 @@ and `.jar` files will be included in the appropriate item groups.
 
 ## AndroidAotProfile
 
-Used to provide an AOT profile, for use with profile-guided AOT.
+Used to provide a Mono AOT profile for profiled AOT in supported
+.NET 10-and-earlier projects that use Mono.
 
-It can be also used from Visual Studio by setting the `AndroidAotProfile`
-build action to a file containing an AOT profile.
+This item is consumed when
+[`$(AndroidEnableProfiledAot)`](build-properties.md#androidenableprofiledaot)
+is `true`. It is not a MIBC profile or a dynamic PGO input.
+
+It can also be used from Visual Studio by setting the `AndroidAotProfile`
+build action on a file containing a Mono AOT profile.
 
 ## AndroidAppBundleMetaDataFile
 
@@ -232,7 +237,7 @@ package.
 
 ## AndroidIgnoredJavaDependency
 
-`<AndroidIgnoredJavaDependency>` is used in conjunction with [Java Dependency Resolution](../features/maven/java-dependency-verification.md).
+`<AndroidIgnoredJavaDependency>` is used in conjunction with [Java Dependency Resolution](../binding-libs/advanced-concepts/java-dependency-verification.md).
 
 It is used to specify a Java dependency that should be ignored. This can be
 used if a dependency will be fulfilled in a way that Java dependency resolution
@@ -249,7 +254,7 @@ The following MSBuild metadata are required:
 
 - `%(Version)`: The version of the Java library matching the specified `%(Include)`.
 
-See the [Java Dependency Resolution documentation](../features/maven/java-dependency-verification.md)
+See the [Java Dependency Resolution documentation](../binding-libs/advanced-concepts/java-dependency-verification.md)
 for more details.
 
 This build action was introduced in .NET 9.
@@ -365,7 +370,7 @@ The `<AndroidMavenLibrary>` item is translated to
 [`AndroidLibrary`](#androidlibrary), so any metadata supported by
 `<AndroidLibrary>` like `%(Bind)` or `%(Pack)` are also supported.
 
-See the [AndroidMavenLibrary documentation](../features/maven/android-maven-library.md)
+See the [AndroidMavenLibrary documentation](../binding-libs/advanced-concepts/android-maven-library.md)
 for more details.
 
 This build action was introduced in .NET 9.
