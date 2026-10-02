@@ -11,6 +11,14 @@ MSBuild properties control the behavior of the
 They're specified within the project file, for example *MyApp.csproj*, within
 an MSBuild PropertyGroup.
 
+> [!IMPORTANT]
+> Runtime-specific Mono properties on this page apply to supported builds targeting
+> .NET 10 or earlier that use the Mono runtime. Starting with .NET 11, CoreCLR
+> is the default runtime for iOS, tvOS, and Mac Catalyst (NativeAOT remains a
+> separate option). Setting `UseMonoRuntime=true` on those platforms produces
+> `NETSDK1242`. On macOS, setting `UseMonoRuntime=true` instead produces the
+> existing `Only CoreCLR is supported on macOS` workload error.
+
 ## AltoolPath
 
 The full path to the `altool` tool.
@@ -513,6 +521,10 @@ Enables the concurrent mode for the SGen garbage collector.
 
 Only applicable to iOS, tvOS and Mac Catalyst (when not using NativeAOT).
 
+This property only has an effect when using the Mono runtime, and a warning
+will be shown if it's set when not using the Mono runtime (for instance when
+using CoreCLR).
+
 ## EventSourceSupport
 
 When set to `false`, disables .NET's [EventSource][eventsource] support from
@@ -900,7 +912,8 @@ will decrease the amount of memory used at runtime:
 
 The downside is that type checks (`obj is SomeInterface`) will be slower.
 
-Only applicable when using the Mono runtime.
+Only applicable when using the Mono runtime. A warning will be shown if it's
+set when not using the Mono runtime (for instance when using CoreCLR).
 
 ## MtouchDebug
 
@@ -918,6 +931,10 @@ Only applicable to iOS, tvOS and Mac Catalyst when not using NativeAOT.
 
 This property is deprecated, use [EnableSGenConc](#enablesgenconc) instead.
 
+This property only has an effect when using the Mono runtime, and a warning
+will be shown if it's set when not using the Mono runtime (for instance when
+using CoreCLR).
+
 ## MtouchExtraArgs
 
 Additional arguments specifying how to create the app bundle.
@@ -928,7 +945,7 @@ This property is deprecated, use [AppBundleExtraOptions](#appbundleextraoptions)
 
 ## MtouchInterpreter
 
-Enables the interpreter, and optionally takes a comma-separated list of
+Enables the Mono interpreter, and optionally takes a comma-separated list of
 assemblies to interpret (if prefixed with a minus sign, the assembly will be
 AOT-compiled instead). 'all' can be used to specify all assemblies. This
 argument can be specified multiple times.
@@ -959,7 +976,14 @@ Applicable to iOS, tvOS and Mac Catalyst apps (when not using NativeAOT).
 The default behavior is to not enable the interpreter.
 
 > [!NOTE]
-> MAUI changes the default by setting `UseInterpreter=true` for the `"Debug"` configuration.
+> For .NET 10 and earlier, MAUI sets `UseInterpreter=true` for iOS and Mac
+> Catalyst Debug builds that use Mono. MAUI doesn't set this property for
+> supported .NET 11 iOS and Mac Catalyst Debug builds, which use CoreCLR.
+
+This property configures the Mono interpreter and doesn't configure the CoreCLR
+interpreter. It only has an effect when using Mono. A warning is shown and the
+property has no effect when using CoreCLR, including in .NET 11 iOS, tvOS, and
+Mac Catalyst projects.
 
 ## MtouchLink
 
@@ -988,6 +1012,10 @@ Default:
 
 * On iOS and tvOS: enabled for Release builds (where `Configuration="Release"`).
 * On Mac Catalyst: never enabled by default.
+
+This property only has an effect when using the Mono runtime, and a warning
+will be shown if it's set when not using the Mono runtime (for instance when
+using CoreCLR).
 
 ## NoBindingEmbedding
 
@@ -1402,10 +1430,10 @@ The current (as of .NET 9) default values are:
 Exceptions:
 
 * The default value is always `full` when building with NativeAOT.
-* MAUI changes the default value to `copy` when building for the `Debug`
-  configuration _and_ the interpreter is enabled using
-  [UseInterpreter](#useinterpreter) (which MAUI also enables by default when
-  using the `"Debug"` configuration).
+* For iOS and Mac Catalyst Debug builds using Mono, MAUI changes the default
+  trim mode to `copy` when [UseInterpreter](#useinterpreter) is enabled. MAUI
+  enables `UseInterpreter` by default for these builds in .NET 10 and earlier,
+  but not for supported .NET 11 CoreCLR builds.
 
 > [!NOTE]
 > The default trim mode may change in the future.
@@ -1453,7 +1481,7 @@ Applicable to macOS and Mac Catalyst projects.
 
 ## UseInterpreter
 
-Enables the interpreter (for all assemblies).
+Enables the Mono interpreter (for all assemblies).
 
 This is equivalent to setting `MtouchInterpreter=all`.
 
@@ -1462,9 +1490,16 @@ Applicable to iOS, tvOS and Mac Catalyst apps (when not using NativeAOT).
 The default behavior is to not enable the interpreter.
 
 > [!NOTE]
-> MAUI changes the default by setting `UseInterpreter=true` for the `"Debug"` configuration.
+> For .NET 10 and earlier, MAUI sets `UseInterpreter=true` for iOS and Mac
+> Catalyst Debug builds that use Mono. MAUI doesn't set this property for
+> supported .NET 11 iOS and Mac Catalyst Debug builds, which use CoreCLR.
 
 See [MtouchInterpreter](#mtouchinterpreter) for more information.
+
+This property configures the Mono interpreter and doesn't configure the CoreCLR
+interpreter. It only has an effect when using Mono. A warning is shown and the
+property has no effect when using CoreCLR, including in .NET 11 iOS, tvOS, and
+Mac Catalyst projects.
 
 ## UseNativeHttpHandler
 
