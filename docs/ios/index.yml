@@ -49,6 +49,9 @@ conceptualContent:
             - url: advanced-concepts/exception-marshaling.md
               itemType: concept
               text: Exception marshaling
+            - url: advanced-concepts/nsobject-generics.md
+              itemType: concept
+              text: Generic subclasses of NSObject
         # Card
         - title: Troubleshooting
           links:
