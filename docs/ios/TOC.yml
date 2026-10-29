@@ -8,6 +8,12 @@
           href: building-apps/build-properties.md
         - name: Build items
           href: building-apps/build-items.md
+    - name: Bind native libraries
+      items:
+        - name: Overview
+          href: binding-libs/index.md
+        - name: Bind and distribute XCFrameworks
+          href: binding-libs/xcframeworks.md
     - name: Application fundamentals
       items:
         - name: Images & icons
