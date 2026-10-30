@@ -32,7 +32,7 @@ If a native library exposes Objective-C classes, protocols, or categories, use a
 
 ### Xcode source projects (`*.xcodeproj`)
 
-Starting in .NET 9, you can build an Xcode framework project directly during the .NET build using the [`<XcodeProject>`](../building-apps/build-items.md#xcodeproj) item group:
+Starting in .NET 9, you can build an Xcode framework project directly during the .NET build using the [`<XcodeProject>`](../building-apps/build-items.md#xcodeproject) item group:
 
 ```xml
 <ItemGroup>
@@ -113,7 +113,7 @@ The following metadata can be configured on `<NativeReference>` items:
 
 | Metadata                       | Description                                                                                                                                                                                    |
 |--------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `Kind`                         | `Static` for static libraries (`*.a`), `Dynamic` for dynamic libraries (`*.dylib`), or `Framework` for `.framework` bundles. For an `.xcframework`, set `Kind` to match the payload inside its slices (`Framework`, `Static`, or `Dynamic`), or omit `Kind` to let the SDK infer it from the resolved slice. |
+| `Kind`                         | `Static` for static libraries (`*.a`), `Dynamic` for dynamic libraries (`*.dylib`), or `Framework` for `.framework` bundles. Required for all `NativeReference` items in binding projects (`IsBindingProject=true`), and for direct `*.a` and `*.dylib` `NativeReference` items in application projects. In application projects, `Kind` is inferred automatically for `*.framework`, `*.xcframework`, and `*.xcframework.zip` items from the resolved native binary. |
 | `SmartLink`                    | Boolean. Controls whether the .NET SDK determines whether `ForceLoad` is required. Defaults to `true`.                                                                                         |
 | `ForceLoad`                    | Boolean. Passes `-force_load` to the native linker so unused archive members (such as Objective-C categories) aren't stripped.                                                                 |
 | `Frameworks`                   | Space-separated list of Apple system frameworks required by the native library (for example, `Foundation UIKit Metal`).                                                                        |

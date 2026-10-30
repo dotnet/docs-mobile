@@ -60,7 +60,7 @@ Set the `<NativeReference>` metadata to match the contents of the `.xcframework`
 
 | Metadata         | When to use                                                                                                                                                              |
 |------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `Kind`           | Set to `Framework` if each slice inside the `.xcframework` contains a `.framework` bundle (dynamic or static framework), `Static` if each slice contains a bare `.a` static archive, or `Dynamic` for a bare `.dylib` (or omit `Kind` to let the SDK infer it from the resolved slice). |
+| `Kind`           | Required in binding projects. Set to `Framework` if each slice inside the `.xcframework` contains a `.framework` bundle (dynamic or static framework), `Static` if each slice contains a bare `.a` static archive, or `Dynamic` for a bare `.dylib`. |
 | `SmartLink`      | Defaults to `true`. Lets the SDK determine whether `-force_load` is needed.                                                                                              |
 | `ForceLoad`      | Set to `true` when static libraries or static frameworks define Objective-C categories or classes that the native linker might otherwise strip as unused.                |
 | `Frameworks`     | Space-separated list of Apple system frameworks that the XCFramework links against (for example, `Foundation UIKit CoreGraphics Security`).                              |

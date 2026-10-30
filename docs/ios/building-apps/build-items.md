@@ -62,6 +62,29 @@ See also:
 
 An item group that contains atlas textures.
 
+## AppManifestEntry
+
+An item group that contains entries to add to the app manifest (Info.plist).
+
+These entries are processed last and override entries from the main app
+manifest, partial app manifests, and generated values.
+
+The following types are supported:
+
+```xml
+<ItemGroup>
+    <AppManifestEntry Include="BooleanKey" Type="Boolean" Value="true" />
+    <AppManifestEntry Include="StringKey" Type="String" Value="stringvalue" />
+    <AppManifestEntry Include="StringArrayKey" Type="StringArray" Value="a;b" />
+    <AppManifestEntry Include="StringArrayKeyWithCustomSeparator" Type="StringArray" Value="a|b" ArraySeparator="|" />
+    <AppManifestEntry Include="KeyToRemove" Type="Remove" />
+</ItemGroup>
+```
+
+Boolean values may be `true` or `false` (case-insensitive). String arrays use a
+semicolon as the default separator, which can be changed with the
+`ArraySeparator` metadata.
+
 ## BGenReferencePath
 
 The list of assembly references to pass to the `bgen` tool (binding generator).
@@ -300,14 +323,15 @@ The `Include` attribute can point to:
 
 * Static libraries (`*.a`).
 * Dynamic libraries (`*.dylib`).
-* Frameworks (`*.framework`) or compressed frameworks (`*.framework.zip`).
+* Frameworks (`*.framework`).
 * XCFrameworks (`*.xcframework`) or compressed XCFrameworks (`*.xcframework.zip`).
 
 For an `.xcframework`, `Include` should point to the `.xcframework` root
 directory (or `.xcframework.zip` archive), not to a slice inside it. At build
 time, the SDK reads the XCFramework's `Info.plist` and automatically selects
-the slice matching the target platform (`ios`, `tvos`, `macos`), simulator or
-device variant (or `maccatalyst`), and target architecture (`arm64`, `x64`).
+the slice matching the target platform (`ios`, `tvos`, `macos`), platform
+variant (`simulator` or `maccatalyst`, when applicable), and target
+architecture (`arm64`, `x64`).
 
 Native framework directory names must use the lowercase `.framework` extension.
 Other capitalization, such as `.Framework` or `.FRAMEWORK`, produces warning
@@ -316,7 +340,7 @@ correctly. Rename the directory and update the reference to use `.framework`.
 
 The following metadata can be set on `NativeReference` items:
 
-* `Kind`: The type of native binary: `Static` (`*.a`), `Dynamic` (`*.dylib`), or `Framework` (`*.framework`). For `.xcframework` items, the SDK automatically infers `Kind` from the resolved slice (`Static`, `Dynamic`, or `Framework`), unless overridden in the binding manifest or project.
+* `Kind`: The type of native binary: `Static` (`*.a`), `Dynamic` (`*.dylib`), or `Framework` (`*.framework`). Required for all `NativeReference` items in binding projects (`IsBindingProject=true`), and for direct `*.a` and `*.dylib` `NativeReference` items in application projects. In application projects, `Kind` is inferred automatically for `*.framework`, `*.xcframework`, and `*.xcframework.zip` items from the resolved native binary.
 * `SmartLink`: A boolean value indicating whether the native linker can strip unused symbols (`-dead_strip`). Defaults to `true`.
 * `ForceLoad`: A boolean value indicating whether `-force_load` should be passed to the native linker for a static library (ignored when `SmartLink` is `true` and the static registrar is used). Defaults to `false`.
 * `Frameworks`: A space-separated list of Apple frameworks (without the `.framework` extension) that the native library depends on and must be linked with.
@@ -325,8 +349,8 @@ The following metadata can be set on `NativeReference` items:
 * `IsCxx`: A boolean value indicating whether the native library uses C++ and requires the C++ standard library when linking. Defaults to `false`.
 * `NeedsGccExceptionHandling`: A boolean value indicating whether the native library requires linking with `-lgcc_eh`. Defaults to `false`.
 * `LinkWithSwiftSystemLibraries`: A boolean value indicating whether the native library requires linking with the Swift system libraries. Defaults to `false`.
-* `NoDSymUtil`: A boolean value that overrides the project-level [NoDSymUtil](build-properties.md#nodsymutil) property for this specific framework or dynamic library.
-* `NoSymbolStrip`: A boolean value that overrides the project-level [NoSymbolStrip](build-properties.md#nosymbolstrip) property for this specific framework or dynamic library.
+* `NoDSymUtil`: A boolean value that overrides the project-level [NoDSymUtil](build-properties.md#nodsymutil) property for this specific framework or dynamic library during application post-processing (`_CollectItemsForPostProcessing`).
+* `NoSymbolStrip`: A boolean value that overrides the project-level [NoSymbolStrip](build-properties.md#nosymbolstrip) property for this specific framework or dynamic library during application post-processing (`_CollectItemsForPostProcessing`).
 
 Example (referencing a single `.xcframework` containing a `.framework` in a binding project):
 
@@ -342,7 +366,7 @@ Example (referencing a single `.xcframework` containing a `.framework` in a bind
 ```
 
 > [!NOTE]
-> An `.xcframework` bundle can contain either `.framework` bundles or static `.a` libraries (or `.dylib` dynamic libraries). When specifying `Kind`, set it to match what the slice contains (`Framework`, `Static`, or `Dynamic`), or omit `Kind` to let the SDK infer it from the resolved slice.
+> An `.xcframework` bundle can contain `.framework` bundles, static `.a` libraries, or `.dylib` dynamic libraries. Set `Kind` to match what the slice contains (`Framework`, `Static`, or `Dynamic`).
 
 Example (referencing multiple `.xcframework` items in a single binding project, such as a primary SDK and its native dependency XCFrameworks):
 
@@ -376,8 +400,8 @@ See also:
 
 * [CompressBindingResourcePackage](build-properties.md#compressbindingresourcepackage)
 * [NoBindingEmbedding](build-properties.md#nobindingembedding)
-* [Use and distribute native libraries](/dotnet/ios/binding-libs/)
-* [Bind and distribute XCFrameworks](/dotnet/ios/binding-libs/xcframeworks)
+* [Use and distribute native libraries](../binding-libs/index.md)
+* [Bind and distribute XCFrameworks](../binding-libs/xcframeworks.md)
 
 ## ObjcBindingApiDefinition
 
