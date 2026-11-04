@@ -77,15 +77,15 @@
       },
       "titleSuffix" : {
         "android/**/*.md": ".NET for Android",
-        "ios/**/*.md": ".NET for iOS"
+        "ios/**/*.md": ".NET for iOS, tvOS, macOS, and Mac Catalyst"
       },
       "searchScope": {
         "android/**/*.md": [ ".NET for Android" ],
-        "ios/**/*.md": [ ".NET for iOS" ]
+        "ios/**/*.md": [ ".NET for iOS", ".NET for tvOS", ".NET for macOS", ".NET for Mac Catalyst" ]
       },
       "open_source_feedback_productName": {
         "android/**/*.md": ".NET for Android",
-        "ios/**/*.md": ".NET for iOS"
+        "ios/**/*.md": ".NET for iOS, tvOS, macOS, and Mac Catalyst"
       },
       "breadcrumb_path": {
         "android/**/*.md": "/dotnet/breadcrumb/android/toc.json",
