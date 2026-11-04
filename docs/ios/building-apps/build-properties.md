@@ -11,11 +11,23 @@ MSBuild properties control the behavior of the
 They're specified within the project file, for example *MyApp.csproj*, within
 an MSBuild PropertyGroup.
 
+> [!IMPORTANT]
+> Runtime-specific Mono properties on this page apply to supported builds targeting
+> .NET 10 or earlier that use the Mono runtime. Starting with .NET 11, CoreCLR
+> is the default runtime for iOS, tvOS, and Mac Catalyst (NativeAOT remains a
+> separate option). Setting `UseMonoRuntime=true` on those platforms produces
+> `NETSDK1242`. On macOS, setting `UseMonoRuntime=true` instead produces the
+> existing `Only CoreCLR is supported on macOS` workload error.
+
 ## AltoolPath
 
 The full path to the `altool` tool.
 
 The default behavior is to use `xcrun altool`.
+
+## ACToolExtraArgs
+
+Additional arguments to pass to `actool`.
 
 ## ACToolPath
 
@@ -167,8 +179,9 @@ This can be overriden by setting the `BundleCreateDump` property:
 
 Note: the `createdump` tool does currently not work for sandboxed apps ([#18961](https://github.com/dotnet/macios/issues/18961));
 
-Only applicable to projects that use the CoreCLR runtime (which, at the moment
-of this writing, is only macOS projects).
+Note: an alternative option is to enable the in-process crash reporter (see [EnableCrashReport](#enablecrashreport)). The in-process crash reporter also works for sandboxed apps.
+
+Only applicable to macOS projects.
 
 [createdump]: https://github.com/dotnet/runtime/blob/3b63eb1346f1ddbc921374a5108d025662fb5ffd/docs/design/coreclr/botr/xplat-minidump-generation.md
 
@@ -306,26 +319,52 @@ By default we require a provisioning profile if:
 
 Setting this property to `true` or `false` will override the default logic.
 
+## ComputeInstructionSetForReadyToRun
+
+Controls whether to automatically compute and pass the instruction set to the ReadyToRun (R2R) compiler based on the deployment target.
+
+When `PublishReadyToRun` is `true`, the build system automatically computes the minimum CPU instruction set required based on:
+* The `SupportedOSPlatformVersion` (minimum OS version the app supports)
+* The `RuntimeIdentifier` (target architecture and platform)
+
+This computed instruction set is then passed to crossgen2 via the `--instruction-set` argument, enabling the R2R compiler to generate optimized native code using appropriate CPU instructions.
+
+Set this property to `false` to disable automatic instruction set computation and use crossgen2's default behavior.
+
+Default: `true`
+
+Example:
+```xml
+<PropertyGroup>
+  <ComputeInstructionSetForReadyToRun>false</ComputeInstructionSetForReadyToRun>
+</PropertyGroup>
+```
+
 ## CompressBindingResourcePackage
 
-The native references in a binding projects are copied to the output directory during the build process, next to the binding assembly (into something we call a "binding resource package").
+The native references (`@(NativeReference)`) in a binding project are copied to the output directory during the build process, next to the binding assembly, into a "binding resource package" (see [NoBindingEmbedding](#nobindingembedding)).
 
-These native references can either be stored compressed inside a zip file (named `$(AssemblyName).resources.zip`, or as-is, inside a directory named `$(AssemblyName).resources`.
+These native references can either be stored compressed inside a zip file (named `$(AssemblyName).resources.zip`), or as-is inside a directory named `$(AssemblyName).resources`.
 
 The `CompressBindingResourcePackage` property specifies whether to create a zip file or a directory.
 
 The possible values are:
 
-* `auto`: automatically decide the best option (currently a zip file is always created, but once Visual Studio supports long paths on Windows, this may change to only zip binding resource packages with symlinks).
+* `auto`: automatically decide the best option (currently a zip file is created unless all native references are already `.zip` files; once Visual Studio supports long paths on Windows, this may change to only zip binding resource packages with symlinks).
 * `true`: create a zip file
 * `false`: create a directory
 
 The default is `auto`.
 
-This also applies to how native references are stored inside NuGets.
+When packing a binding project with `dotnet pack`, the SDK automatically includes the generated binding resource package (`$(AssemblyName).resources.zip` or `$(AssemblyName).resources`) inside the NuGet package under `lib/<TargetFramework>/` next to `$(AssemblyName).dll` (via the `_IncludeBindingResourcesInNuGetPackage` target).
+
+> [!IMPORTANT]
+> A binding assembly (`$(AssemblyName).dll`) that uses `NativeReference` items is not self-contained. If you copy or distribute the binding `.dll` manually without using `ProjectReference` or `dotnet pack`, you must also distribute the accompanying `$(AssemblyName).resources.zip` file (or `$(AssemblyName).resources` directory) in the same directory as the `.dll`. Without it, consuming application builds will fail to link or bundle the native library.
 
 > [!NOTE]
 > In some cases it can be beneficial to force a zip file on iOS as well, especially when there's a framework with files that have long names, because the zip file can sometimes work around MAX_PATH issues on Windows.
+
+See also [Bind and distribute XCFrameworks](../binding-libs/xcframeworks.md) and [NoBindingEmbedding](#nobindingembedding).
 
 ## CopyDSYMToPublishDirectory
 
@@ -521,15 +560,40 @@ Removing the dynamic registrar requires a static registrar (`Registrar=static` o
 `Registrar=managed-static`) and trimming, so setting this property has no effect (and the
 build warns) when those conditions aren't met.
 
+## TrimExportAttributes
+
+Controls whether `Foundation.ExportAttribute`, `Foundation.ActionAttribute`,
+and `Foundation.OutletAttribute` instances are removed during trimming.
+
+If this property is not specified, the build automatically removes these
+attributes when assembly preparation and post-processing are enabled, the
+trimmable static registrar is selected, dynamic registration is not required,
+and no runtime fallback needs the attributes.
+
+Set this property to `false` to preserve the attributes. Set it to `true` to
+require their removal; the build will fail if it detects that the attributes
+are needed at runtime.
+
 ## EmbedOnDemandResources
 
-Controls where on-demand resource asset packs are placed when packaging an app
-for distribution. This property does **not** enable on-demand resources (use
-[EnableOnDemandResources](#enableondemandresources) for that) — it only affects
-how already-tagged asset packs are packaged.
+Controls where on-demand resource asset packs are placed, so that the on-demand
+resources APIs can find them at runtime. This property does **not** enable
+on-demand resources (use [EnableOnDemandResources](#enableondemandresources) for
+that) — it only affects how already-tagged asset packs are packaged.
 
 This is the property set by the "Embed on-demand resources in the app bundle"
-option in the IDE. It only takes effect for `AdHoc` distribution:
+option in the IDE.
+
+When building for the **simulator**, the asset packs can't be hosted anywhere
+(there's no App Store nor a local hosting server), so they must be embedded in
+the app bundle for on-demand resources to work at all:
+
+* `true`: the asset packs are embedded in the `.app` bundle and served locally
+  by the app.
+* `false`: the asset packs are not embedded, so the on-demand resources APIs
+  won't find them on the simulator.
+
+When packaging an **IPA** for `AdHoc` distribution:
 
 * `true`: the asset packs are embedded in the `.app` bundle inside the IPA and
   served locally by the app.
@@ -539,9 +603,7 @@ option in the IDE. It only takes effect for `AdHoc` distribution:
 For `AppStore` distribution the asset packs are always placed outside the `.app`
 bundle (to be hosted by the App Store), regardless of this property.
 
-This property is only consulted when packaging an IPA for distribution (when
-`BuildIpa` is `true` and the distribution type is `AppStore` or `AdHoc`); it has
-no effect on a simulator or device debug build.
+This property has no effect on a device debug build.
 
 Default: true
 
@@ -550,6 +612,24 @@ Default: true
 If code signing is enabled.
 
 Code signing is enabled by default for all platforms; this can be overridden with this property.
+
+## EnableCrashReport
+
+Enables crash reports for the app. When enabled, the `DOTNET_EnableCrashReport`
+environment variable is set to `1` at startup, which makes the .NET runtime's
+in-process crash reporter write a JSON crash report when the app crashes.
+
+This setting is disabled by default, but it can be enabled like this:
+
+```xml
+<PropertyGroup>
+    <EnableCrashReport>true</EnableCrashReport>
+</PropertyGroup>
+```
+
+The crash reports are written to a subdirectory of the app's caches directory.
+
+See also: [Collect crash dumps](/dotnet/core/diagnostics/collect-dumps-crash).
 
 ## EnableDefaultCodesignEntitlements
 
@@ -683,7 +763,21 @@ assemblies so they stay byte-for-byte unchanged (a requirement for Hot
 Reload). This will disable a few minor optimizations, but will otherwies not
 affect anything.
 
-The default value is `true` for debug builds and `false` otherwise.
+The default value is `true` for non-NativeAOT debug builds that don't use the
+managed static registrar, and `false` otherwise (the managed static registrar
+modifies user assemblies, which is incompatible with Hot Reload).
+
+## IBToolExtraArgs
+
+Additional arguments to pass to `ibtool`.
+
+For example, to use the simulator-based Interface Builder compilation mode:
+
+```xml
+<PropertyGroup>
+  <IBToolExtraArgs>--cocoatouch-compiler-mode simulator</IBToolExtraArgs>
+</PropertyGroup>
+```
 
 ## IBToolPath
 
@@ -1136,7 +1230,7 @@ This property is deprecated, use [AppBundleExtraOptions](#appbundleextraoptions)
 
 ## MtouchInterpreter
 
-Enables the interpreter, and optionally takes a comma-separated list of
+Enables the Mono interpreter, and optionally takes a comma-separated list of
 assemblies to interpret (if prefixed with a minus sign, the assembly will be
 AOT-compiled instead). 'all' can be used to specify all assemblies. This
 argument can be specified multiple times.
@@ -1167,11 +1261,14 @@ Applicable to iOS, tvOS and Mac Catalyst apps (when not using NativeAOT).
 The default behavior is to not enable the interpreter.
 
 > [!NOTE]
-> MAUI changes the default by setting `UseInterpreter=true` for the `"Debug"` configuration.
+> For .NET 10 and earlier, MAUI sets `UseInterpreter=true` for iOS and Mac
+> Catalyst Debug builds that use Mono. MAUI doesn't set this property for
+> supported .NET 11 iOS and Mac Catalyst Debug builds, which use CoreCLR.
 
-This property only has an effect when using the Mono runtime, and a warning
-will be shown if it's set when not using the Mono runtime (for instance when
-using CoreCLR).
+This property configures the Mono interpreter and doesn't configure the CoreCLR
+interpreter. It only has an effect when using Mono. A warning is shown and the
+property has no effect when using CoreCLR, including in .NET 11 iOS, tvOS, and
+Mac Catalyst projects.
 
 ## MtouchLink
 
@@ -1208,15 +1305,18 @@ using CoreCLR).
 ## NoBindingEmbedding
 
 > [!WARNING]
-> Setting this property to `false` is currently deprecated and will produce a build error in .NET 12+.
+> Setting `NoBindingEmbedding` to `false` is deprecated and is **not supported starting with .NET 12**, where it produces a build error:
+> `Setting 'NoBindingEmbedding' to 'false' is not supported in .NET 12+. Please remove this property from your project file.`
+> Existing projects that set `<NoBindingEmbedding>false</NoBindingEmbedding>` should remove the property from their project file.
 
-A boolean property that specifies whether native libraries in binding projects should be embedded
-in the managed assembly, or put into a `.resources` directory next to the managed assembly.
+A boolean property that controls whether native references (`@(NativeReference)`) in binding projects are placed in a binding resource package (`$(AssemblyName).resources` directory or `$(AssemblyName).resources.zip` archive) alongside the managed binding assembly, rather than embedded as resources inside the `.dll`.
 
-The default value is `true` (which means native libraries will _not_ be embedded in the managed assembly).
+The default value is `true` (native libraries are placed in the sidecar binding resource package and are _not_ embedded in the managed assembly). You do not need to set `NoBindingEmbedding` explicitly in modern .NET binding projects.
 
 > [!NOTE]
-> Xcframeworks won't work correctly if embedded inside the managed assembly (if this property is not `true`).
+> XCFrameworks (`*.xcframework` and `*.xcframework.zip`) cannot work when embedded inside the managed assembly, even on earlier .NET versions.
+
+See also [CompressBindingResourcePackage](#compressbindingresourcepackage), [NativeReference](build-items.md#nativereference), and [Bind and distribute XCFrameworks](../binding-libs/xcframeworks.md).
 
 ## NoDSymUtil
 
@@ -1263,7 +1363,11 @@ A string property that specifies the resource url for on-demand resources.
 
 ## OptimizePNGs
 
-A boolean property that specifies whether png images should be optimized.
+A boolean property that specifies whether PNG bundle resources should be optimized using Apple's `pngcrush` tool.
+
+In .NET 11 and later, this defaults to `true` for release builds on iOS, tvOS, and Mac Catalyst. It defaults to `false` for debug builds, macOS builds, and projects targeting earlier .NET versions. Set this property explicitly to opt in or out.
+
+The `Optimize` metadata on individual `BundleResource` items overrides this property.
 
 ## OptimizePngImagesDependsOn
 
@@ -1284,7 +1388,11 @@ Example:
 
 ## OptimizePropertyLists
 
-A boolean property that specifies whether property lists (plists) should be optimized.
+A boolean property that specifies whether property list (`.plist`) and localization (`.strings`) bundle resources should be converted to binary property lists.
+
+In .NET 11 and later, this defaults to `true` for release builds on iOS, tvOS, and Mac Catalyst. It defaults to `false` for debug builds, macOS builds, and projects targeting earlier .NET versions. Set this property explicitly to opt in or out.
+
+The `Optimize` metadata on individual `BundleResource` items overrides this property.
 
 ## OptimizePropertyListsDependsOn
 
@@ -1351,6 +1459,14 @@ The default behavior is to use `xcrun productbuild`.
 The product definition template (`.plist`) to be used when creating the product definition to pass to the product build tool when creating packages (.pkg).
 
 Only applicable to macOS and Mac Catalyst apps.
+
+## PublishReadyToRunComposite
+
+Specifies whether ReadyToRun (R2R) compilation produces a single composite image containing all the assemblies, or one image per assembly.
+
+Only composite ReadyToRun compilation is supported for iOS, tvOS and Mac Catalyst apps, because the ReadyToRun code is embedded in the app bundle as native Mach-O code, and the runtime only knows how to locate such code for a composite image. Setting this property to `false` will produce a build error; set [PublishReadyToRun](/dotnet/core/deploying/ready-to-run) to `false` to turn off ReadyToRun compilation completely instead.
+
+Default: `true` (when `PublishReadyToRun` is `true`).
 
 ## RecommendedXcodeVersion
 
@@ -1637,6 +1753,25 @@ The full path to the `strip` command-line tool.
 
 The default behavior is to use `xcrun strip`.
 
+## StripMergeableLibraries
+
+A boolean property that specifies whether static linking metadata (`LC_ATOM_INFO`)
+is removed from mergeable libraries embedded in the app bundle.
+
+Mergeable libraries are dynamic libraries that also contain metadata for static
+linking. This metadata can roughly double the size of the library. When this
+property is `true`, the metadata is stripped to reduce app size.
+
+The default value is the value of the `Optimize` property, which means `Release`
+builds strip mergeable library metadata by default, while `Debug` builds preserve
+it.
+
+```xml
+<PropertyGroup>
+  <StripMergeableLibraries>true</StripMergeableLibraries>
+</PropertyGroup>
+```
+
 ## SupportedOSPlatformVersion
 
 Specifies the minimum OS version the app can run on.
@@ -1674,6 +1809,12 @@ See [TrimMode](/dotnet/core/deploying/trimming/trimming-options) for a bit more 
 > to `false` - to disable trimming, set `TrimMode=copy` instead (a build error
 > will be raised if `PublishTrimmed` is set to `false`).
 
+> [!NOTE]
+> Due to [a known issue](https://github.com/dotnet/runtime/issues/108269), setting `PublishTrimmed`
+> to `true` may cause confusing problems, so the build will report an error if this
+> is detected (the solution is to not set `PublishTrimmed` at all).
+
+
 The `TrimMode` property is equivalent to the existing
 [MtouchLink](#mtouchlink) (for iOS, tvOS and Mac Catalyst) and
 [LinkMode](#linkmode) (for macOS) properties, but the valid properties values
@@ -1698,10 +1839,10 @@ The current (as of .NET 9) default values are:
 Exceptions:
 
 * The default value is always `full` when building with NativeAOT.
-* MAUI changes the default value to `copy` when building for the `Debug`
-  configuration _and_ the interpreter is enabled using
-  [UseInterpreter](#useinterpreter) (which MAUI also enables by default when
-  using the `"Debug"` configuration).
+* For iOS and Mac Catalyst Debug builds using Mono, MAUI changes the default
+  trim mode to `copy` when [UseInterpreter](#useinterpreter) is enabled. MAUI
+  enables `UseInterpreter` by default for these builds in .NET 10 and earlier,
+  but not for supported .NET 11 CoreCLR builds.
 
 > [!NOTE]
 > The default trim mode may change in the future.
@@ -1749,7 +1890,7 @@ Applicable to macOS and Mac Catalyst projects.
 
 ## UseInterpreter
 
-Enables the interpreter (for all assemblies).
+Enables the Mono interpreter (for all assemblies).
 
 This is equivalent to setting `MtouchInterpreter=all`.
 
@@ -1758,19 +1899,31 @@ Applicable to iOS, tvOS and Mac Catalyst apps (when not using NativeAOT).
 The default behavior is to not enable the interpreter.
 
 > [!NOTE]
-> MAUI changes the default by setting `UseInterpreter=true` for the `"Debug"` configuration.
+> For .NET 10 and earlier, MAUI sets `UseInterpreter=true` for iOS and Mac
+> Catalyst Debug builds that use Mono. MAUI doesn't set this property for
+> supported .NET 11 iOS and Mac Catalyst Debug builds, which use CoreCLR.
 
 See [MtouchInterpreter](#mtouchinterpreter) for more information.
 
-This property only has an effect when using the Mono runtime, and a warning
-will be shown if it's set when not using the Mono runtime (for instance when
-using CoreCLR).
+This property configures the Mono interpreter and doesn't configure the CoreCLR
+interpreter. It only has an effect when using Mono. A warning is shown and the
+property has no effect when using CoreCLR, including in .NET 11 iOS, tvOS, and
+Mac Catalyst projects.
 
 ## UseNativeHttpHandler
 
 Whether the native http handler should be the default http handler or not.
 
-Default: true for all platforms except macOS.
+Default: `true` for iOS, tvOS and Mac Catalyst.
+
+This property has no effect on macOS. Setting it to `true` emits a build warning.
+On macOS, `HttpClient` uses `SocketsHttpHandler` by default. To use the native HTTP
+handler, pass a `Foundation.NSUrlSessionHandler` instance directly to the
+`HttpClient` constructor:
+
+```csharp
+using var client = new System.Net.Http.HttpClient (new Foundation.NSUrlSessionHandler ());
+```
 
 ## ValidateEntitlements
 
@@ -1785,6 +1938,35 @@ Valid values for this property:
 The validation process may not validate every entitlement, nor is it guaranteed to not be overeager.
 
 If the validation fails for entitlements that actually work, please file a new issue.
+
+## ValidateSceneManifest
+
+Choose whether to check for a `UIApplicationSceneManifest` dictionary in the
+merged app manifest when building iOS and Mac Catalyst apps against SDK 27.0 or
+later. The default is `true`. App extensions, frameworks, libraries, macOS, and
+tvOS are not checked.
+
+Apps using the legacy UIKit lifecycle crash at launch on iOS or macOS 27.0 or
+later when built against the 27.0 SDK or later, even if their minimum deployment
+target is an older OS version. See https://aka.ms/uiscene for migration instructions.
+
+This check only inspects the manifest; it does not verify scene delegates or
+custom lifecycle handlers. Scene manifests supplied by partial manifests are
+included in the check. An empty dictionary is accepted for apps that configure
+scenes dynamically in their app delegate.
+
+If the check incorrectly rejects an app (for example, one that configures scenes
+entirely in code), it can be disabled in the project file:
+
+```xml
+<PropertyGroup>
+  <ValidateSceneManifest>false</ValidateSceneManifest>
+</PropertyGroup>
+```
+
+Disabling this build-time check does not disable the operating system's scene
+lifecycle requirement. Verify that the app launches and behaves correctly on
+OS 27.0 or later before distributing it.
 
 ## ValidateXcodeVersion
 
