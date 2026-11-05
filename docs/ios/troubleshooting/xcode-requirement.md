@@ -12,6 +12,7 @@ We state in our [release notes](https://github.com/dotnet/macios/releases) the e
 
 > [!NOTE]
 > In a few limited scenarios using a different version of Xcode may work, but this is not supported, even if there are no build errors or warnings.
+> You can set the `ValidateXcodeVersion` property to `false` in your project file to skip the Xcode version check.
 
 ## New workloads
 
