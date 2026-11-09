@@ -625,7 +625,7 @@ This setting is disabled by default, but it can be enabled like this:
 
 The crash reports are written to a subdirectory of the app's caches directory.
 
-See also: [Collect crash dumps](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/collect-dumps-crash).
+See also: [Collect crash dumps](/dotnet/core/diagnostics/collect-dumps-crash).
 
 ## EnableDefaultCodesignEntitlements
 
@@ -1457,7 +1457,7 @@ Only applicable to macOS and Mac Catalyst apps.
 
 Specifies whether ReadyToRun (R2R) compilation produces a single composite image containing all the assemblies, or one image per assembly.
 
-Only composite ReadyToRun compilation is supported for iOS, tvOS and Mac Catalyst apps, because the ReadyToRun code is embedded in the app bundle as native Mach-O code, and the runtime only knows how to locate such code for a composite image. Setting this property to `false` will produce a build error; set [PublishReadyToRun](https://learn.microsoft.com/dotnet/core/deploying/ready-to-run) to `false` to turn off ReadyToRun compilation completely instead.
+Only composite ReadyToRun compilation is supported for iOS, tvOS and Mac Catalyst apps, because the ReadyToRun code is embedded in the app bundle as native Mach-O code, and the runtime only knows how to locate such code for a composite image. Setting this property to `false` will produce a build error; set [PublishReadyToRun](/dotnet/core/deploying/ready-to-run) to `false` to turn off ReadyToRun compilation completely instead.
 
 Default: `true` (when `PublishReadyToRun` is `true`).
 
