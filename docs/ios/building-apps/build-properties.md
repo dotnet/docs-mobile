@@ -610,9 +610,10 @@ Code signing is enabled by default for all platforms; this can be overridden wit
 
 ## EnableCrashReport
 
-Enables crash reports for the app. When enabled, the `DOTNET_EnableCrashReport`
-environment variable is set to `1` at startup, which makes the .NET runtime's
-in-process crash reporter write a JSON crash report when the app crashes.
+Enables in-process crash reports for apps targeting .NET 11 or later. When enabled,
+the `DOTNET_EnableCrashReport` environment variable is set to `1` at startup,
+which makes the .NET runtime's in-process crash reporter write a JSON crash report
+when the app crashes.
 
 This setting is disabled by default, but it can be enabled like this:
 
