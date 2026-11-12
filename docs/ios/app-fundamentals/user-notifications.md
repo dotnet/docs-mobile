@@ -599,7 +599,7 @@ namespace MonkeyNotification
 }
 ```
 
-The passed in `UNNotificationResponse` class has an `ActionIdentifier` property that can either be the default action or the dismiss action. Use `response.Notification.Request.Identifier` to test for any custom actions.
+The passed in `UNNotificationResponse` class has an `ActionIdentifier` property that can be the default action, the dismiss action, or the identifier of a custom action. Use `response.ActionIdentifier` to test for any custom actions.
 
 The `UserText` property holds the value of any user text input. The `Notification` property holds the originating notification that includes the request with the trigger and notification content. The app can decide if it was a local or remote notification based on the type of trigger.
 
@@ -651,6 +651,7 @@ There is one main class in the Notification Service extension that will need to 
 using System;
 
 using Foundation;
+using ObjCRuntime;
 using UIKit;
 using UserNotifications;
 
@@ -699,7 +700,9 @@ With a Notification Service extension created and delivered with the app, it can
 ```json
 {
     "aps": {
-        "alert": "New Message Available",
+        "alert": {
+            "title": "New Message Available"
+        },
         "mutable-content": 1
     },
     "encrypted-content": "#theencryptedcontent"
