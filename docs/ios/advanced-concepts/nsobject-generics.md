@@ -143,10 +143,10 @@ public class Example : NSObject
 }
 ```
 
-The `where T : Enum` constraint doesn't satisfy the native-object requirement. The static registrar rejects this scenario, with diagnostics such as MT4166 or MM4166. Other unsupported closed generic signatures can produce MT4167 or MM4167. The same limitation affects wrappers such as `Generic<int>` and `Generic<object>` in exported signatures. It isn't a blanket prohibition on closed generic types with supported native-object type arguments.
+The `where T : Enum` constraint doesn't satisfy the native-object requirement. The same limitation affects wrappers such as `Generic<int>` and `Generic<object>` in exported signatures. Closed generic types with supported native-object type arguments aren't subject to this limitation.
 
 > [!IMPORTANT]
-> The dynamic registrar can accept the enum-wrapper example accidentally. This doesn't make it supported, and switching registrars isn't a supported workaround. As a result, this code can appear to work in a Debug configuration that uses the dynamic registrar but fail in a Release configuration that uses the static registrar. See [dotnet/macios#15709](https://github.com/dotnet/macios/issues/15709) for the issue discussion.
+> Older static registrars rejected the enum-wrapper example with MT4166 or MM4166, as reported in [dotnet/macios#15709](https://github.com/dotnet/macios/issues/15709). Newer static registrars and the dynamic registrar can accept it without a diagnostic, but the signature remains unsupported. The planned .NET 12 fix adds registrar checks to reject this signature; it doesn't add support for it. Don't rely on a particular registrar or build configuration accepting this code. Use a non-generic derived wrapper instead.
 
 ### Export a non-generic derived wrapper
 
