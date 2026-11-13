@@ -71,6 +71,12 @@ conceptualContent:
             - url: ./binding-libs/customizing-bindings/troubleshooting-bindings.md
               itemType: reference
               text: Troubleshoot bindings
+        # Card
+        - title: Troubleshooting
+          links:
+            - url: ./troubleshooting/java-object-casts.md
+              itemType: how-to-guide
+              text: InvalidCastException with Java objects
 
 # additionalContent section (Optional; Remove if not applicable.)
 # Card with links style
