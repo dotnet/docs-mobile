@@ -64,6 +64,10 @@
         href: binding-libs/advanced-concepts/native-library-interop.md
     - name: Troubleshoot bindings
       href: binding-libs/customizing-bindings/troubleshooting-bindings.md
+  - name: Troubleshooting
+    items:
+    - name: InvalidCastException with Java objects
+      href: troubleshooting/java-object-casts.md
   - name: Message reference
     items:
     - name: Overview
