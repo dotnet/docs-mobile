@@ -22,6 +22,8 @@
       items:
         - name: Exception marshaling
           href: advanced-concepts/exception-marshaling.md
+        - name: Generic subclasses of NSObject
+          href: advanced-concepts/nsobject-generics.md
     - name: Troubleshooting
       items:
         - name: Xcode requirement
