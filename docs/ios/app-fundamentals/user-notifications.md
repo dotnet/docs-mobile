@@ -10,7 +10,7 @@ The User Notifications framework allows for the delivery and handling of local a
 
 Additionally, the app or extension can receive (and potentially modify) both local and remote notifications as they are delivered to the user's device.
 
-The User Notification UI framework allows an app or app extension to customize the appearance of both local and remote notifications when they are presented to the user.
+The User Notifications UI framework allows an app or app extension to customize the appearance of both local and remote notifications when they are presented to the user.
 
 This framework provides the following ways that an app can deliver notifications to a user:
 
@@ -29,14 +29,14 @@ Additionally, depending on the user's current context, there are different ways 
 An app is able to send two types of user notifications:
 
 - Local notifications: these are sent by apps installed locally on the user's device.
-- Remote notifications: are sent from a remote server and either presented to the user or they trigger a background update of the app's content.
+- Remote notifications: these are sent from a remote server and either presented to the user or they trigger a background update of the app's content.
 
 ### About local notifications
 
 The local notifications that an app can send have the following features and attributes:
 
 - They are sent by apps that are local on the user's device.
-- They can be configured to use either time or location based triggers.
+- They can be configured to use either time- or location-based triggers.
 - The app schedules the notification with the user's device and it is displayed when the trigger condition is met.
 - When the user interacts with a notification, the app will receive a callback.
 
@@ -44,7 +44,7 @@ Some examples of local notifications include:
 
 - Calendar alerts.
 - Reminder alerts.
-- Location aware triggers.
+- Location-aware triggers.
 
 For more information, please see Apple's [User Notifications](https://developer.apple.com/documentation/usernotifications) documentation.
 
@@ -53,11 +53,11 @@ For more information, please see Apple's [User Notifications](https://developer.
 The remote notifications that an app can send have the following features and attributes:
 
 - The app has a server-side component that it communicates with.
-- The Apple Push Notification Service (APNs) is used to transmit a best-effort delivery of remote notifications to the user's device from the developer's cloud based servers.
+- The Apple Push Notification Service (APNs) is used to transmit a best-effort delivery of remote notifications to the user's device from the developer's cloud-based servers.
 - When the app receives the remote notification it will be displayed to the user.
 - When the user interacts with the notification, the app will receive a callback.
 
-Some examples of Remote Notifications include:
+Some examples of remote notifications include:
 
 - News alerts.
 - Sports updates.
@@ -79,7 +79,7 @@ It's possible to use [UIApplication][uiapplication] to register a notification w
 However, there are several issues that a developer might encounter when working with the existing notification as provided by [UIApplication][uiapplication]:
 
 - There are different callbacks required for local or remote notifications which could lead to duplication of code.
-- The app has limited control of the notification after it had been scheduled with the system.
+- The app has limited control of the notification after it has been scheduled with the system.
 - There are differing levels of support across all of Apple's existing platforms.
 
 ### About the User Notifications framework
@@ -104,7 +104,7 @@ The User Notifications framework provides a unified notification API across the 
 - Mac Catalyst: Full support to manage and schedule notifications.
 - macOS: Full support to manage and schedule notifications.
 
-For more information, please see Apple's [User Notifications](https://developer.apple.com/reference/usernotifications) and [User Notifications UI](https://developer.apple.com/reference/usernotificationsui) documentation.
+For more information, please see Apple's [User Notifications](https://developer.apple.com/documentation/usernotifications) and [User Notifications UI](https://developer.apple.com/documentation/usernotificationsui) documentation.
 
 ## Preparing for notification delivery
 
@@ -123,10 +123,10 @@ Notification permission should be requested as soon as the app launches by addin
 ```csharp
 using UserNotifications;
 
-public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
+public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 {
     // Request notification permissions from the user
-    UNUserNotificationCenter.Current.RequestAuthorization (UNAuthorizationOptions.Alert, (approved, error) => {
+    UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, error) => {
         // Handle approval (or disapproval)
     });
 
@@ -139,10 +139,10 @@ On macOS do it in the `DidFinishLaunching` implementation:
 ```csharp
 using UserNotifications;
 
-public override void DidFinishLaunching (NSNotification notification)
+public override void DidFinishLaunching(NSNotification notification)
 {
     // Request notification permissions from the user
-    UNUserNotificationCenter.Current.RequestAuthorization (UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound, (approved, error) => {
+    UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound, (approved, error) => {
         // Handle approval (or disapproval)
     });
 }
@@ -156,7 +156,7 @@ Additionally, a user can always change the notification privileges for an app at
 
 ```csharp
 // Get current notification settings
-UNUserNotificationCenter.Current.GetNotificationSettings ((settings) => {
+UNUserNotificationCenter.Current.GetNotificationSettings((settings) => {
     var alertsAllowed = (settings.AlertSetting == UNNotificationSetting.Enabled);
 });
 ```
@@ -221,7 +221,7 @@ The `aps-environment` entitlement from the previous section requires using a pro
 
     [![The enabled Push Notifications capability](user-notifications-images/CreateAppIdentifier5.png)](user-notifications-images/CreateAppIdentifier5.png#lightbox)
 
-6. Click the `Register` to save the new app identifier.
+6. Click `Register` to save the new app identifier.
 
 The next step is to create a provisioning profile for the new app identifier:
 
@@ -241,7 +241,7 @@ The next step is to create a provisioning profile for the new app identifier:
 
     [![Select certificates](user-notifications-images/CreateProvisioningProfile4.png)](user-notifications-images/CreateProvisioningProfile4.png#lightbox)
 
-5. Select all the devices that are included in this provisioning profile (the app can only be installed on these devices).
+5. Select all the devices that are included in this provisioning profile (the app can only be installed on these devices):
 
     [![Select devices](user-notifications-images/CreateProvisioningProfile5.png)](user-notifications-images/CreateProvisioningProfile5.png#lightbox)
 
@@ -249,7 +249,7 @@ The next step is to create a provisioning profile for the new app identifier:
 
     [![Review and name](user-notifications-images/CreateProvisioningProfile6.png)](user-notifications-images/CreateProvisioningProfile6.png#lightbox)
 
-7. Generate and download the new provisioning profile.
+7. Generate and download the new provisioning profile:
 
     [![Generate](user-notifications-images/CreateProvisioningProfile7.png)](user-notifications-images/CreateProvisioningProfile7.png#lightbox)
 
@@ -275,7 +275,7 @@ If the app will be sending and receiving remote notifications, it will still nee
 Use the following code to initialize the required registration:
 
 ```csharp
-UIApplication.SharedApplication.RegisterForRemoteNotifications ();
+UIApplication.SharedApplication.RegisterForRemoteNotifications();
 ```
 
 The token that gets sent to the developer's server side app will need to be included as part of the notification payload that gets sent from the server to APNs when sending a remote notification:
@@ -325,33 +325,35 @@ With the content of the notification created, the app needs to schedule when the
 
 - Push notification - Used exclusively with remote notifications and is triggered when APNs sends a notification package to the app running on the device.
 - Time interval - Allows a local notification to be scheduled from a time interval starting now and ending at some future point. For example:
-    ```csharp
-    var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger (5, false);
-    ```
-- Calendar date - Allows local notifications to be scheduled for a specific date and time.
-- Location based - Allows local notifications to be scheduled when the device is entering or leaving a specific geographic location or is in a given proximity to any Bluetooth beacons.
 
-When a local notification is ready, the app needs to call [UNUserNotificationCenter.AddNotificationRequest][unusernotificationcenter_addnotificationrequest] to schedule its display to the user. For remote notifications, the server-side app sends a notification payload to the APNs, which then sends the packet on to the user's device.
+    ```csharp
+    var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(5, false);
+    ```
+
+- Calendar date - Allows local notifications to be scheduled for a specific date and time.
+- Location-based - Allows local notifications to be scheduled when the device enters or leaves a specific geographic location or is in a given proximity to any Bluetooth beacons.
+
+When a local notification is ready, the app needs to call [UNUserNotificationCenter.AddNotificationRequest][unusernotificationcenter_addnotificationrequest] to schedule its display to the user. For remote notifications, the server-side app sends a notification payload to the APNs, which then sends the payload on to the user's device.
 
 Bringing all of the pieces together, a sample local notification might look like:
 
 ```csharp
 using UserNotifications;
 
-public void SendLocalNotification ()
+public void SendLocalNotification()
 {
-    var content = new UNMutableNotificationContent ();
+    var content = new UNMutableNotificationContent();
     content.Title = "Notification Title";
     content.Subtitle = "Notification Subtitle";
     content.Body = "This is the message body of the notification.";
     content.Badge = 1;
 
-    var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger (5, false);
+    var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(5, false);
 
     var requestId = "sampleRequest";
-    var request = UNNotificationRequest.FromIdentifier (requestId, content, trigger);
+    var request = UNNotificationRequest.FromIdentifier(requestId, content, trigger);
 
-    UNUserNotificationCenter.Current.AddNotificationRequest (request, (err) => {
+    UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) => {
         if (err is not null) {
             // Do something with error
         }
@@ -380,20 +382,20 @@ using UserNotifications;
 public class UserNotificationCenterDelegate : UNUserNotificationCenterDelegate
 {
     #region Constructors
-    public UserNotificationCenterDelegate ()
+    public UserNotificationCenterDelegate()
     {
     }
     #endregion
 
     #region Override Methods
-    public override void WillPresentNotification (UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
+    public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
     {
         // Do something with the notification
-        Console.WriteLine ("Active notification: {0}", notification);
+        Console.WriteLine("Active notification: {0}", notification);
 
         // Tell system to display the notification anyway or use
         // `None` to say we have handled the display locally.
-        completionHandler (UNNotificationPresentationOptions.Alert);
+        completionHandler(UNNotificationPresentationOptions.Banner | UNNotificationPresentationOptions.List);
     }
     #endregion
 }
@@ -404,21 +406,21 @@ This code is simply writing out the contents of the [UNNotification][unnotificat
 If the app wanted to display the notification itself when it was in the foreground, and not use the system defaults, pass [None][unnotificationpresentationoptions_none] to the completion handler. Example:
 
 ```csharp
-completionHandler (UNNotificationPresentationOptions.None);
+completionHandler(UNNotificationPresentationOptions.None);
 ```
 
 With this code in place, open the `AppDelegate.cs` file for editing and change the `FinishedLaunching` method to look like the following:
 
 ```csharp
-public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
+public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 {
     // Request notification permissions from the user
-    UNUserNotificationCenter.Current.RequestAuthorization (UNAuthorizationOptions.Alert, (approved, err) => {
+    UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => {
         // Handle approval
     });
 
     // Watch for notifications while the app is active
-    UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate ();
+    UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
 
     return true;
 }
@@ -439,15 +441,15 @@ The request identifier is used to select the notification that the app wishes to
 To remove a pending notification from the system, use the following code:
 
 ```csharp
-var requests = new string [] { "sampleRequest" };
-UNUserNotificationCenter.Current.RemovePendingNotificationRequests (requests);
+var requests = new string[] { "sampleRequest" };
+UNUserNotificationCenter.Current.RemovePendingNotificationRequests(requests);
 ```
 
 To remove an already delivered notification, use the following code:
 
 ```csharp
-var requests = new string [] { "sampleRequest" };
-UNUserNotificationCenter.Current.RemoveDeliveredNotifications (requests);
+var requests = new string[] { "sampleRequest" };
+UNUserNotificationCenter.Current.RemoveDeliveredNotifications(requests);
 ```
 
 ### Updating an existing notification
@@ -458,28 +460,28 @@ To update an existing notification, simply create a new notification with the de
 using UserNotifications;
 
 // Rebuild notification
-var content = new UNMutableNotificationContent ();
+var content = new UNMutableNotificationContent();
 content.Title = "Notification Title";
 content.Subtitle = "Notification Subtitle";
 content.Body = "This is the message body of the notification.";
 content.Badge = 1;
 
 // New trigger time
-var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger (10, false);
+var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(10, false);
 
 // Id of notification to be updated
 var requestId = "sampleRequest";
-var request = UNNotificationRequest.FromIdentifier (requestId, content, trigger);
+var request = UNNotificationRequest.FromIdentifier(requestId, content, trigger);
 
 // Add to system to modify existing Notification
-UNUserNotificationCenter.Current.AddNotificationRequest (request, (err) => {
-    if (err != null) {
+UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) => {
+    if (err is not null) {
         // Do something with error...
     }
 });
 ```
 
-For already delivered notifications, the existing notification will get updated and promoted to the top of the list on the Home and Lock screens and in the Notification Center if it has already been read by the user.
+For already delivered notifications, the existing notification will get updated and, if the user has already read it, promoted to the top of the list on the Lock Screen and in the Notification Center.
 
 ## Working with notification actions
 
@@ -499,23 +501,22 @@ To create and register a custom action with the system, use the following code:
 // Create action
 var actionId = "reply";
 var title = "Reply";
-var action = UNNotificationAction.FromIdentifier (actionId, title, UNNotificationActionOptions.None);
+var action = UNNotificationAction.FromIdentifier(actionId, title, UNNotificationActionOptions.None);
 
 // Create category
 var categoryId = "message";
-var actions = new UNNotificationAction [] { action };
-var intentIds = new string [] { };
-var categoryOptions = new UNNotificationCategoryOptions [] { };
-var category = UNNotificationCategory.FromIdentifier (categoryId, actions, intentIds, UNNotificationCategoryOptions.None);
-    
+var actions = new UNNotificationAction[] { action };
+var intentIds = Array.Empty<string>();
+var category = UNNotificationCategory.FromIdentifier(categoryId, actions, intentIds, UNNotificationCategoryOptions.None);
+
 // Register category
-var categories = new UNNotificationCategory [] { category };
-UNUserNotificationCenter.Current.SetNotificationCategories (new NSSet<UNNotificationCategory>(categories)); 
+var categories = new UNNotificationCategory[] { category };
+UNUserNotificationCenter.Current.SetNotificationCategories(new NSSet<UNNotificationCategory>(categories));
 ```
 
-When creating a new [UNNotificationAction][unnotificationaction], it is assigned a unique identifier and the title that will appear on the button. By default, the action will be created as a background action, however options can be supplied to adjust the action's behavior (for example setting it to be a foreground action).
+When creating a new [UNNotificationAction][unnotificationaction], it is assigned a unique identifier and the title that will appear on the button. By default, the action will be created as a background action; however, options can be supplied to adjust the action's behavior (for example setting it to be a foreground action).
 
-Each of the actions created need to be associated with a category. When creating a new [UNNotificationCategory][unnotificationcategory], it is assigned a unique identifier, a list of actions it can perform, a list of intent identifiers to provide more information about the intent of the actions in the category and some options to control the behavior of the category.
+Each of the actions created needs to be associated with a category. When creating a new [UNNotificationCategory][unnotificationcategory], it is assigned a unique identifier, a list of actions it can perform, a list of intent identifiers to provide more information about the intent of the actions in the category and some options to control the behavior of the category.
 
 Finally, all of the categories are registered with the system using the [SetNotificationCategories][unusernotificationcenter_setnotificationcategories] method.
 
@@ -537,7 +538,7 @@ For remote notifications, set a `category` in the remote notification payload th
 For local notifications, set the `CategoryIdentifier` property of the `UNMutableNotificationContent` object. For example:
 
 ```csharp
-var content = new UNMutableNotificationContent ();
+var content = new UNMutableNotificationContent();
 content.Title = "Notification Title";
 content.Subtitle = "Notification Subtitle";
 content.Body = "This is the message body of the notification.";
@@ -549,14 +550,13 @@ Again, this identifier needs to match one of the categories that was created abo
 
 ### Handling dismiss actions
 
-As stated above, a dismiss action can be sent to the app when the user dismisses a notification. Since this is not a standard action, an option will need to be set when the category is created. For example:
+As stated above, a dismiss action can be sent to the app when the user dismisses a notification. Since this action is not delivered by default, an option will need to be set when the category is created. For example:
 
 ```csharp
 var categoryId = "message";
-var actions = new UNNotificationAction [] { action };
-var intentIds = new string [] { };
-var categoryOptions = new UNNotificationCategoryOptions [] { };
-var category = UNNotificationCategory.FromIdentifier (categoryId, actions, intentIds, UNNotificationCategoryOptions.CustomDismissAction);
+var actions = new UNNotificationAction[] { action };
+var intentIds = Array.Empty<string>();
+var category = UNNotificationCategory.FromIdentifier(categoryId, actions, intentIds, UNNotificationCategoryOptions.CustomDismissAction);
 ```
 
 ### Handling action responses
@@ -574,7 +574,7 @@ namespace MonkeyNotification
         ...
 
         #region Override methods
-        public override void DidReceiveNotificationResponse (UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
+        public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
         {
             // Take action based on Action ID
             switch (response.ActionIdentifier) {
@@ -621,11 +621,12 @@ Some potential uses of Notification Service extensions include:
 To implement a Notification Service extension in an app, do the following:
 
 1. Create a new folder for the extension project, next to the main project's folder. The following instructions assume the new folder is named `MyNotificationServiceExtension`.
-2. Open a terminal, and execute:
+2. Open a terminal, change to the new folder, and execute:
 
     ```dotnetcli
     dotnet new ios-notification-service-extension
     ```
+
 3. Open the main project's project file, and add:
 
     ```xml
@@ -635,10 +636,11 @@ To implement a Notification Service extension in an app, do the following:
         </ProjectReference>
     </ItemGroup>
     ```
+
 4. Now build the main project, and the extension project will also be built and included in the final app bundle.
 
 > [!IMPORTANT]
-> Due to changes in how the interaction between a Mac and any connected devices is handled by the Mac, it's currently not possible to debug an app extension with a debugger. See also https://github.com/xamarin/xamarin-macios/issues/19484 for more up-to-date information.
+> Due to changes in how the interaction between a Mac and any connected devices is handled by the Mac, it's currently not possible to debug an app extension with a debugger. See also [xamarin-macios issue 19484](https://github.com/xamarin/xamarin-macios/issues/19484) for more up-to-date information.
 >
 > This means that the most reliable way to debug an app extension is unfortunately to add Console.WriteLine statements to the code, and then look for those statements in the [device log](https://support.apple.com/en-in/guide/console/cnsl1012/mac).
 
@@ -657,30 +659,30 @@ using UserNotifications;
 
 namespace MonkeyChatServiceExtension
 {
-    [Register ("NotificationService")]
+    [Register("NotificationService")]
     public class NotificationService : UNNotificationServiceExtension
     {
-        protected NotificationService (NativeHandle handle) : base (handle)
+        protected NotificationService(NativeHandle handle) : base(handle)
         {
             // Note: this .ctor should not contain any initialization logic,
             // it only exists so that the OS can instantiate an instance of this class.
         }
 
-        public override void DidReceiveNotificationRequest (UNNotificationRequest request, Action<UNNotificationContent> contentHandler)
+        public override void DidReceiveNotificationRequest(UNNotificationRequest request, Action<UNNotificationContent> contentHandler)
         {
             // Called when the OS receives a notification that can be mutated
 
             // Create a mutable copy of the notification
-            var mutableRequest = (UNMutableNotificationContent) request.Content.MutableCopy ();
+            var mutableContent = (UNMutableNotificationContent) request.Content.MutableCopy();
 
             // Modify the notification content here...
-            mutableRequest.Title = $"[modified] {mutableRequest.Title}";
+            mutableContent.Title = $"[modified] {mutableContent.Title}";
 
             // Call the contentHandler callback to let the OS know about the modified notification.
-            contentHandler (mutableRequest);
+            contentHandler(mutableContent);
         }
 
-        public override void TimeWillExpire ()
+        public override void TimeWillExpire()
         {
             // Called just before the extension will be terminated by the system.
             // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
@@ -714,27 +716,44 @@ The new `mutable-content` key specifies that the Notification Service extension 
 Take a look at the following example Notification Service extension:
 
 ```csharp
+using System;
+
+using Foundation;
+using ObjCRuntime;
 using UserNotifications;
 
-namespace myApp {
-    public class NotificationService : UNNotificationServiceExtension {
-    
-        public override void DidReceiveNotificationRequest(UNNotificationRequest request, Action<UNNotificationContent> contentHandler) {
-            // Decrypt payload
+namespace MonkeyChatServiceExtension
+{
+    [Register("NotificationService")]
+    public class NotificationService : UNNotificationServiceExtension
+    {
+        protected NotificationService(NativeHandle handle) : base(handle)
+        {
+        }
+
+        public override void DidReceiveNotificationRequest(UNNotificationRequest request, Action<UNNotificationContent> contentHandler)
+        {
+            // Decrypt payload (Decrypt is a placeholder for your own decryption logic)
             var decryptedBody = Decrypt(request.Content.UserInfo["encrypted-content"].ToString());
-            
-            // Modify notification body
-            var newContent = new UNMutableNotificationContent();
+
+            // Modify notification body, keeping the rest of the original content (such as the title)
+            var newContent = (UNMutableNotificationContent) request.Content.MutableCopy();
             newContent.Body = decryptedBody;
-            
+
             // Present to user
             contentHandler(newContent);
         }
-        
-        public override void TimeWillExpire() {
+
+        public override void TimeWillExpire()
+        {
             // Handle out-of-time fallback event
         }
-        
+
+        static string Decrypt(string encryptedContent)
+        {
+            // Placeholder: replace with real decryption.
+            return encryptedContent;
+        }
     }
 }
 ```
