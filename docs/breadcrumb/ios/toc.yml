@@ -6,6 +6,6 @@
     tocHref: /dotnet/
     topicHref: /dotnet/index
     items:
-    - name: iOS
+    - name: iOS, tvOS, macOS, and Mac Catalyst
       tocHref: /dotnet/ios/
       topicHref: /dotnet/ios/index

@@ -1,5 +1,16 @@
 - name: .NET for iOS, tvOS, macOS and Mac Catalyst
+  href: index.yml
   items:
+    - name: Get started
+      items:
+        - name: iOS
+          href: get-started/ios.md
+        - name: macOS (AppKit)
+          href: get-started/macos.md
+        - name: tvOS
+          href: get-started/tvos.md
+        - name: Mac Catalyst (UIKit)
+          href: get-started/maccatalyst.md
     - name: Build apps
       items:
         - name: Build targets
